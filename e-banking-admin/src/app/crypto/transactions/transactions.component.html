@@ -1,0 +1,39 @@
+<div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+  
+  <!-- Notification System -->
+  <div *ngIf="showNotification" class="notification" 
+       [class.success]="isSuccess" 
+       [class.error]="!isSuccess">
+    {{ notificationMessage }}
+    <button (click)="showNotification = false" class="close-btn">×</button>
+  </div>
+  
+  <div *ngIf="!loading" class="transactions-section">
+    <h3>Your Transactions</h3>
+    <div class="transactions-list">
+      <div *ngFor="let tx of transactions" class="transaction">
+        <div class="transaction-icon">
+          <span *ngIf="tx.transactionType === 'BUY'" class="buy-icon">↓</span>
+          <span *ngIf="tx.transactionType === 'SELL'" class="sell-icon">↑</span>
+        </div>
+        <div class="transaction-details">
+          <div class="transaction-main">
+            <strong>{{tx.transactionType}} {{tx.amount}} {{tx.cryptoSymbol.toUpperCase()}}</strong>
+            <span>${{tx.priceAtTransaction | number:'1.2-2'}}</span>
+          </div>
+          <small>{{tx.transactionDate | date:'medium'}}</small>
+        </div>
+        <div class="transaction-value" [ngClass]="tx.transactionType.toLowerCase()">
+          ${{(tx.amount * tx.priceAtTransaction) | number:'1.2-2'}}
+        </div>
+      </div>
+    </div>
+    <button (click)="loadTransactions()" class="refresh-button">Refresh History</button>
+    <a routerLink="/crypto" class="back-link">Back to Crypto List</a>
+  </div>
+  
+  <div *ngIf="!loading && transactions.length === 0" class="no-results">
+    No transactions found.
+  </div>
