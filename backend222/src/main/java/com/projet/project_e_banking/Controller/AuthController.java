@@ -50,4 +50,9 @@ public class AuthController {
             throw e;
         }
     }
+
+    @GetMapping("/login")
+    public String authenticateUser2(){
+        return "auth workks ";
+    }
 }

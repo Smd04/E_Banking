@@ -1,0 +1,132 @@
+<!-- src/app/components/contract-list/contract-list.component.html -->
+<div class="contract-list-container">
+  <div class="header">
+    <h2>Liste des Contrats</h2>
+    <button class="btn btn-refresh" (click)="refreshContracts()" [disabled]="isLoading">
+      <span *ngIf="!isLoading">🔄 Actualiser</span>
+      <span *ngIf="isLoading">⏳ Chargement...</span>
+    </button>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="filters-row">
+      <div class="filter-group">
+        <label for="search">Rechercher:</label>
+        <input
+          id="search"
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+          placeholder="Rechercher par ID, type, statut..."
+          class="form-control"
+        >
+      </div>
+
+      <div class="filter-group">
+        <label for="typeFilter">Type:</label>
+        <select
+          id="typeFilter"
+          [(ngModel)]="filterType"
+          (change)="onFilterChange()"
+          class="form-control"
+        >
+          <option *ngFor="let type of contractTypes" [value]="type.value">
+            {{ type.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="statusFilter">Statut:</label>
+        <select
+          id="statusFilter"
+          [(ngModel)]="filterStatus"
+          (change)="onFilterChange()"
+          class="form-control"
+        >
+          <option *ngFor="let status of statusOptions" [value]="status.value">
+            {{ status.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <button class="btn btn-clear" (click)="clearFilters()">
+          Effacer les filtres
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner">⏳</div>
+    <p>Chargement des contrats...</p>
+  </div>
+
+  <!-- Contracts Count -->
+  <div *ngIf="!isLoading && filteredContracts.length > 0" class="contracts-count">
+    {{ filteredContracts.length }} contrat(s) trouvé(s)
+  </div>
+
+  <!-- Contracts Table -->
+  <div *ngIf="!isLoading && filteredContracts.length > 0" class="table-container">
+    <table class="contracts-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Montant</th>
+        <th>Date de début</th>
+        <th>Date de fin</th>
+        <th>Statut</th>
+        <th>ID Utilisateur</th>
+        <th>ID Agent</th>
+        <th>ID Banque</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let contract of filteredContracts" class="contract-row">
+        <td class="contract-id">{{ contract.id }}</td>
+        <td class="contract-type">{{ contract.type }}</td>
+        <td class="contract-amount">{{ formatAmount(contract.amount) }}</td>
+        <td class="contract-start-date">{{ formatDate(contract.startDate) }}</td>
+        <td class="contract-end-date">
+          {{ contract.endDate ? formatDate(contract.endDate) : 'N/A' }}
+        </td>
+        <td class="contract-status">
+            <span class="status-badge" [ngClass]="getStatusClass(contract.status)">
+              {{ contract.status }}
+            </span>
+        </td>
+        <td class="contract-user-id">{{ contract.userId }}</td>
+        <td class="contract-agent-id">{{ contract.agentId }}</td>
+        <td class="contract-bank-id">{{ contract.bankId }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No Contracts Found -->
+  <div *ngIf="!isLoading && filteredContracts.length === 0 && contracts.length > 0" class="no-results">
+    <div class="no-results-icon">🔍</div>
+    <h3>Aucun contrat trouvé</h3>
+    <p>Aucun contrat ne correspond aux critères de recherche.</p>
+    <button class="btn btn-clear" (click)="clearFilters()">
+      Effacer les filtres
+    </button>
+  </div>
+
+  <!-- No Contracts at All -->
+  <div *ngIf="!isLoading && contracts.length === 0" class="empty-state">
+    <div class="empty-state-icon">📄</div>
+    <h3>Aucun contrat disponible</h3>
+    <p>Il n'y a actuellement aucun contrat dans le système.</p>
+  </div>
+</div>
