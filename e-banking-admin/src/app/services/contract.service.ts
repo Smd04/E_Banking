@@ -9,39 +9,39 @@ import { Contract } from '../models/contract';
   providedIn: 'root'
 })
 export class ContractService {
-  private apiUrl = 'http://your-api-url/api'; // Replace with your actual API URL
+  private apiUrl = 'http://localhost:8080/project_e_banking_war/api/banque'; 
 
   constructor(private http: HttpClient) {}
 
   createContract(contractRequest: ContractRequest): Observable<any> {
-    return this.http.post(`${this.apiUrl}/contracts`, contractRequest);
+    return this.http.post(`${this.apiUrl}/create-contract`, contractRequest);
   }
 
   getAllContracts(): Observable<Contract[]> {
-    return this.http.get<Contract[]>(`${this.apiUrl}/contracts`);
+    return this.http.get<Contract[]>(`${this.apiUrl}/create-contract`);
   }
 
   getContractById(id: number): Observable<Contract> {
-    return this.http.get<Contract>(`${this.apiUrl}/contracts/${id}`);
+    return this.http.get<Contract>(`${this.apiUrl}/create-contract/${id}`);
   }
 
   updateContract(id: number, contractRequest: ContractRequest): Observable<any> {
-    return this.http.put(`${this.apiUrl}/contracts/${id}`, contractRequest);
+    return this.http.put(`${this.apiUrl}/create-contract/${id}`, contractRequest);
   }
 
   deleteContract(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/contracts/${id}`);
+    return this.http.delete(`${this.apiUrl}/create-contract/${id}`);
   }
 
   getContractsByUserId(userId: number): Observable<Contract[]> {
-    return this.http.get<Contract[]>(`${this.apiUrl}/contracts/user/${userId}`);
+    return this.http.get<Contract[]>(`${this.apiUrl}/create-contract/user/${userId}`);
   }
 
   getContractsByStatus(status: string): Observable<Contract[]> {
-    return this.http.get<Contract[]>(`${this.apiUrl}/contracts/status/${status}`);
+    return this.http.get<Contract[]>(`${this.apiUrl}/create-contract/status/${status}`);
   }
 
   getContractsByType(type: string): Observable<Contract[]> {
-    return this.http.get<Contract[]>(`${this.apiUrl}/contracts/type/${type}`);
+    return this.http.get<Contract[]>(`${this.apiUrl}/create-contract/type/${type}`);
   }
 }
