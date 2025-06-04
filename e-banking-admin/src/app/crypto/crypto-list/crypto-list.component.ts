@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,13 +16,18 @@ export class CryptoListComponent implements OnInit {
   cryptos: any[] = [];
   filteredCryptos: any[] = [];
   loading = true;
+  loadingMore = false;
   searchQuery = '';
   selectedCrypto: any;
-  amount: number = 0;
-  userId: number = 7; // Should be set from auth service in real app
+  amount = 0;
+  userId = 7;
   showNotification = false;
   notificationMessage = '';
   isSuccess = false;
+  currentPage = 1;
+  perPage = 250;
+  allCryptosLoaded = false;
+  defaultImage = 'assets/default-crypto.png';
 
   constructor(private cryptoService: CryptoService) {}
 
@@ -34,32 +39,49 @@ export class CryptoListComponent implements OnInit {
     this.notificationMessage = message;
     this.isSuccess = isSuccess;
     this.showNotification = true;
-    
-    setTimeout(() => {
-      this.showNotification = false;
-    }, 10000);
+    setTimeout(() => this.showNotification = false, 15000);
   }
 
   loadInitialData(): void {
     this.loading = true;
-    
-    this.cryptoService.getCryptoData().subscribe({
+    this.cryptoService.getInitialCryptoData().subscribe({
       next: (data) => {
-        this.cryptos = data;
-        this.filteredCryptos = data;
-        this.cryptoService.setAllCryptos(data);
+        this.cryptos = data.map((c: any) => ({ ...c, image: c.image || this.defaultImage }));
+        this.filteredCryptos = [...this.cryptos];
+        this.cryptoService.setAllCryptos(this.cryptos);
         this.loading = false;
-        
-        this.cryptoService.getAllCryptos(this.userId).subscribe({
-          error: () => {} // Ignore error
-        });
       },
       error: (err) => {
-        this.showNotificationMessage('Failed to load cryptocurrency data', false);
+        this.showNotificationMessage(err, false);
         this.loading = false;
       }
     });
   }
+
+  loadMoreCryptos(): void {
+    if (this.allCryptosLoaded || this.loadingMore) return;
+    this.loadingMore = true;
+    this.currentPage++;
+    
+    this.cryptoService.getAllCryptos(this.userId, this.currentPage, this.perPage).subscribe({
+      next: (newCryptos) => {
+        if (newCryptos.length === 0) {
+          this.allCryptosLoaded = true;
+        } else {
+          const enhancedCryptos = newCryptos.map((c: any) => ({ ...c, image: c.image || this.defaultImage }));
+          this.cryptos = [...this.cryptos, ...enhancedCryptos];
+          this.filteredCryptos = [...this.filteredCryptos, ...enhancedCryptos];
+        }
+        this.loadingMore = false;
+      },
+      error: (err) => {
+        this.showNotificationMessage(err, false);
+        this.loadingMore = false;
+        this.allCryptosLoaded = true; // Stop trying to load more
+      }
+    });
+  }
+
 
   onSearch(): void {
     this.filteredCryptos = this.cryptoService.localSearch(this.searchQuery);
@@ -75,7 +97,6 @@ export class CryptoListComponent implements OnInit {
       this.showNotificationMessage('Please select a cryptocurrency first', false);
       return;
     }
-
     if (this.amount <= 0) {
       this.showNotificationMessage('Please enter a valid amount', false);
       return;
@@ -90,9 +111,7 @@ export class CryptoListComponent implements OnInit {
     };
 
     this.cryptoService.buyCrypto(this.userId, transaction).subscribe({
-      next: () => {
-        this.showNotificationMessage('Purchase successful!', true);
-      },
+      next: () => this.showNotificationMessage('Purchase successful!', true),
       error: (err) => this.showNotificationMessage('Purchase failed: ' + err.message, false)
     });
   }
@@ -102,7 +121,6 @@ export class CryptoListComponent implements OnInit {
       this.showNotificationMessage('Please select a cryptocurrency first', false);
       return;
     }
-
     if (this.amount <= 0) {
       this.showNotificationMessage('Please enter a valid amount', false);
       return;
@@ -117,10 +135,15 @@ export class CryptoListComponent implements OnInit {
     };
 
     this.cryptoService.sellCrypto(this.userId, transaction).subscribe({
-      next: () => {
-        this.showNotificationMessage('Sale successful!', true);
-      },
+      next: () => this.showNotificationMessage('Sale successful!', true),
       error: (err) => this.showNotificationMessage('Sale failed: ' + err.message, false)
     });
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+      this.loadMoreCryptos();
+    }
   }
 }

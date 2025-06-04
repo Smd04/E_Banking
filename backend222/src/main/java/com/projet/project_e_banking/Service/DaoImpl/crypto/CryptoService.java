@@ -21,36 +21,29 @@ import java.util.stream.Collectors;
 
 @Service
 public class CryptoService {
-
     private static final String COINGECKO_API_BASE = "https://api.coingecko.com/api/v3";
     private final RestTemplate restTemplate;
 
-    @Autowired
-    private SystemSettingsRepository systemSettingsRepository;
-
-    @Autowired
-    private CryptoTransactionRepository cryptoTransactionRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired private SystemSettingsRepository systemSettingsRepository;
+    @Autowired private CryptoTransactionRepository cryptoTransactionRepository;
+    @Autowired private UserRepository userRepository;
 
     @Autowired
     public CryptoService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public List<CryptoCurrencyDto> getAllCryptos(Long userId) {
+    public List<CryptoCurrencyDto> getAllCryptos(Long userId, int page, int perPage) {
         checkCryptoEnabled(userId);
-
-        String url = COINGECKO_API_BASE + "/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
-        ResponseEntity<CryptoCurrencyDto[]> response = restTemplate.getForEntity(url, CryptoCurrencyDto[].class);
-        return Arrays.asList(response.getBody());
+        String url = COINGECKO_API_BASE + "/coins/markets?vs_currency=usd&order=market_cap_desc" +
+                "&per_page=" + perPage + "&page=" + page + "&sparkline=false";
+        CryptoCurrencyDto[] response = restTemplate.getForObject(url, CryptoCurrencyDto[].class);
+        return Arrays.asList(response);
     }
 
-    public List<CryptoCurrencyDto> searchCryptos(Long userId, String query) {
+    public List<CryptoCurrencyDto> searchCryptos(Long userId, String query, int page, int perPage) {
         checkCryptoEnabled(userId);
-
-        List<CryptoCurrencyDto> allCryptos = getAllCryptos(userId);
+        List<CryptoCurrencyDto> allCryptos = getAllCryptos(userId, page, perPage);
         return allCryptos.stream()
                 .filter(crypto -> crypto.getName().toLowerCase().contains(query.toLowerCase()) ||
                         crypto.getSymbol().toLowerCase().contains(query.toLowerCase()))
@@ -59,7 +52,6 @@ public class CryptoService {
 
     public CryptoCurrencyDto getCryptoDetails(Long userId, String id) {
         checkCryptoEnabled(userId);
-
         String url = COINGECKO_API_BASE + "/coins/" + id + "?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false";
         return restTemplate.getForObject(url, CryptoCurrencyDto.class);
     }
@@ -67,11 +59,8 @@ public class CryptoService {
     public ResponseEntity<?> buyCrypto(Long userId, CryptoTransactionDto transactionDto) {
         try {
             checkCryptoEnabled(userId);
-
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new RuntimeException("User not found"));
-
-            // Here you should also check account balance, etc.
 
             CryptoTransaction transaction = new CryptoTransaction(
                     user,
@@ -82,9 +71,7 @@ public class CryptoService {
                     transactionDto.getPriceAtTransaction(),
                     "BUY"
             );
-
             cryptoTransactionRepository.save(transaction);
-
             return ResponseEntity.ok("Cryptocurrency purchased successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -94,11 +81,8 @@ public class CryptoService {
     public ResponseEntity<?> sellCrypto(Long userId, CryptoTransactionDto transactionDto) {
         try {
             checkCryptoEnabled(userId);
-
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new RuntimeException("User not found"));
-
-            // Check if user has enough crypto to sell
 
             CryptoTransaction transaction = new CryptoTransaction(
                     user,
@@ -109,9 +93,7 @@ public class CryptoService {
                     transactionDto.getPriceAtTransaction(),
                     "SELL"
             );
-
             cryptoTransactionRepository.save(transaction);
-
             return ResponseEntity.ok("Cryptocurrency sold successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -120,9 +102,7 @@ public class CryptoService {
 
     public List<CryptoTransactionDto> getUserCryptoTransactions(Long userId) {
         checkCryptoEnabled(userId);
-
-        List<CryptoTransaction> transactions = cryptoTransactionRepository.findByUserId(userId);
-        return transactions.stream()
+        return cryptoTransactionRepository.findByUserId(userId).stream()
                 .map(t -> new CryptoTransactionDto(
                         t.getCryptoId(),
                         t.getCryptoSymbol(),
@@ -138,7 +118,6 @@ public class CryptoService {
     private void checkCryptoEnabled(Long userId) {
         SystemSettings settings = systemSettingsRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User settings not found"));
-
         if (!settings.isCryptoEnabled()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Crypto services are not enabled for this user");
         }
