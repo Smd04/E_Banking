@@ -2,7 +2,6 @@
   <div class="spinner"></div>
 </div>
 
-<!-- Notification System -->
 <div *ngIf="showNotification" class="notification" 
      [class.success]="isSuccess" 
      [class.error]="!isSuccess">
@@ -27,24 +26,20 @@
   <a routerLink="/cryptotransactions" class="transactions-link">View Transaction History</a>
   <br>
 
-  <!-- Crypto List -->
   <div class="crypto-container">
-    <div 
-      *ngFor="let crypto of filteredCryptos" 
-      class="crypto-card"
-      [class.selected]="selectedCrypto?.id === crypto.id"
-      (click)="selectCrypto(crypto)"
-    >
+    <div *ngFor="let crypto of filteredCryptos" 
+         class="crypto-card"
+         [class.selected]="selectedCrypto?.id === crypto.id"
+         (click)="selectCrypto(crypto)">
       <div class="crypto-header">
         <img [src]="crypto.image" alt="{{ crypto.name }}" class="crypto-icon" />
         <div class="crypto-name">
           <h3>{{ crypto.name }}</h3>
           <span class="symbol">{{ crypto.symbol.toUpperCase() }}</span>
         </div>
-        <span class="price-change" [ngClass]="{
-          'positive': crypto.price_change_percentage_24h >= 0, 
-          'negative': crypto.price_change_percentage_24h < 0 
-        }">
+        <span class="price-change" 
+              [ngClass]="{'positive': crypto.price_change_percentage_24h >= 0, 
+                          'negative': crypto.price_change_percentage_24h < 0}">
           {{ crypto.price_change_percentage_24h | number:'1.2-2' }}%
         </span>
       </div>
@@ -54,15 +49,13 @@
       </div>
 
       <div class="crypto-actions" *ngIf="selectedCrypto?.id === crypto.id">
-        <input 
-          type="number" 
-          [(ngModel)]="amount" 
-          placeholder="0.00"
-          min="0"
-          step="1"
-          class="amount-input"
-          (click)="$event.stopPropagation()"
-        >
+        <input type="number" 
+               [(ngModel)]="amount" 
+               placeholder="0.00"
+               min="0"
+               step="0.00000001"
+               class="amount-input"
+               (click)="$event.stopPropagation()">
         <div class="action-buttons">
           <button (click)="buyCrypto(); $event.stopPropagation()" class="buy-button">Buy</button>
           <button (click)="sellCrypto(); $event.stopPropagation()" class="sell-button">Sell</button>
@@ -71,8 +64,13 @@
     </div>
   </div>
 
-  <div *ngIf="filteredCryptos.length === 0" class="no-results">
-    No cryptocurrencies found matching "{{ searchQuery }}"
+  <div class="load-more-container" *ngIf="!allCryptosLoaded && !loadingMore && filteredCryptos.length > 0">
+    <button (click)="loadMoreCryptos()" class="load-more-btn" [disabled]="loadingMore">
+      {{ loadingMore ? 'Loading...' : 'Load More Cryptocurrencies' }}
+    </button>
   </div>
 
+  <div *ngIf="filteredCryptos.length === 0 && !loading" class="no-results">
+    No cryptocurrencies found matching "{{ searchQuery }}"
+  </div>
 </div>

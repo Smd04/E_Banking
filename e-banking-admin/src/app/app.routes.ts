@@ -3,7 +3,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CurrenciesComponent } from './admin/currencies/currencies.component';
 import { SupportmessagesComponent } from './admin/supportmessages/supportmessages.component';
 import { AdminsManagementComponent } from './admin/admins-management/admins-management.component';
-import { UserListComponent } from './user-list/user-list.component';
+import { UserListComponent } from './admin/user-list/user-list.component';
 import { ReferralComponent } from './referral/referral.component';
 import { CryptoListComponent } from './crypto/crypto-list/crypto-list.component';
 import { TransactionsComponent } from './crypto/transactions/transactions.component';

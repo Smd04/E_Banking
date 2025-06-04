@@ -20,15 +20,20 @@ public class CryptoController {
         this.cryptoService = cryptoService;
     }
 
-    @GetMapping("/{userId}")
-    public List<CryptoCurrencyDto> getAllCryptos(@PathVariable("userId") Long userId) {
-        return cryptoService.getAllCryptos(userId);
+    @GetMapping("/all/{userId}")
+    public List<CryptoCurrencyDto> getAllCryptos(
+            @PathVariable("userId") Long userId,
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "perPage", defaultValue = "10") int perPage) {
+        return cryptoService.getAllCryptos(userId, page, perPage);
     }
 
     @GetMapping("/search/{userId}")
     public List<CryptoCurrencyDto> searchCryptos(@PathVariable("userId") Long userId,
-                                                 @RequestParam String query) {
-        return cryptoService.searchCryptos(userId, query);
+                                                 @RequestParam String query,
+                                                 @RequestParam(defaultValue = "1") int page,
+                                                 @RequestParam(defaultValue = "10") int perPage) {
+        return cryptoService.searchCryptos(userId, query, page, perPage);
     }
 
     @GetMapping("/details/{userId}/{id}")

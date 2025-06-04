@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ChatbotComponent } from '../chatbot/chatbot.component';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 
 interface SystemSettingsDto {
@@ -19,7 +19,7 @@ interface SystemSettingsDto {
   standalone: true,
   imports: [CommonModule, FormsModule, ChatbotComponent],
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'] // Make sure to include this
+  styleUrls: ['./user-list.component.scss'] 
 })
 export class UserListComponent implements OnInit {
   settings: SystemSettingsDto[] = [];
