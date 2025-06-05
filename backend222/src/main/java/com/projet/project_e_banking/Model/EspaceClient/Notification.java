@@ -11,6 +11,7 @@ public class Notification {
     Long id;
     String message;
     boolean read;
+
     @ManyToMany
     @JoinTable(
             name = "user_notification", // nom de la table d'association

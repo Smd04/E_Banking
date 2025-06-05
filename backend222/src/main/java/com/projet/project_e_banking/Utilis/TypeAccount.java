@@ -5,4 +5,5 @@ public enum TypeAccount {
     EPARGNE,
     JOINT,
     PROFESSIONNEL
+
 }

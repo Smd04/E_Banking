@@ -36,6 +36,7 @@ public class Account {
         this.transactions = transactions;
         this.card = card;
         this.devise= devise ;
+
     }
 
     public Long getId() {

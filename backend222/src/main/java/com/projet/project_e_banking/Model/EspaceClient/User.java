@@ -17,6 +17,7 @@ public  class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String username;
+
     String name;
     String email;
     String password;

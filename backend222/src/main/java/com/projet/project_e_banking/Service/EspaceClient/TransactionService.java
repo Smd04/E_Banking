@@ -25,6 +25,7 @@ public class TransactionService {
           dto.setId(t.getId());
           dto.setAmount(t.getAmount());
           dto.setType(t.getType());
+
           dto.setTimestamp(t.getTimestamp());
           dto.setAccountId(t.getAccount().getId());
           dto.setUserId(t.getUser().getId());

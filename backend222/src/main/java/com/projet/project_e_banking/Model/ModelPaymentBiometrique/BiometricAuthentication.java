@@ -8,6 +8,7 @@ public class BiometricAuthentication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String biometrique;
     private boolean isAuthenticated;
     @ManyToOne

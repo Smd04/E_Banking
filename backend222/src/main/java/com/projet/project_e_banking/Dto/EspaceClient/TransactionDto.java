@@ -13,6 +13,7 @@ public class TransactionDto {
     private Double amount;
     private String type;
     private LocalDateTime timestamp;
+
     private String status;
     private Long accountId;
     private Long userId;

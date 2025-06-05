@@ -14,6 +14,7 @@ public class AuthenticationToken {
     @ManyToOne
     User user;
 
+
     public AuthenticationToken() {
     }
 

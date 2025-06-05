@@ -7,6 +7,7 @@ public class RegisterCrentialRequest {
     private String credentialId;
     private String publicKey;
     private Long userId;
+
 }
 
 

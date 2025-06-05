@@ -37,6 +37,7 @@ public class AccountService {
             dto.setType(account.getType());
             dto.setBalance(account.getBalance());
             dto.setCurrency(account.getCurrency());
+
             dto.setStatus(account.getStatus());
             dto.setAccountNumber(account.getAccountNumber());
             return dto;

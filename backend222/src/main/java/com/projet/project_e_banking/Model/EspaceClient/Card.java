@@ -16,6 +16,7 @@ public class Card {
     @OneToOne
     Account account;
 
+
     public Card() {
     }
 

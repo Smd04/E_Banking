@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 
+
 @Repository
 public interface WebAuthnCredentialRepository extends JpaRepository<WebAuthCredential,String> {
     Optional<WebAuthCredential> findByCredentialId(String credentialId);

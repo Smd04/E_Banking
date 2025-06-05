@@ -73,6 +73,7 @@ public class AccountController {
             if (user == null) {
                 return ResponseEntity.status(404).body("Utilisateur non trouvé");
             }
+
             List<AccountDto> comptes = accountService.findByUser(user);
             System.out.println("----------------------------------------------------");
             System.out.println(comptes);

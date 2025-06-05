@@ -5,6 +5,7 @@ public class WebAuthnVerificationRequest {
     private String credentialId;
     private String clientDataJSON;
     private String authenticatorData;
+
     private String signature;
 
 

@@ -10,6 +10,7 @@ public class VerifyRequest {
     private String signature;
     private String challenge;
 
+
     public String getCredentialId() {
         return credentialId;
     }

@@ -3,6 +3,7 @@ package com.projet.project_e_banking.Dto.EspaceClient;
 public class QRPaimentDTO {
     String compteDest;
     String compteSource;
+
     Double montant;
 
     public String getCompteDest() {

@@ -9,6 +9,7 @@ public class AccountDto {
     private String currency;
     private String status;
     private String numero;
+
     private LocalDateTime derniereActivite;
     private String accountNumber;private Long accountId;
 

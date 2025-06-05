@@ -10,6 +10,7 @@ public class WebAuthCredential {
     @Id
     private String credentialId;
     private Long userId;
+
     @Lob
     private byte[] publicKey;
 
