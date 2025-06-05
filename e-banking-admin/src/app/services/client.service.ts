@@ -24,7 +24,7 @@ export interface Client {
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:8080/project_e_banking_war/api/banque';
+  private apiUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/banque';
 
   // Local client state management
   private clients: Client[] = [

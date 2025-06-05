@@ -41,8 +41,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/test/**").permitAll()
-                        .requestMatchers("/api/banque/create-contract").permitAll()
-                        .requestMatchers("/api/banque/enrol-client").permitAll()
+                        .requestMatchers("/api/banque/**").permitAll()
                         .requestMatchers("/api/admin/**").permitAll()
                         .requestMatchers("/api/user/**").permitAll()
                         .requestMatchers("/api/crypto/**").permitAll()

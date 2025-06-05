@@ -10,7 +10,6 @@ import { TransactionsComponent } from './crypto/transactions/transactions.compon
 import {CreateContractComponent} from './create-contract/create-contract.component';
 import {EnrolClientComponent} from './enrol-client/enrol-client.component';
 import {ClientListComponent} from './client-list/client-list.component';
-import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 import { ContractListComponent } from './contract-list/contract-list.component';
 
 export const routes: Routes = [
@@ -18,14 +17,13 @@ export const routes: Routes = [
     { path: 'admin/currencies', component: CurrenciesComponent },
     { path: 'admin/supportmessages', component: SupportmessagesComponent},
     { path: 'admin/admins', component: AdminsManagementComponent},
-    { path: 'admin', component: UserListComponent },
+    { path: 'globalsettings', component: UserListComponent },
     { path: 'referral', component: ReferralComponent },
     { path: 'crypto', component: CryptoListComponent },
     { path: 'cryptotransactions', component: TransactionsComponent},
     { path: 'create-contract', component: CreateContractComponent },
     { path: 'enrol-client', component: EnrolClientComponent },
     { path: 'client-list', component: ClientListComponent },
-    { path: 'admin-panel', component: AdminPanelComponent },
     { path: 'contract-list', component: ContractListComponent }
 
 

@@ -36,9 +36,9 @@ public class JpaConfig {
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUrl("jdbc:postgresql://localhost:5432/ebanking");  // PostgreSQL URL format
+        ds.setUrl("jdbc:postgresql://localhost:5432/ebanking");
         ds.setUsername("postgres");
-        ds.setPassword("nadabouziane");
+        ds.setPassword("Qwerty2004");
         return ds;
     }
     @Bean
