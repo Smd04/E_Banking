@@ -16,6 +16,15 @@ public class UserService {
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
+     UserService(UserRepository userRepository) {}
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+    }
+
+    User findById(Long id){
+        return userRepository.findById(id).get();
+    }
 
 }

@@ -13,6 +13,7 @@ public class Account {
     Double balance;
     String currency;
     String Status;
+    String accountNumber;
     @ManyToOne
     User user;
     @OneToMany(mappedBy = "account")
@@ -107,5 +108,13 @@ public class Account {
 
     public void setDevise(Devise devise) {
         this.devise = devise;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 }

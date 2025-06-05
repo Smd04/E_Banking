@@ -1,7 +1,10 @@
 package com.projet.project_e_banking.Service.DaoImpl.ClientDaoImpl;
 
 
+import com.projet.project_e_banking.Dto.EspaceClient.AccountDto;
+import com.projet.project_e_banking.Model.EspaceClient.Account;
 import com.projet.project_e_banking.Model.EspaceClient.User;
+import com.projet.project_e_banking.Repository.BanqueRepository.AccountRepository;
 import com.projet.project_e_banking.Repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +20,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     private final UserRepository userRepository ;
+    private final AccountRepository accountRepository ;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
+    public CustomUserDetailsService(UserRepository userRepository, AccountRepository accountRepository) {
         this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
     }
 
 
@@ -41,4 +46,23 @@ public class CustomUserDetailsService implements UserDetailsService {
                 )
                 .build();
     }
+
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+    public AccountDto getAccountPrincipal(Long userId){
+        Account account =accountRepository.findAccountByUserIdAndType(userId,"COURANT");
+        AccountDto dto = new AccountDto();
+        dto.setId(account.getId());
+        dto.setType(account.getType());
+        dto.setBalance(account.getBalance());
+        dto.setAccountNumber(account.getAccountNumber());
+        dto.setCurrency(account.getCurrency());
+        dto.setStatus(account.getStatus());
+        dto.setAccountId(account.getId());
+        return dto;
+    }
+
+
+
 }

@@ -16,6 +16,8 @@ public class Transaction {
     private String type;
     private LocalDateTime timestamp;
     private String status;
+    private String description;
+    private String compteDest;
 
     @ManyToOne
     private Account account;
@@ -104,5 +106,21 @@ public class Transaction {
 
     public void setDevise(Devise devise) {
         this.devise = devise;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCompteDest() {
+        return compteDest;
+    }
+
+    public void setCompteDest(String compteDest) {
+        this.compteDest = compteDest;
     }
 }
