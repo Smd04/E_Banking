@@ -36,6 +36,7 @@ export class TransactionComponent {
   pageSize = 4;
   totalPages = 1;
 
+
   transactionActive !: Transaction;
   constructor(
     private transactionService: TransactionService,
