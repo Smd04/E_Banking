@@ -1,12 +1,13 @@
-import {Compte} from '../../model/Compte';
-import {Transaction} from '../../model/Transaction';
-import {TransactionService} from '../../Service/transaction.service';
-import {CompteServiceService} from '../../Service/compte-service.service';
+
 import jspdf from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule, DecimalPipe, NgClass} from '@angular/common';
+import {Compte} from '../models/models-client/Compte';
+import {Transaction} from '../models/models-client/Transaction';
+import {TransactionService} from '../services/client_service/transaction.service';
+import {CompteServiceService} from '../services/client_service/compte-service.service';
 
 @Component({
   selector: 'app-transaction',
@@ -135,7 +136,7 @@ export class TransactionComponent {
       t.type,
       t.description,
       (t.amount > 0 ? '+' : '-') + t.amount.toFixed(2) + ' MAD',
-      t.solde.toFixed(2) + ' MAD'
+
     ]);
 
 
