@@ -1,0 +1,41 @@
+  <app-header></app-header>
+    <div class="content-area">
+      <div class="dashboard-content" style="margin-top: 7%">
+        <div class="row">
+          <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-white border-0">
+                <h5 class="mb-0">Historique Tout Paiement</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Compte</th>
+                      <th>Montant</th>
+                      <th>Reference</th>
+                      <th>Statut</th>
+                      <th>Type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let t of allPaiement">
+                      <td>{{ t.datePaiement ?.toString() | date: 'yyyy-MM-dd HH:mm' }}</td>
+                      <td>{{t.compteDebite}}</td>
+                      <td  class="text-danger">{{t.montant}}</td>
+                      <td><span class="badge bg-success">{{t.referenceFacture}}</span></td>
+                      <td><span class="badge bg-success">{{t.statut}}</span></td>
+                      <td><span class="badge bg-success">{{t.type}}</span></td>
+
+                    </tr>
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,136 @@
+:root {
+  --header-height: 100px;
+  --primary-color: rgba(27, 89, 45, 0.61) !important;
+  --hover-bg: rgba(13, 110, 253, 0.1);
+}
+
+.bank-header {
+  max-width: var(--header-height);
+  background-color: rgba(13, 110, 253, 0.1) !important;
+
+  position: relative;
+
+}
+
+.navbar {
+  height: 100%;
+  padding: 0;
+}
+
+.navbar-brand, .navbar-toggler {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.navbar-collapse {
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background: white;
+  overflow-y: auto;
+  transition: max-height 0.3s ease;
+  box-shadow: 0 10px 15px -5px rgba(0,0,0,0.1);
+}
+
+.navbar-content {
+  padding: 1rem;
+}
+
+@media (min-width: 992px) {
+  .navbar-collapse {
+    position: static;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: visible;
+    box-shadow: none;
+    display: flex !important;
+    flex-basis: auto;
+    background: transparent;
+  }
+
+  .navbar-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+  }
+}
+
+.nav-link {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  color: #495057;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary-color) !important;
+  background-color: var(--hover-bg);
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  max-width: 300px;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background-color: var(--hover-bg);
+  color: var(--primary-color);
+}
+
+.dropdown-item i {
+  width: 1.25rem;
+  margin-right: 0.75rem;
+}
+
+.navbar-right {
+  padding: 0.5rem 0;
+}
+
+.btn-outline-primary {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Version mobile spécifique */
+@media (max-height: 450px) {
+  .dropdown-menu {
+    position: static;
+    border: none;
+    box-shadow: none;
+    margin-left: 1rem;
+    width: auto;
+  }
+
+  .menu-text {
+    margin-left: 0.5rem;
+  }
+
+  .navbar-right {
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    margin-top: 0.5rem;
+  }
+}

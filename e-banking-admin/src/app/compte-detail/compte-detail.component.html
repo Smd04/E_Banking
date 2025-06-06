@@ -1,0 +1,86 @@
+<div class="container py-4">
+  <h2 class="mb-4 text-primary">Détails du compte</h2>
+
+  <div class="card mb-4 p-4 shadow-sm">
+    <h5 class="text-secondary mb-3">Informations générales</h5>
+    <div class="row mb-2">
+      <div class="col-sm-6"><strong>Type :</strong> {{ compteActif.type }}</div>
+      <div class="col-sm-6"><strong>Numéro :</strong> {{ compteActif.id }}</div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <strong>Solde :</strong> {{ compteActif.balance | number:'1.2-2' }} {{ compteActif.currency }}
+      </div>
+      <div class="col-sm-6">
+        <strong>Titulaire :</strong> {{ compteActif.id || 'N/A' }}
+      </div>
+      <div>
+        <strong>RIB :</strong> {{compteActif.accountNumber}}
+       </div>
+    </div>
+  </div>
+
+
+  <div class="card mb-4 p-4 shadow-sm">
+    <h5 class="text-secondary mb-3">📊 Dashboard interactif</h5>
+    <canvas id="chartSoldeMensuel" style="max-width: 600px;"></canvas>
+
+    <div class="alert alert-warning mt-4" *ngIf="alerteDepenses">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      <strong>Alerte :</strong> Dépenses élevées détectées !
+    </div>
+  </div>
+
+  <div class="card mb-4 p-4 shadow-sm">
+    <h5 class="text-secondary mb-3">📄 Historique des dernières transactions</h5>
+    <div class="table-responsive" style="max-width: 900px;">
+      <table class="table  table-hover">
+        <thead class="table-light text-center">
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Montant</th>
+           <th>Compte destinataire</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let t of RecentTransaction"  style="cursor: pointer;">
+          <td>{{ toDateString(t.timestamp) }}</td>
+          <td [ngClass]="{'text-danger': t.type === 'Débit', 'text-success': t.type === 'Crédit'}">
+            {{ t.type }}
+          </td>
+          <td>{{ t.status }}</td>
+          <td class="text-end" [ngClass]="{'text-danger': t.amount < 0, 'text-success': t.amount > 0}">
+            {{ t.amount < 0 ? '-' : '+' }}{{ t.amount | number:'1.2-2' }} MAD
+          </td>
+          <td>{{ t.compteDest }}</td>
+         </tr>
+        <tr *ngIf="RecentTransaction.length === 0">
+          <td colspan="5" class="text-center text-muted">Aucune Recent transaction trouvée.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Gestion du compte -->
+  <div class="card p-4 shadow-sm border-danger">
+    <h5 class="text-danger mb-3">⚙️ Gestion du compte</h5>
+    <div class="d-flex flex-wrap gap-3">
+      <button class="btn btn-outline-primary">
+        Modifier les informations
+      </button>
+
+      <button class="btn btn-outline-warning" (click)="changerStatutCompte()">
+        {{ compteActif.status ? 'Désactiver' : 'Activer' }} le compte
+      </button>
+
+      <button class="btn btn-outline-danger" (click)="supprimerCompte()">
+        Supprimer ce compte
+      </button>
+    </div>
+  </div>
+</div>

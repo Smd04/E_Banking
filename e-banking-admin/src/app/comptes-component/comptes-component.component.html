@@ -1,0 +1,78 @@
+<div class="container py-4">
+  <h2 class="mb-4 text-primary fw-bold">📘 Mes Comptes</h2>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div class="d-flex gap-2">
+      <input
+        type="text"
+        class="form-control"
+        placeholder=" Rechercher un compte..."
+        [(ngModel)]="searchTerm"
+        style="width: 250px;"
+      />
+      <button (click)="exportPDF()" class="btn btn-outline-dark">
+        📄 Exporter PDF
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && paginatedComptes.length > 0">
+    <div
+      class="card shadow-sm mb-3 border-0"
+      style="width: 100%"
+      *ngFor="let compte of paginatedComptes"
+    >
+      <div class="card-header bg-light d-flex justify-content-between">
+        <h5>
+          {{ compte.type }} <small class="text-muted">({{ compte.currency }})</small>
+        </h5>
+        <span
+          class="badge"
+          [ngClass]="{
+            'bg-success': compte.status === 'ACTIF',
+            'bg-danger': compte.status === 'INACTIF'
+          }"
+        >
+          {{ compte.status }}
+        </span>
+      </div>
+
+      <div class="card-body">
+        <ul class="list-unstyled">
+          <li><strong>N° compte :</strong> {{ compte.id }}</li>
+          <li><strong>Solde :</strong> {{ compte.balance | number: '1.2-2' }}</li>
+          <li><strong>RIB :</strong> {{compte.accountNumber}} </li>
+        </ul>
+        <div class="text-end">
+          <button class="btn btn-outline-primary" (click)="redirectToDetailCompte(compte.id)">
+            Détails
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-secondary me-2" (click)="previousPage()" [disabled]="currentPage === 1">⬅</button>
+      <span class="mx-2">Page {{ currentPage }}</span>
+      <button
+        class="btn btn-outline-secondary"
+        (click)="nextPage()"
+        [disabled]="currentPage * itemsPerPage >= filtredComptes.length"
+      >
+        ➡
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && filtredComptes.length === 0" class="alert alert-warning mt-4">
+    Aucun compte trouvé.
+  </div>
+</div>

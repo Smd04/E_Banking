@@ -1,0 +1,26 @@
+<div class="card ms-5">
+  <div class="card-header">
+    <div class="card-type">{{ card.cardType }}</div>
+    <div class="status-badge">
+      {{ card.status | uppercase }}
+    </div>
+  </div>
+
+  <div class="card-number">{{ card.cardNumber }}</div>
+
+  <div class="card-details">
+    <div class="card-holder">
+      <span class="detail-label">Titulaire</span>
+      <span>{{ card.name }}</span>
+    </div>
+    <div class="expiry-date">
+      <span class="detail-label">Expire le</span>
+      <span>{{ card.expirationDate | date:'MM/yyyy' }}</span>
+    </div>
+  </div>
+
+  <div class="card-balance">
+    {{ card.solde | number:'1.2-2' }}
+    <span class="currency">{{ card.currency }}</span>
+  </div>
+</div>

@@ -10,5 +10,6 @@ import { ChatbotComponent } from '../../chatbot/chatbot.component';
 })
 export class DashboardComponent  {
 
-  
+
 }
+

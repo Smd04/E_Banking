@@ -1,0 +1,62 @@
+  <app-header></app-header>
+  <div class="main-content" style="margin-top: 7%;">
+    <div class="content-area">
+<div class="container py-5">
+  <div class="row justify-content-center align-items-center">
+
+    <div class="col-md-5 text-center mb-4 mb-md-0">
+      <img ngSrc="assets/images/icon-virement.png" alt="Icône Virement"
+           class="img-fluid" style="max-height: 300px;" height="1201" width="1200">
+    </div>
+    <div class="col-md-7">
+      <div class="card shadow p-4" style="background-color: #fff;">
+        <h3 class="text mb-4 text-center"  style="color:#1b592d"> Effectuer un virement</h3>
+
+        <form (ngSubmit)="onEffectueVirement()" #VirementForm = "ngForm">
+          <div class="row mb-3 align-items-center">
+            <label for="date" class="col-sm-4 col-form-label">Date(JJ/MM/AAAA)</label>
+            <div class="col-sm-8">
+              <input type="date" id="date" class="form-control" placeholder="12/05/2025" name="date" [(ngModel)]="date" required />
+            </div>
+          </div>
+          <div class="row mb-3 align-items-center">
+            <label for="compteUser" class="col-sm-4 col-form-label">Compte source</label>
+            <div class="col-sm-8">
+              <select id="compteUser" class="form-select" name="compteUser" [(ngModel)]="compteUser"  required>
+                <option disabled selected>-- Sélectionner un compte --</option>
+                <option>1234567890</option>
+                <option>987654321 - Épargne</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row mb-3 align-items-center">
+            <label for="compteDestinataire" class="col-sm-4 col-form-label">Destinataire</label>
+            <div class="col-sm-8">
+              <input type="text" id="compteDestinataire" class="form-control" placeholder="Nom ou IBAN" name="compteDestinataire"[(ngModel)]="compteDestinataire" required />
+            </div>
+          </div>
+
+          <div class="row mb-3 align-items-center">
+            <label for="montant" class="col-sm-4 col-form-label">Montant</label>
+            <div class="col-sm-8">
+              <input type="number" id="montant" class="form-control" placeholder="Ex: 500.00" name="montant" [(ngModel)]="montant" required />
+            </div>
+          </div>
+
+          <div class="row mb-3 align-items-center">
+            <label for="motif" class="col-sm-4 col-form-label">Motif</label>
+            <div class="col-sm-8">
+              <input type="text" id="motif" class="form-control" placeholder="Motif du virement" name="motif" [(ngModel)]="motif" />
+            </div>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-success px-5" type="submit" [disabled]="!VirementForm.form.valid">Valider le virement</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+    </div></div>
