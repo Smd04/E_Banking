@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-
-import {AsyncPipe, DatePipe, NgForOf} from '@angular/common';
-import {HeaderComponent} from '../../Components/header/header.component';
-import {ListPaiementService} from '../../services/client_service/listPaiement.service';
-import {Paiement} from '../../models/models-client/paiement';
-import {RouterModule} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { DatePipe, NgForOf } from '@angular/common';
+import { HeaderComponent } from '../../Components/header/header.component';
+import { ListPaiementService } from '../../services/client_service/listPaiement.service';
+import { Paiement } from '../../models/models-client/paiement';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-historique-paiement',
@@ -12,28 +11,22 @@ import {RouterModule} from '@angular/router';
     DatePipe,
     HeaderComponent,
     NgForOf,
-    RouterModule,
+    RouterModule
   ],
   templateUrl: './historique-paiement.component.html',
   standalone: true,
-  styleUrl: './historique-paiement.component.css'
+  styleUrls: ['./historique-paiement.component.css']
 })
 export class HistoriquePaiementComponent implements OnInit {
-  constructor(private paiementService:ListPaiementService) {
-  }
-  recentPaiement:Paiement[] =[];
-  ngOnInit() {
+  recentPaiement: Paiement[] = [];
 
+  constructor(private paiementService: ListPaiementService) {}
+
+  ngOnInit() {
     this.paiementService.getRecentPaiement().subscribe(
       data => {
         this.recentPaiement = data;
       }
     );
-
-
-
-
-
   }
-
 }

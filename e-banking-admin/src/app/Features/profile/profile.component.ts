@@ -1,9 +1,8 @@
-// bank-profile.component.ts
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
-import {HeaderComponent} from '../../Components/header/header.component';
-import {RouterModule} from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DatePipe, NgIf } from '@angular/common';
+import { HeaderComponent } from '../../Components/header/header.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-bank-profile',
@@ -13,9 +12,8 @@ import {RouterModule} from '@angular/router';
     DatePipe,
     ReactiveFormsModule,
     NgIf,
-    NgForOf,
     HeaderComponent,
-    RouterModule,
+    RouterModule
   ],
   styleUrls: ['./profile.component.css']
 })

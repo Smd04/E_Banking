@@ -1,17 +1,13 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
 import { Subscription } from 'rxjs';
-
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {Compte} from '../models/models-client/Compte';
-import {BarcodeService} from '../services/client_service/barcode.service';
-import {BiometricService} from '../services/client_service/biometric.service';
-import {CompteServiceService} from '../services/client_service/compte-service.service';
-import {QRPaimentDTO} from '../models/models-client/PaimentQECode';
-import {RegisterCredentialRequest} from '../models/models-client/RegisterCredentialRequest';
-
-
+import { Compte } from '../models/models-client/Compte';
+import { BarcodeService } from '../services/client_service/barcode.service';
+import { BiometricService } from '../services/client_service/biometric.service';
+import { CompteServiceService } from '../services/client_service/compte-service.service';
+import { QRPaimentDTO } from '../models/models-client/PaimentQECode';
+import { RegisterCredentialRequest } from '../models/models-client/RegisterCredentialRequest';
 
 @Component({
   selector: 'app-paimaent-qr-code',
@@ -41,7 +37,7 @@ export class PaimaentQrCodeComponent implements OnInit, OnDestroy {
   constructor(
     private compteService: CompteServiceService,
     private barcodeService: BarcodeService,
-    private biometricServic: BiometricService
+    private biometricService: BiometricService
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +72,7 @@ export class PaimaentQrCodeComponent implements OnInit, OnDestroy {
         alert(`S'il vous plaît, vérifiez avec votre empreinte.`);
         console.log("Montant :", this.paiment.montant);
 
-        this.biometricServic.getChallengeFromBackend().subscribe(data => {
+        this.biometricService.getChallengeFromBackend().subscribe(data => {
           this.challenge = data.challenge;
           this.isExist = data.exists;
           console.log("Challenge : ", this.challenge, " | Public key exist : ", this.isExist);
@@ -121,15 +117,15 @@ export class PaimaentQrCodeComponent implements OnInit, OnDestroy {
         signature
       };
 
-      this.biometricServic.verifyBiometric(verifyRequest).subscribe({
+      this.biometricService.verifyBiometric(verifyRequest).subscribe({
         next: (res) => {
           this.paymentStatus = 'Biométrie validée : ' + res;
-          this.biometricServic.EffectuerPaiment(this.paiment);
+          this.biometricService.EffectuerPaiment(this.paiment);
         },
         error: (err) => {
           this.paymentStatus = 'Échec de la vérification biométrique';
           console.error(err);
-          this.biometricServic.EffectuerPaiment(this.paiment);
+          this.biometricService.EffectuerPaiment(this.paiment);
         }
       });
     } catch (err) {
@@ -219,19 +215,19 @@ export class PaimaentQrCodeComponent implements OnInit, OnDestroy {
         publicKey: this.arrayBufferToBase64(attestationResponse.attestationObject)
       };
 
-      this.biometricServic.registerCredetilal(registerData).subscribe({
+      this.biometricService.registerCredetilal(registerData).subscribe({
         next: res => {
           alert("Enregistrement réussi !");
-          this.biometricServic.EffectuerPaiment(this.paiment);
+          this.biometricService.EffectuerPaiment(this.paiment);
         },
         error: err => {
           console.error("Erreur lors de l'enregistrement :", err);
-          this.biometricServic.EffectuerPaiment(this.paiment);
+          this.biometricService.EffectuerPaiment(this.paiment);
         }
       });
     } catch (error) {
       console.error("Erreur WebAuthn :", error);
-      this.biometricServic.EffectuerPaiment(this.paiment);
+      this.biometricService.EffectuerPaiment(this.paiment);
     }
   }
 

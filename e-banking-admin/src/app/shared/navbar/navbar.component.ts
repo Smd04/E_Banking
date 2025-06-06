@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'; // Fixed import
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/models-client/user';
 
 @Component({
   selector: 'app-navbar',
@@ -14,14 +15,13 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarComponent {
   isMenuOpen = false;
   isLoggedIn = false;
-  username = '';
+  email = '';
 
   constructor(private authService: AuthService, private router: Router) {
-    // Subscribe to authentication state changes
-    this.authService.currentUser.subscribe(user => {
+    this.authService.currentUser$.subscribe((user: User | null) => {
       this.isLoggedIn = !!user;
       if (user) {
-        this.username = user.username || '';
+        this.email = user.email || '';
       }
     });
   }
