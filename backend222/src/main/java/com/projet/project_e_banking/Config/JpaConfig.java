@@ -38,7 +38,7 @@ public class JpaConfig {
         ds.setDriverClassName("org.postgresql.Driver");
         ds.setUrl("jdbc:postgresql://localhost:5432/ebanking");
         ds.setUsername("postgres");
-        ds.setPassword("Hiba@2003");
+        ds.setPassword("Qwerty2004");
         return ds;
     }
     @Bean
