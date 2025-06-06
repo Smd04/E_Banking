@@ -5,7 +5,7 @@
     <select class="form-select" [(ngModel)]="compteSelectionne"  (change)="getTransactionByAccount(compteSelectionne)" >
       <option value="">Tous les comptes</option>
       <option *ngFor="let compte of comptes" [value]="compte.id"  >
-        {{ compte.id }} - {{ compte.accountNumber }}
+        {{ compte.id }} - {{ compte.AccountNumber }}
       </option>
     </select>
   </div>
@@ -63,7 +63,7 @@
         <td class="text-end" [ngClass]="{'text-danger': t.amount < 0, 'text-success': t.amount > 0}">
           {{ t.amount < 0 ? '-' : '+' }}{{ t.amount | number:'1.2-2' }} MAD
         </td>
-        <td class="text-end">{{ t.solde | number:'1.2-2' }} MAD</td>
+
       </tr>
       <tr *ngIf="paginated.length === 0">
         <td colspan="5" class="text-center text-muted">Aucune transaction trouvée.</td>
@@ -88,7 +88,6 @@
     <p><strong>Status : </strong>{{transactionActive.status}}</p>
     <p><strong>Compte Destinataire :</strong> {{ transactionActive.compteDest }}</p>
     <p><strong>Montant :</strong> {{ transactionActive.amount }} MAD</p>
-    <p><strong>Solde final :</strong> {{ transactionActive.solde }} MAD</p>
 
   </div>
 </div>

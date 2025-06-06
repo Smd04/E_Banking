@@ -48,7 +48,7 @@
         <ul class="list-unstyled">
           <li><strong>N° compte :</strong> {{ compte.id }}</li>
           <li><strong>Solde :</strong> {{ compte.balance | number: '1.2-2' }}</li>
-          <li><strong>RIB :</strong> {{compte.accountNumber}} </li>
+          <li><strong>RIB :</strong> {{compte.AccountNumber}} </li>
         </ul>
         <div class="text-end">
           <button class="btn btn-outline-primary" (click)="redirectToDetailCompte(compte.id)">
