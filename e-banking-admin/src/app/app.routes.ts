@@ -29,7 +29,7 @@ import {ProfileComponent} from './Features/profile/profile.component';
 import {VirementComponent} from './Features/virement/virement.component';
 import {RechargeTelephoniqueComponent} from './Features/recharge-telephonique/recharge-telephonique.component';
 import { DashboardComponent as dashboard } from './Features/dashboard/dashboard.component';
-
+import {AccountComponent} from './Features/account/account.component'
 
 
 
@@ -49,7 +49,7 @@ export const routes: Routes = [
   { path: 'enrol-client', component: EnrolClientComponent },
   { path: 'client-list', component: ClientListComponent },
   { path: 'contract-list', component: ContractListComponent },
-
+  {path: 'account' , component:AccountComponent },
   {path:'comptes' ,component: ComptesComponentComponent},
   {path:'detail-compte/:id' , component:CompteDetailComponent},
   {path:'transaction' , component:TransactionComponent},

@@ -28,7 +28,7 @@ interface JwtPayload {
 })
 
 export class AuthService {
-  private baseUrl = 'http://localhost:8090/project_e_banking_war/api/auth';
+  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/auth';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 

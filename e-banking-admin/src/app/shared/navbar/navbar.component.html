@@ -6,14 +6,15 @@
       </button>
       <div class="navbar-menu" [class.active]="isMenuOpen">
         <ul class="navbar-links">
-          <li><a routerLink="/accounts" routerLinkActive="active">Account</a></li>
-          <a routerLink="/logout">Logout</a>
+          <!-- <li><a routerLink="/accounts" routerLinkActive="active">Account</a></li> -->
+          <!-- <a routerLink="/logout">Logout</a> -->
         </ul>
         <div class="navbar-auth">
           <!-- <a *ngIf="!isLoggedIn" routerLink="/login" class="auth-link">Login</a>
           <a *ngIf="!isLoggedIn" routerLink="/register" class="auth-link">Register</a> -->
           <div *ngIf="isLoggedIn" class="user-profile">
-            <!-- <span class="username">{{ username }}</span> -->
+          <li><a routerLink="/account" routerLinkActive="active">Account</a></li>
+            <span class="username">{{ fullname }}</span>
             <button (click)="logout()">Logout</button>
           </div>
         </div>

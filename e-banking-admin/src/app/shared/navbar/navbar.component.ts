@@ -15,13 +15,13 @@ import { User } from '../../models/models-client/user';
 export class NavbarComponent {
   isMenuOpen = false;
   isLoggedIn = false;
-  email = '';
+  fullname='';
 
   constructor(private authService: AuthService, private router: Router) {
     this.authService.currentUser$.subscribe((user: User | null) => {
       this.isLoggedIn = !!user;
       if (user) {
-        this.email = user.email || '';
+        this.fullname = user.firstName+user.lastName || '';
       }
     });
   }
@@ -32,7 +32,7 @@ export class NavbarComponent {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
     this.isMenuOpen = false;
   }
 }
