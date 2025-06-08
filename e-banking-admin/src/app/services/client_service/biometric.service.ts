@@ -9,7 +9,7 @@ import {QRPaimentDTO} from '../../models/models-client/PaimentQECode';
   providedIn: 'root'
 })
 export class BiometricService {
-apiUrl:string = `http://localhost:8090/project_e_banking/api/biometric`;
+apiUrl:string = `http://localhost:8080/project_e_banking_war_exploded/api/biometric`;
 
 
   constructor(private http:HttpClient) {}

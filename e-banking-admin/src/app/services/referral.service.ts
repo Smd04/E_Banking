@@ -1,7 +1,12 @@
+// referral.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+interface CommissionResponse {
+  commission: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ReferralService {
@@ -9,19 +14,19 @@ export class ReferralService {
   
   constructor(private http: HttpClient) {}
 
-  getReferralCommission(userId: number): Observable<number> {
+  getReferralCommission(userId: number): Observable<CommissionResponse> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')}` 
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     });
 
-    return this.http.get<number>(`${this.baseUrl}/${userId}`, { headers }).pipe(
+    return this.http.get<CommissionResponse>(`${this.baseUrl}/${userId}`, { headers }).pipe(
       catchError(error => {
         console.error('API Error:', error);
         if (error.status === 403) {
-          return throwError(() => new Error(error.error?.message || 'You are not enabled for referrals'));
+          return throwError(() => new Error('You are not allowed to refer. Ask admin to give you such authority.'));
         } else if (error.status === 404) {
-          return throwError(() => new Error(error.error?.message || 'User settings not found'));
+          return throwError(() => new Error('User settings not found'));
         } else {
           return throwError(() => new Error(
             error.error?.message || error.message || 'Failed to load commission'

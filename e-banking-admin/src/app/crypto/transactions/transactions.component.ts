@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CryptoService } from '../../services/crypto.service';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-transactions',
@@ -14,31 +15,84 @@ export class TransactionsComponent implements OnInit {
   transactions: any[] = [];
   sortedTransactions: any[] = [];
   loading = true;
-  userId: number = 7; // Should be set from auth service in real app
+  userId: number | null = null;
   showNotification = false;
   notificationMessage = '';
   isSuccess = false;
-  sortOrder: 'latest' | 'earliest' = 'latest'; // Default sort order
+  sortOrder: 'latest' | 'earliest' = 'latest';
+  cryptoEnabled = true;
 
-  constructor(private cryptoService: CryptoService) {}
+  constructor(
+    private cryptoService: CryptoService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.userId = this.authService.getUserId();
+    if (!this.userId) {
+      this.showNotificationMessage('User not authenticated', false);
+      this.loading = false;
+      return;
+    }
     this.loadTransactions();
+  }
+
+  private showNotificationMessage(message: string, isSuccess: boolean) {
+    this.notificationMessage = message;
+    this.isSuccess = isSuccess;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 10000);
+  }
+
+  private validateResponse(data: any): any {
+    if (typeof data === 'string' && data.startsWith('<!doctype')) {
+      throw new Error('Server returned an HTML error page');
+    }
+    return data;
   }
 
   loadTransactions(): void {
     this.loading = true;
-    this.cryptoService.getUserTransactions(this.userId).subscribe({
+    this.cryptoService.getUserTransactions(this.userId!).subscribe({
       next: (transactions) => {
-        this.transactions = transactions;
-        this.sortTransactions();
-        this.loading = false;
+        try {
+          const validatedData = this.validateResponse(transactions);
+          this.transactions = validatedData;
+          this.sortTransactions();
+          this.loading = false;
+        } catch (error) {
+          this.handleDataError(error);
+        }
       },
-      error: (err) => {
-        this.showNotificationMessage('Failed to fetch transactions', false);
-        this.loading = false;
-      }
+      error: (err) => this.handleApiError(err)
     });
+  }
+
+  private handleApiError(err: any): void {
+    console.error('API Error:', err);
+    
+    let errorMessage = err.message;
+    if (err.message.includes('not enabled')) {
+      this.cryptoEnabled = false;
+      errorMessage = 'Crypto services are not enabled for your account';
+    } else if (err.message.includes('HTML')) {
+      errorMessage = 'Server error: Invalid response format';
+    } else if (err.message.includes('Network')) {
+      errorMessage = 'Network error: Please check your connection';
+    } else if (err.message.includes('401')) {
+      errorMessage = 'Session expired. Please log in again.';
+    }
+
+    this.showNotificationMessage(`Failed to fetch transactions: ${errorMessage}`, false);
+    this.loading = false;
+  }
+
+  private handleDataError(error: any): void {
+    console.error('Data Error:', error);
+    this.showNotificationMessage('Error processing transaction data', false);
+    this.loading = false;
   }
 
   toggleSortOrder(): void {
@@ -52,15 +106,5 @@ export class TransactionsComponent implements OnInit {
       const dateB = new Date(b.transactionDate).getTime();
       return this.sortOrder === 'latest' ? dateB - dateA : dateA - dateB;
     });
-  }
-
-  private showNotificationMessage(message: string, isSuccess: boolean) {
-    this.notificationMessage = message;
-    this.isSuccess = isSuccess;
-    this.showNotification = true;
-
-    setTimeout(() => {
-      this.showNotification = false;
-    }, 10000);
   }
 }

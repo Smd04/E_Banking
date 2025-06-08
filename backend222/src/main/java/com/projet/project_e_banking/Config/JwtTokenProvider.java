@@ -15,10 +15,9 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
     @Autowired
-    private   UserRepository userRepository;
-    private final String jwtSecret =  "YourNewSuperStrongSecretKeyWithAtLeast32Characters!";
+    private UserRepository userRepository;
+    private final String jwtSecret = "YourNewSuperStrongSecretKeyWithAtLeast32Characters!";
     private final int jwtExpirationInMs = 86400000;
-
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
@@ -30,24 +29,30 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         Object principal = authentication.getPrincipal();
-
         String username = null;
         String role = null;
         String email = null;
+        Long userId = null;
 
-        if(principal instanceof User) {
-            username = ((User)principal).getUsername();
-            role =((User)principal).getRole().toString();
-            email = ((User)principal).getEmail();
-
-        }else if(principal instanceof org.springframework.security.core.userdetails.User){
-            username = ((org.springframework.security.core.userdetails.User)principal).getUsername();
-            User user = userRepository.findByUsername(username).orElse(null);
+        if (principal instanceof User) {
+            User user = (User) principal;
+            username = user.getUsername();
             role = user.getRole().toString();
+            email = user.getEmail();
+            userId = user.getId();
+        } else if (principal instanceof org.springframework.security.core.userdetails.User) {
+            username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
+            User user = userRepository.findByUsername(username).orElse(null);
+            if (user != null) {
+                role = user.getRole().toString();
+                email = user.getEmail();
+                userId = user.getId();
+            }
         }
 
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(authentication.getName())
+                .claim("id", userId)
                 .claim("username", username)
                 .claim("role", role)
                 .claim("email", email)
@@ -55,10 +60,6 @@ public class JwtTokenProvider {
                 .setExpiration(expiryDate)
                 .signWith(getSigningKey())
                 .compact();
-
-        System.out.println("Generated token: " + token);
-        System.out.println("Role"+role);
-        return token;
     }
 
     public String getUsernameFromJWT(String token) {
@@ -77,20 +78,10 @@ public class JwtTokenProvider {
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (ExpiredJwtException ex) {
-            System.out.println("Expired JWT: " + ex.getMessage());
-            return false;
-        } catch (UnsupportedJwtException ex) {
-            System.out.println("Unsupported JWT: " + ex.getMessage());
-            return false;
-        } catch (MalformedJwtException ex) {
-            System.out.println("Malformed JWT: " + ex.getMessage());
-            return false;
-        } catch (SignatureException ex) {
-            System.out.println("Invalid signature: " + ex.getMessage());
+        } catch (ExpiredJwtException | UnsupportedJwtException |
+                 MalformedJwtException | SignatureException ex) {
+            System.out.println("JWT Error: " + ex.getMessage());
             return false;
         }
-
     }
 }
-

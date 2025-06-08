@@ -1,12 +1,13 @@
 import { Component, HostListener } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
+import { RouterModule } from '@angular/router'; 
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   standalone: true,
-  imports: [NgbDropdownModule],
+  imports: [NgbDropdownModule, RouterModule],
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {

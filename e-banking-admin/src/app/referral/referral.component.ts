@@ -1,7 +1,8 @@
+// referral.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReferralService } from '../services/referral.service';
-
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-referral',
@@ -11,22 +12,34 @@ import { ReferralService } from '../services/referral.service';
   styleUrls: ['./referral.component.scss']
 })
 export class ReferralComponent implements OnInit {
-  userId = 7; // Replace with logic to get the current user's ID
   commission: number | null = null;
   errorMessage?: string;
   isLoading = true;
+  referralDisabled = false;
 
-  constructor(private referralService: ReferralService) {}
+  constructor(
+    private referralService: ReferralService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.referralService.getReferralCommission(this.userId).subscribe({
-      next: (commission) => {
-        this.commission = commission;
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      this.errorMessage = 'User not authenticated';
+      this.isLoading = false;
+      return;
+    }
+
+    this.referralService.getReferralCommission(+userId).subscribe({
+      next: (response) => {
+        this.commission = response.commission;
         this.isLoading = false;
+        this.referralDisabled = false;
       },
       error: (err) => {
-        this.errorMessage = err.error || err.message || 'Failed to load commission.';
+        this.errorMessage = err.message;
         this.isLoading = false;
+        this.referralDisabled = err.message.includes('not allowed to refer');
         console.error('Error:', err);
       }      
     });

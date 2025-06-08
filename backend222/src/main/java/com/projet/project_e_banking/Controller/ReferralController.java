@@ -1,5 +1,6 @@
 package com.projet.project_e_banking.Controller;
 
+import com.projet.project_e_banking.Dto.CommissionResponse;
 import com.projet.project_e_banking.Service.DaoImpl.ReferralService.ReferralService;
 import com.projet.project_e_banking.Dto.ReferralRequest;
 import jakarta.validation.Valid;
@@ -14,10 +15,10 @@ public class ReferralController {
     @Autowired
     private ReferralService referralService;
 
-    @GetMapping("/commission/{userId}")
-    public ResponseEntity<Double> getReferralCommission(@PathVariable("userId") Long userId) {
+    @GetMapping(value = "/commission/{userId}", produces = "application/json")
+    public ResponseEntity<CommissionResponse> getReferralCommission(@PathVariable("userId") Long userId) {
         Double commission = referralService.calculateReferralCommission(userId);
-        return ResponseEntity.ok(commission);
+        return ResponseEntity.ok(new CommissionResponse(commission));
     }
 
     @PostMapping("/add")

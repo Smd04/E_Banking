@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -10,17 +10,50 @@ export class CryptoService {
 
   constructor(private http: HttpClient) {}
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No authentication token found');
+    }
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
+  private parseErrorResponse(error: any): string {
+    try {
+      // Try to parse as JSON first
+      const errorObj = typeof error === 'string' ? JSON.parse(error) : error;
+      return errorObj.message || errorObj.error || JSON.stringify(errorObj);
+    } catch (e) {
+      // If not JSON, check if it's HTML
+      if (typeof error === 'string' && error.startsWith('<!doctype')) {
+        return 'Server returned an HTML error page';
+      }
+      return error.message || error.toString();
+    }
+  }
+
   private handleError(error: HttpErrorResponse) {
-    if (error.status === 403) {
-      return throwError(() => 'Crypto services are not enabled for this user');
+    let errorMessage = 'An unknown error occurred';
+    
+    if (error.status === 0) {
+      errorMessage = 'Network error: Please check your internet connection';
+    } else if (error.status === 401) {
+      errorMessage = 'Session expired. Please log in again.';
+    } else if (error.status === 403) {
+      errorMessage = 'Crypto services are not enabled for this user';
+    } else if (error.status === 404) {
+      errorMessage = 'Requested resource not found';
+    } else if (error.status >= 400 && error.status < 500) {
+      errorMessage = this.parseErrorResponse(error.error);
+    } else if (error.status >= 500) {
+      errorMessage = 'Server error: Please try again later';
     }
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      return throwError(() => `Error: ${error.error.message}`);
-    } else {
-      // Server-side error
-      return throwError(() => `Error Code: ${error.status}\nMessage: ${error.message}`);
-    }
+
+    console.error('API Error:', error);
+    return throwError(() => new Error(errorMessage));
   }
 
   getInitialCryptoData(): Observable<any> {
@@ -30,7 +63,11 @@ export class CryptoService {
       .set('per_page', '250')
       .set('page', '1')
       .set('sparkline', 'false');
-    return this.http.get(this.coingeckoUrl, { params }).pipe(
+      
+    return this.http.get(this.coingeckoUrl, { 
+      params,
+      responseType: 'json' 
+    }).pipe(
       catchError(this.handleError)
     );
   }
@@ -39,7 +76,11 @@ export class CryptoService {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('perPage', perPage.toString());
-    return this.http.get<any[]>(`${this.apiBaseUrl}/all/${userId}`, { params }).pipe(
+    return this.http.get<any[]>(`${this.apiBaseUrl}/all/${userId}`, { 
+      params,
+      headers: this.getHeaders(),
+      responseType: 'json'
+    }).pipe(
       catchError(this.handleError)
     );
   }
@@ -49,32 +90,48 @@ export class CryptoService {
       .set('query', query)
       .set('page', page.toString())
       .set('perPage', perPage.toString());
-    return this.http.get<any[]>(`${this.apiBaseUrl}/search/${userId}`, { params }).pipe(
-      catchError(error => throwError(() => new Error(error.error?.message || 'Failed to search cryptocurrencies')))
+    return this.http.get<any[]>(`${this.apiBaseUrl}/search/${userId}`, { 
+      params,
+      headers: this.getHeaders(),
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
     );
   }
 
   getCryptoDetails(userId: number, cryptoId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiBaseUrl}/details/${userId}/${cryptoId}`).pipe(
-      catchError(error => throwError(() => new Error(error.error?.message || 'Failed to get cryptocurrency details')))
+    return this.http.get<any>(`${this.apiBaseUrl}/details/${userId}/${cryptoId}`, { 
+      headers: this.getHeaders(),
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
     );
   }
 
   buyCrypto(userId: number, transaction: any): Observable<any> {
-    return this.http.post(`${this.apiBaseUrl}/buy/${userId}`, transaction, { responseType: 'text' }).pipe(
-      catchError(error => throwError(() => new Error(error.error || 'Failed to buy cryptocurrency')))
+    return this.http.post(`${this.apiBaseUrl}/buy/${userId}`, transaction, { 
+      headers: this.getHeaders(),
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
     );
   }
 
   sellCrypto(userId: number, transaction: any): Observable<any> {
-    return this.http.post(`${this.apiBaseUrl}/sell/${userId}`, transaction, { responseType: 'text' }).pipe(
-      catchError(error => throwError(() => new Error(error.error || 'Failed to sell cryptocurrency')))
+    return this.http.post(`${this.apiBaseUrl}/sell/${userId}`, transaction, { 
+      headers: this.getHeaders(),
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
     );
   }
 
   getUserTransactions(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiBaseUrl}/transactions/${userId}`).pipe(
-      catchError(error => throwError(() => new Error(error.error?.message || 'Failed to fetch transactions')))
+    return this.http.get<any[]>(`${this.apiBaseUrl}/transactions/${userId}`, { 
+      headers: this.getHeaders(),
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
     );
   }
 
