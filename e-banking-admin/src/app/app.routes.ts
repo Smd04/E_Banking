@@ -28,42 +28,45 @@ import {AllPaiementComponent} from './Features/all-paiement/all-paiement.compone
 import {ProfileComponent} from './Features/profile/profile.component';
 import {VirementComponent} from './Features/virement/virement.component';
 import {RechargeTelephoniqueComponent} from './Features/recharge-telephonique/recharge-telephonique.component';
+import { DashboardComponent as dashboard } from './Features/dashboard/dashboard.component';
+
+
 
 
 
 
 
 export const routes: Routes = [
-   // { path: '', component: DashboardComponent },
-    { path: 'admin/currencies', component: CurrenciesComponent },
-    { path: 'admin/supportmessages', component: SupportmessagesComponent},
-    { path: 'admin/admins', component: AdminsManagementComponent},
-    { path: 'globalsettings', component: UserListComponent },
-    { path: 'referral', component: ReferralComponent },
-    { path: 'crypto', component: CryptoListComponent },
-    { path: 'cryptotransactions', component: TransactionsComponent},
-    { path: 'create-contract', component: CreateContractComponent },
-    { path: 'enrol-client', component: EnrolClientComponent },
-    { path: 'client-list', component: ClientListComponent },
-    { path: 'contract-list', component: ContractListComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'admin/currencies', component: CurrenciesComponent },
+  { path: 'admin/supportmessages', component: SupportmessagesComponent},
+  { path: 'admin/admins', component: AdminsManagementComponent},
+  { path: 'globalsettings', component: UserListComponent },
+  { path: 'referral', component: ReferralComponent },
+  { path: 'crypto', component: CryptoListComponent },
+  { path: 'cryptotransactions', component: TransactionsComponent},
+  { path: 'create-contract', component: CreateContractComponent },
+  { path: 'enrol-client', component: EnrolClientComponent },
+  { path: 'client-list', component: ClientListComponent },
+  { path: 'contract-list', component: ContractListComponent },
 
-    {path:'comptes' ,component: ComptesComponentComponent},
-    {path:'detail-compte/:id' , component:CompteDetailComponent},
-    {path:'transaction' , component:TransactionComponent},
-    {path:'paiment-qr-code',component:PaimaentQrCodeComponent},
-    {path:'' , component:LoginComponent},
-    {path:"dashboard" ,component: DashboardComponent},
-    {path:"virement", component: VirementComponent},
-    {path:'recharge', component: RechargeTelephoniqueComponent},
-    {path:'code-validation-virement',component:OtpInputVirementComponent},
-    {path:'code-validation-recharge',component:OtpInputRechargeComponent},
-    {path:'logout',component:LoginComponent},
-    {path:'card',component:CardListComponent},
-    {path:'facture',component:FactureComponent},
-    {path:'abonnement',component:AbonnementComponent},
-    {path:'support',component:SupportComponent},
-    {path:'notification',component:NotificationComponent},
-    {path:'historique-paiement',component:HistoriquePaiementComponent},
-    {path:'historique-all-paiement',component:AllPaiementComponent},
-    {path:'profile',component:ProfileComponent}
+  {path:'comptes' ,component: ComptesComponentComponent},
+  {path:'detail-compte/:id' , component:CompteDetailComponent},
+  {path:'transaction' , component:TransactionComponent},
+  {path:'paiment-qr-code',component:PaimaentQrCodeComponent},
+  {path:'' , component:LoginComponent},
+  {path:"dashboard-user" ,component: dashboard},
+  {path:"virement", component: VirementComponent},
+  {path:'recharge', component: RechargeTelephoniqueComponent},
+  {path:'code-validation-virement',component:OtpInputVirementComponent},
+  {path:'code-validation-recharge',component:OtpInputRechargeComponent},
+  {path:'logout',component:LoginComponent},
+  {path:'card',component:CardListComponent},
+  {path:'facture',component:FactureComponent},
+  {path:'abonnement',component:AbonnementComponent},
+  {path:'support',component:SupportComponent},
+  {path:'notification',component:NotificationComponent},
+  {path:'historique-paiement',component:HistoriquePaiementComponent},
+  {path:'historique-all-paiement',component:AllPaiementComponent},
+  {path:'profile',component:ProfileComponent}
 ];

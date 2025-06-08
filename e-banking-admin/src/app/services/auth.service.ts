@@ -6,7 +6,7 @@ import { User } from '../models/models-client/user';
 import { jwtDecode } from 'jwt-decode';
 
 interface LoginRequest {
-  username: string; // This might be email in your login form
+  username: string;
   password: string;
 }
 
@@ -14,16 +14,19 @@ interface LoginResponse {
   accessToken: string;
 }
 
+
 interface JwtPayload {
   sub: string;
-  email?: string; // Use email instead of username
+  email?: string;
   phoneNumber?: string;
   token?: string;
+  role?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   private baseUrl = 'http://localhost:8090/project_e_banking_war/api/auth';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
@@ -40,11 +43,11 @@ export class AuthService {
         const decoded = jwtDecode<JwtPayload>(response.accessToken);
         const user: User = {
           id: decoded.sub,
-          email: decoded.email || credentials.username, // Use email from JWT or fallback to credentials.username
+          email: decoded.email || credentials.username,
           firstName: '',
           lastName: ''
         };
-        localStorage.setItem('email', user.email); // Store email instead of username
+        localStorage.setItem('email', user.email);
         this.currentUserSubject.next(user);
       })
     );
@@ -80,9 +83,9 @@ export class AuthService {
 
     try {
       const decoded = jwtDecode<JwtPayload>(token);
-      return decoded.token || null;
-    } catch (error) {
-      console.error('Erreur de décodage du token :', error);
+      return decoded.role || null;
+    } catch (e) {
+      console.error('Erreur lors du décodage du token:', e);
       return null;
     }
   }
