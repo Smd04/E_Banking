@@ -3,9 +3,11 @@ import {
   ElementRef,
   ViewChild,
   AfterViewInit,
-  HostListener, Input
+  HostListener,
+  Input
 } from '@angular/core';
 import * as d3 from 'd3';
+import { Compte } from '../../models/models-client/Compte';
 
 @Component({
   selector: 'app-compte-chart',
@@ -16,10 +18,11 @@ export class CompteChartComponent implements AfterViewInit {
   @ViewChild('chartContainer') chartContainer!: ElementRef;
 
   @Input() data: { month: string, balance: number }[] = [];
+  @Input() account!: string | undefined;
 
   @HostListener('window:resize')
   onResize() {
-    this.createChart(); // Redessine à chaque resize
+    this.createChart();
   }
 
   ngAfterViewInit(): void {
@@ -59,7 +62,11 @@ export class CompteChartComponent implements AfterViewInit {
       .call(d3.axisBottom(x));
 
     svg.append('g')
-      .call(d3.axisLeft(y).tickFormat(d => `${d3.format(',')(d as number)} €`));
+      .call(d3.axisLeft(y).tickFormat((d, i) =>
+        `${d3.format(',.0f')(+d)} ${this.account ?? ''}`
+      ));
+
+
 
     // Barres
     const bars = svg.selectAll('.bar')
@@ -78,9 +85,9 @@ export class CompteChartComponent implements AfterViewInit {
       .duration(800)
       .attr('y', d => y(d.balance))
       .attr('height', d => height - y(d.balance))
-      .delay((_, i) => i * 1000);
+      .delay((_, i) => i * 100);
 
-    // Ligne de moyenne (optionnel)
+    // Ligne de moyenne (optionnelle)
     const average = d3.mean(this.data, d => d.balance)!;
     svg.append('line')
       .attr('x1', 0)
@@ -97,6 +104,6 @@ export class CompteChartComponent implements AfterViewInit {
       .attr('text-anchor', 'end')
       .attr('fill', '#e63946')
       .attr('font-size', '12px')
-      .text(`Moyenne: ${average.toFixed(0)} €`);
+      .text(`Moyenne: ${average.toFixed(0)} ${this.account ?? ''}`);
   }
 }

@@ -26,7 +26,9 @@
                     <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                     <select class="form-select" id="compte" name="compte" required [(ngModel)]="compteNumber">
                       <option value="" disabled selected>Choisissez Votre compte</option>
-                      <option value="1234567890">1234567890</option>
+                      <option *ngFor="let compte of comptes" [value]="compte.id">
+                        {{compte.id}} {{ compte.accountNumber }}
+                      </option>
                     </select>
                   </div>
                 </div>

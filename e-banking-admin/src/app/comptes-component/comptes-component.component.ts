@@ -9,6 +9,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import {Compte} from '../models/models-client/Compte';
 import {CompteServiceService} from '../services/client_service/compte-service.service';
+import {HeaderComponent} from '../Components/header/header.component';
 
 @Component({
   selector: 'app-comptes-component',
@@ -19,6 +20,7 @@ import {CompteServiceService} from '../services/client_service/compte-service.se
     NgClass,
     CommonModule,
     RouterModule,
+    HeaderComponent,
 
   ],
   styleUrls: ['./comptes-component.component.css']

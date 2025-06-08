@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container py-4">
   <h2 class="mb-4 text-primary fw-bold">📘 Mes Comptes</h2>
 
@@ -48,7 +49,7 @@
         <ul class="list-unstyled">
           <li><strong>N° compte :</strong> {{ compte.id }}</li>
           <li><strong>Solde :</strong> {{ compte.balance | number: '1.2-2' }}</li>
-          <li><strong>RIB :</strong> {{compte.AccountNumber}} </li>
+          <li><strong>RIB :</strong> {{compte.accountNumber}} </li>
         </ul>
         <div class="text-end">
           <button class="btn btn-outline-primary" (click)="redirectToDetailCompte(compte.id)">

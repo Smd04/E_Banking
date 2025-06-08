@@ -23,9 +23,11 @@
                     <label for="typeFacture" class="form-label fw-bold">Choisir votre compte</label>
                     <div class="input-group">
                       <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                      <select class="form-select" id="compte" name="typeFacture" [(ngModel)]="compteUser" name="compteUser" required>
+                      <select class="form-select" id="compte"  [(ngModel)]="compteUser" name="compteUser" required>
                         <option value="" selected disabled >Choisissez Votre compte</option>
-                        <option >1234567890</option>
+                        <option *ngFor="let compte of comptes" [value]="compte.id">
+                          {{compte.id}} {{ compte.accountNumber }}
+                        </option>
                       </select>
                     </div>
                   </div>

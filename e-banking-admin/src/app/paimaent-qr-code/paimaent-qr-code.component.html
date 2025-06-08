@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="payment-container">
   <h2>💳 Choisir un compte pour le paiement</h2>
 
@@ -5,7 +6,7 @@
     <select class="form-select" [(ngModel)]="selectedCompte" (change)="onCompteSelected()">
       <option value="">Tous les comptes</option>
       <option *ngFor="let compte of comptes" [value]="compte.id">
-        {{compte.id}} {{ compte.AccountNumber }}
+        {{compte.id}} {{ compte.accountNumber }}
       </option>
     </select>
   </div>

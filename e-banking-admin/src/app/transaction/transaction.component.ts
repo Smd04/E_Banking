@@ -8,6 +8,7 @@ import {Compte} from '../models/models-client/Compte';
 import {Transaction} from '../models/models-client/Transaction';
 import {TransactionService} from '../services/client_service/transaction.service';
 import {CompteServiceService} from '../services/client_service/compte-service.service';
+import {HeaderComponent} from '../Components/header/header.component';
 
 @Component({
   selector: 'app-transaction',
@@ -16,7 +17,8 @@ import {CompteServiceService} from '../services/client_service/compte-service.se
     CommonModule,
     FormsModule,
     NgClass,
-    DecimalPipe
+    DecimalPipe,
+    HeaderComponent
   ],
   styleUrls: ['./transaction.component.css']
 })

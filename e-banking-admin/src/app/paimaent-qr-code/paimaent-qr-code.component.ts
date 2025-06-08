@@ -8,6 +8,7 @@ import { BiometricService } from '../services/client_service/biometric.service';
 import { CompteServiceService } from '../services/client_service/compte-service.service';
 import { QRPaimentDTO } from '../models/models-client/PaimentQECode';
 import { RegisterCredentialRequest } from '../models/models-client/RegisterCredentialRequest';
+import {HeaderComponent} from '../Components/header/header.component';
 
 @Component({
   selector: 'app-paimaent-qr-code',
@@ -15,7 +16,8 @@ import { RegisterCredentialRequest } from '../models/models-client/RegisterCrede
   standalone: true,
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    HeaderComponent
   ],
   styleUrls: ['./paimaent-qr-code.component.css']
 })
@@ -59,13 +61,13 @@ export class PaimaentQrCodeComponent implements OnInit, OnDestroy {
           this.paiment = {
             compteDest: data.compteDest,
             montant: data.montant,
-            compteSource: this.selectedCompte.AccountNumber
+            compteSource: this.selectedCompte.accountNumber
           };
         } else {
           this.paiment = {
             compteDest: "ABCDEFGH",
             montant: 200,
-            compteSource: this.selectedCompte.AccountNumber
+            compteSource: this.selectedCompte.accountNumber
           };
         }
 
