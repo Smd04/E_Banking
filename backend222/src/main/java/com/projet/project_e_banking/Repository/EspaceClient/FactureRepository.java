@@ -5,5 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FactureRepository extends JpaRepository<ApiFacture,Long> {
-    public boolean existsByReferenceAndTypeFacture(String reference, String typeFacture);
+
+    boolean existsByReferenceAndTypeFacture(String reference, String typeFacture);
 }

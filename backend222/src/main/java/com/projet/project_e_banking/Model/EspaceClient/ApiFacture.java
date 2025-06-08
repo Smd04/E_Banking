@@ -8,7 +8,7 @@ public class ApiFacture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String reference;
-    private String TypeFacture;
+    private String typeFacture;
 
     public ApiFacture() {
     }
@@ -16,7 +16,7 @@ public class ApiFacture {
     public ApiFacture(Long id, String reference, String typeFacture) {
         this.id = id;
         this.reference = reference;
-        TypeFacture = typeFacture;
+       this.typeFacture = typeFacture;
     }
 
     public Long getId() {
@@ -36,10 +36,10 @@ public class ApiFacture {
     }
 
     public String getTypeFacture() {
-        return TypeFacture;
+        return typeFacture;
     }
 
     public void setTypeFacture(String typeFacture) {
-        TypeFacture = typeFacture;
+        this.typeFacture = typeFacture;
     }
 }
