@@ -14,6 +14,7 @@ public class Administrator extends User {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String employeeId;
     String departement;
+
     @OneToMany(mappedBy = "admin")
     List<SupportMessage> supportMessages;
     @ManyToOne
