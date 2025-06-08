@@ -18,7 +18,7 @@ export interface Compte {
     dateExpiration?: string;
 
   };
-  AccountNumber:string
+  accountNumber:string
   accountId:number
 
 }

@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,8 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  constructor(private router:Router) {
+  }
   isCollapsed = true;
 
   toggleMenu() {
@@ -43,5 +46,23 @@ export class HeaderComponent {
     if (!target.closest('.navbar') && !this.isCollapsed) {
       this.isCollapsed = true;
     }
+  }
+  redirectToCompte(){
+    this.router.navigate(['/comptes']).then();
+  }
+  redirectToPaimentQRCode(){
+    this.router.navigate(['/paiment-qr-code']).then();
+  }
+  redirectToVirment(){
+    this.router.navigate(['/virement']).then();
+  }
+  redirectToRecharge(){
+    this.router.navigate(['/recharge']).then();
+  }
+  redirectToAbonnment(){
+    this.router.navigate(['/abonnemet']).then();
+  }
+  redirectToFacteur(){
+    this.router.navigate(['/facture']).then();
   }
 }

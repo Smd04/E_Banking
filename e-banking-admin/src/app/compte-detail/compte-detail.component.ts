@@ -20,6 +20,7 @@ import {
 import {Compte} from '../models/models-client/Compte';
 import {Transaction} from '../models/models-client/Transaction';
 import {CompteServiceService} from '../services/client_service/compte-service.service';
+import {HeaderComponent} from '../Components/header/header.component';
 
 @Component({
   selector: 'app-compte-detail',
@@ -27,7 +28,8 @@ import {CompteServiceService} from '../services/client_service/compte-service.se
     FormsModule,
     DecimalPipe,
     CommonModule,
-    RouterModule
+    RouterModule,
+    HeaderComponent
   ],
   templateUrl: './compte-detail.component.html',
   styleUrl: './compte-detail.component.css'
@@ -63,7 +65,7 @@ export class CompteDetailComponent {
       this.compteService.getComptesById(id).subscribe(data => {
         this.compteActif = data;
         console.log("compteActif " ,this.compteActif);
-        console.log("compte Actif RIB",this.compteActif.AccountNumber);
+        console.log("compte Actif RIB",this.compteActif.accountNumber);
         this.chargerDetailsCompte();
         this.getRecentTransaction();
         this.afficherGraphiqueSoldeMensuel();

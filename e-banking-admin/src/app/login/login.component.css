@@ -1,50 +1,55 @@
-body{
+body {
   background: url('https://source.unsplash.com/1600x900/?bank,finance') no-repeat center center fixed;
   background-size: cover;
 }
-.login-container{
+
+.login-container {
   max-width: 800px !important;
   width: 100%;
   height: 70%;
   margin: auto;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 20px  rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   margin-top: 100px;
-  background-color: rgba(27, 89, 45, 0.56) !important;
+  background-color: rgba(92, 115, 130, 0.56) !important; /* remplacé le vert */
 }
-h2{
+
+h2 {
   font-family: 'Arial', sans-serif !important;
   font-weight: bold;
   margin-bottom: 40px;
 }
-.btn-primary{
-  background-color: rgba(27, 89, 45, 0.56);
+
+.btn-primary {
+  background-color: rgba(92, 115, 130, 0.56); /* remplacé le vert */
   cursor: pointer;
-  border:none;
+  border: none;
   color: #fff;
   padding: 10px 10px;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
   background-color: #0000 !important;
-
-}
-.btn-primary:active{
-  border:solid #0000 !important;
 }
 
-.container{
+.btn-primary:active {
+  border: solid #0000 !important;
+}
+
+.container {
   position: relative;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
-.form-group,.form-control{
+
+.form-group,
+.form-control {
   margin: 4px;
-
 }
-.link{
+
+.link {
   color: white !important;
 }

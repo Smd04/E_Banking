@@ -16,8 +16,9 @@
             <label for="compte" class="col-sm-4 col-form-label">Compte </label>
             <div class="col-sm-8">
               <select id="compte" class="form-select" [(ngModel)]="compteUser" name="compteUser" required>
-                <option disabled selected>-- Sélectionner un compte --</option>
-                <option>1234567890</option>
+                <option *ngFor="let compte of comptes" [value]="compte.id">
+                  {{compte.id}} {{ compte.accountNumber }}
+                </option>
               </select>
             </div>
           </div>

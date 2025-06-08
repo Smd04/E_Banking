@@ -8,7 +8,7 @@ import {DashboardService} from '../../services/client_service/dashboard.service'
 import {Compte} from '../../models/models-client/Compte';
 import {MonthlyBalance} from '../../models/models-client/MonthlyBalance';
 import {Transaction} from '../../models/models-client/Transaction';
-import {RouterModule} from '@angular/router';
+import {Route, Router, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +18,6 @@ import {RouterModule} from '@angular/router';
     AsyncPipe,
     NgForOf,
     NgClass,
-    DatePipe,
     RouterModule,
   ],
   templateUrl: './dashboard.component.html',
@@ -26,7 +25,7 @@ import {RouterModule} from '@angular/router';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  constructor(private dashboardService:DashboardService) {
+  constructor(private dashboardService:DashboardService,private router:Router) {
   }
   account : Observable<Compte> | undefined;
   monthlyBalance:Observable<MonthlyBalance> | undefined;
@@ -52,4 +51,15 @@ export class DashboardComponent implements OnInit {
 
 
 
-  }}
+  }
+  redirectToTrenactions(){
+    this.router.navigate(['/transaction']).then();
+  }
+  toDateString(dateArray: [number, number, number, number?, number?]): string {
+    const [year, month, day] = dateArray;
+    const formattedMonth = month.toString().padStart(2, '0');
+    const formattedDay = day.toString().padStart(2, '0');
+    return `${year}-${formattedMonth}-${formattedDay}`;
+  }
+
+}

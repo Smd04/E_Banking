@@ -11,7 +11,7 @@ import { Transaction } from '../../models/models-client/Transaction';
   providedIn: 'root'
 })
 export class CompteServiceService {
-  private apiUrl = 'http://localhost:8090/project_e_banking/api/account/';
+  private apiUrl = 'http://localhost:8090/project_e_banking_war/api/account/';
 
   constructor(private http: HttpClient) {}
 
@@ -37,7 +37,7 @@ export class CompteServiceService {
     return this.http.get<any>(`${this.apiUrl}${id}/carte`);
   }
   getRecentTransactionByCompteId(id:number):Observable<Transaction[]>{
-    return  this.http.get<Transaction[]>(`http://localhost:8090/project_e_banking/api/account/${id}/RecentTransaction`);
+    return  this.http.get<Transaction[]>(`http://localhost:8090/project_e_banking_war/api/account/${id}/RecentTransaction`);
   }
    getMonthlyBalance(id:number):Observable<any>{
     return  this.http.get(`${this.apiUrl}${id}/MonthlyBalance`);
