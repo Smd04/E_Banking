@@ -1,0 +1,165 @@
+<!-- src/app/components/contract-management/contract-management.component.html -->
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <h2 class="card-title mb-0">Gestion des Contrats</h2>
+
+        <div class="card-body">
+
+          <!-- Messages de succès et d'erreur -->
+          <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ successMessage }}
+            <button type="button" class="btn-close" (click)="successMessage = ''" aria-label="Close"></button>
+          </div>
+
+          <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ errorMessage }}
+            <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
+          </div>
+
+          <!-- Formulaire -->
+          <form [formGroup]="contractForm" (ngSubmit)="onSubmit()">
+
+            <!-- Type de contrat -->
+            <div class="mb-3">
+              <label for="type" class="form-label">Type de contrat *</label>
+              <select
+                id="type"
+                class="form-select"
+                formControlName="type"
+                [class.is-invalid]="isFieldInvalid('type')">
+                <option value="">Sélectionnez un type</option>
+                <option *ngFor="let type of contractTypes" [value]="type.value">
+                  {{ type.label }}
+                </option>
+              </select>
+              <div *ngIf="isFieldInvalid('type')" class="invalid-feedback">
+                {{ getFieldError('type') }}
+              </div>
+            </div>
+
+            <!-- Dates -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="startDate" class="form-label">Date de début *</label>
+                <input
+                  type="date"
+                  id="startDate"
+                  class="form-control"
+                  formControlName="startDate"
+                  [class.is-invalid]="isFieldInvalid('startDate')">
+                <div *ngIf="isFieldInvalid('startDate')" class="invalid-feedback">
+                  {{ getFieldError('startDate') }}
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="endDate" class="form-label">Date de fin</label>
+                <input
+                  type="date"
+                  id="endDate"
+                  class="form-control"
+                  formControlName="endDate">
+              </div>
+            </div>
+
+            <!-- Montant -->
+            <div class="mb-3">
+              <label for="amount" class="form-label">Montant *</label>
+              <div class="input-group">
+                <input
+                  type="number"
+                  id="amount"
+                  class="form-control"
+                  formControlName="amount"
+                  placeholder="0.00"
+                  step="0.01"
+                  [class.is-invalid]="isFieldInvalid('amount')">
+                <span class="input-group-text"></span>
+              </div>
+              <div *ngIf="isFieldInvalid('amount')" class="invalid-feedback">
+                {{ getFieldError('amount') }}
+              </div>
+            </div>
+
+            <!-- Statut -->
+            <div class="mb-3">
+              <label for="status" class="form-label">Statut *</label>
+              <select
+                id="status"
+                class="form-select"
+                formControlName="status"
+                [class.is-invalid]="isFieldInvalid('status')">
+                <option value="">Sélectionnez un statut</option>
+                <option *ngFor="let status of statusOptions" [value]="status.value">
+                  {{ status.label }}
+                </option>
+              </select>
+              <div *ngIf="isFieldInvalid('status')" class="invalid-feedback">
+                {{ getFieldError('status') }}
+              </div>
+            </div>
+
+            <!-- IDs -->
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="userId" class="form-label">ID Utilisateur *</label>
+                <input
+                  type="number"
+                  id="userId"
+                  class="form-control"
+                  formControlName="userId"
+                  placeholder="1"
+                  [class.is-invalid]="isFieldInvalid('userId')">
+                <div *ngIf="isFieldInvalid('userId')" class="invalid-feedback">
+                  {{ getFieldError('userId') }}
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="agentId" class="form-label">ID Agent *</label>
+                <input
+                  type="number"
+                  id="agentId"
+                  class="form-control"
+                  formControlName="agentId"
+                  placeholder="1"
+                  [class.is-invalid]="isFieldInvalid('agentId')">
+                <div *ngIf="isFieldInvalid('agentId')" class="invalid-feedback">
+                  {{ getFieldError('agentId') }}
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="bankId" class="form-label">ID Banque *</label>
+                <input
+                  type="number"
+                  id="bankId"
+                  class="form-control"
+                  formControlName="bankId"
+                  placeholder="1"
+                  [class.is-invalid]="isFieldInvalid('bankId')">
+                <div *ngIf="isFieldInvalid('bankId')" class="invalid-feedback">
+                  {{ getFieldError('bankId') }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Bouton de soumission -->
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="isLoading">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                {{ isLoading ? 'Création en cours...' : 'Créer le contrat' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

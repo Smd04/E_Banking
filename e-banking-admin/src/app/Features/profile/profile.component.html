@@ -1,0 +1,210 @@
+  <app-header></app-header>
+  <div class="main-content" style="margin-top: 7%">
+    <div class="content-area"><div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Profil Bancaire</h1>
+    <span class="badge bg-gold fs-6 py-2 px-3">
+      <i class="bi bi-star-fill me-1"></i> {{client.status}}
+    </span>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Informations Personnelles</h5>
+        </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <div class="position-relative mx-auto" style="width: 120px;">
+              <img
+                src="https://via.placeholder.com/120"
+                class="img-fluid rounded-circle border border-3 border-primary"
+                alt="Photo de profil"
+              >
+            </div>
+            <h3 class="mt-3 mb-1">{{client.title}} {{client.firstName}} {{client.lastName}}</h3>
+            <p class="text-muted mb-0">{{client.profession}}</p>
+          </div>
+
+          <div class="d-grid gap-2 mb-4">
+            <button
+              (click)="toggleEdit()"
+              class="btn btn-outline-primary"
+            >
+              <i class="bi bi-pencil me-2"></i>
+              {{ isEditing ? 'Annuler' : 'Modifier' }}
+            </button>
+          </div>
+
+          <div class="border-top pt-3">
+            <h6 class="text-primary mb-3">Détails du compte</h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                <span>ID Client:</span>
+                <strong>{{client.id}}</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Client depuis:</span>
+                <strong>{{client.clientSince | date: 'dd/MM/yyyy'}}</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Dernière connexion:</span>
+                <strong>{{client.lastLogin | date: 'dd/MM/yyyy HH:mm'}}</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Informations Personnelles</h5>
+      <button class="btn btn-sm btn-link" (click)="showSecuritySection = !showSecuritySection">
+        {{ showSecuritySection ? 'Masquer' : 'Afficher' }} sécurité
+      </button>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="profileForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Civilité</label>
+              <select class="form-select" formControlName="title" [disabled]="!isEditing">
+                <option value="M.">Monsieur</option>
+                <option value="Mme">Madame</option>
+                <option value="Mlle">Mademoiselle</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Prénom</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="firstName"
+                [readonly]="!isEditing"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Nom</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="lastName"
+                [readonly]="!isEditing"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Date de naissance</label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="birthDate"
+                [readonly]="!isEditing"
+              >
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+                [readonly]="!isEditing"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Téléphone</label>
+              <input
+                type="tel"
+                class="form-control"
+                formControlName="phone"
+                [readonly]="!isEditing"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Adresse</label>
+              <textarea
+                class="form-control"
+                rows="2"
+                formControlName="address"
+                [readonly]="!isEditing"
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Profession</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="profession"
+                [readonly]="!isEditing"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Sécurité (cachée par défaut) -->
+        <div *ngIf="showSecuritySection" class="border-top pt-3 mt-3">
+          <h6 class="text-primary mb-3">Paramètres de sécurité</h6>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Mot de passe</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    value="••••••••"
+                    readonly
+                  >
+                  <button class="btn btn-outline-secondary" type="button">
+                    Modifier
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Authentification à deux facteurs</label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="2faSwitch" checked>
+                  <label class="form-check-label" for="2faSwitch">Activée</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boutons d'enregistrement -->
+        <div *ngIf="isEditing" class="d-flex justify-content-end gap-2 mt-4">
+          <button
+            type="button"
+            class="btn btn-primary px-4"
+            (click)="saveProfile()"
+            [disabled]="profileForm.invalid || isLoading"
+          >
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1"></span>
+            <i *ngIf="!isLoading" class="bi bi-save me-2"></i>
+            Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+    </div>
+  </div>
+

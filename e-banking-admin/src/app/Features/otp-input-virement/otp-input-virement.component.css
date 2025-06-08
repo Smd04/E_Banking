@@ -1,0 +1,37 @@
+.otp-container {
+  max-width: 60em;
+  margin: 100px auto;
+  font-family: Arial, sans-serif;
+  background-color: rgba(27, 89, 45, 0.1);
+  border: #1b592d solid 1px;
+  border-radius: 5px;
+  padding: 100px;
+}
+
+
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.valid {
+  color: green;
+}
+
+.invalid {
+  color: red;
+}

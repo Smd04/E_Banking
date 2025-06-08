@@ -1,0 +1,75 @@
+  <app-header></app-header>
+  <div class="main-content" style="margin-top: 7%">
+    <div class="content-area">
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h3 class="card-title mb-0">
+              <i class="bi bi-journal-check me-2 text-bg-success"></i>Nouvel Abonnement
+            </h3>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="verifierAbonnement()" #ngAbonnement="ngForm">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="mb-3">
+                    <label for="dateProchainCheck" class="form-label fw-bold">Saisir Date de paiement:</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                      <input type="date" class="form-control" id="dateProchainCheck" name="dateProchainCheck" [(ngModel)]="dateProchainCheck" name="dateEcheance" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="compte" class="form-label fw-bold">Choisir votre compte</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                    <select class="form-select" id="compte" name="compte" required [(ngModel)]="compteNumber">
+                      <option value="" disabled selected>Choisissez Votre compte</option>
+                      <option *ngFor="let compte of comptes" [value]="compte.id">
+                        {{compte.id}} {{ compte.accountNumber }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              <div class="mb-3">
+                <label for="typeAbonnement" class="form-label fw-bold">Type d'Abonnement</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-box-seam"></i></span>
+                  <select class="form-select" id="typeAbonnement" name="typeAbonnement" required [(ngModel)]="type">
+                    <option value="" disabled selected>Choisissez un type</option>
+                    <option value="Internet">Internet</option>
+                    <option value="TV"> Spotify</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Autre">Netflix</option>
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="referenceAbonne" class="form-label fw-bold">Référence Abonné</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-key"></i></span>
+                  <input type="text" class="form-control" id="referenceAbonne" name="referenceAbonne"
+                         placeholder="Entrez la référence abonné" required [(ngModel)]="referenceAbonne">
+                </div>
+                <div class="form-text">Code abonné à 10 caractères</div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <button type="reset" class="btn btn-outline-secondary">
+                  <i class="bi bi-x-circle me-2"></i>Réinitialiser
+                </button>
+                <button type="submit" class="btn btn-primary" [disabled]="!ngAbonnement.form.valid">
+                  <i class="bi bi-save me-2"></i>Enregistrer
+                </button>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

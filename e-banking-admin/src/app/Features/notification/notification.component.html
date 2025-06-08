@@ -1,0 +1,77 @@
+  <app-header></app-header>
+  <div class="main-content" style="margin-top: 7%">
+    <div class="content-area">
+<div class="demo-container">
+  <h2 class="controls-title">Types de Notifications</h2>
+
+  <div class="notification-types">
+    <div class="notification-type success" onclick="showNotification('success')">
+      <div class="type-icon">
+        <i class="bi bi-check-circle"></i>
+      </div>
+      <div class="type-name">Succès</div>
+      <div class="type-desc">Opération réussie</div>
+    </div>
+
+    <div class="notification-type error" onclick="showNotification('error')">
+      <div class="type-icon">
+        <i class="bi bi-x-circle"></i>
+      </div>
+      <div class="type-name">Erreur</div>
+      <div class="type-desc">Problème critique</div>
+    </div>
+
+    <div class="notification-type warning" onclick="showNotification('warning')">
+      <div class="type-icon">
+        <i class="bi bi-exclamation-triangle"></i>
+      </div>
+      <div class="type-name">Avertissement</div>
+      <div class="type-desc">Action nécessaire</div>
+    </div>
+
+    <div class="notification-type info" onclick="showNotification('info')">
+      <div class="type-icon">
+        <i class="bi bi-info-circle"></i>
+      </div>
+      <div class="type-name">Information</div>
+      <div class="type-desc">Message informatif</div>
+    </div>
+  </div>
+
+  <div class="customization">
+    <h3 class="custom-title">Personnaliser votre notification</h3>
+
+    <div class="form-group">
+      <label for="notification-title">Titre</label>
+      <input type="text" class="form-control" id="notification-title" value="Notification personnalisée">
+    </div>
+
+    <div class="form-group">
+      <label for="notification-message">Message</label>
+      <textarea class="form-control" id="notification-message" rows="3">Ceci est un exemple de notification personnalisée que vous pouvez configurer selon vos besoins.</textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="notification-type">Type</label>
+      <select class="form-control" id="notification-type">
+        <option value="success">Succès</option>
+        <option value="error">Erreur</option>
+        <option value="warning">Avertissement</option>
+        <option value="info">Information</option>
+      </select>
+    </div>
+
+    <button class="btn-send" onclick="showCustomNotification()">
+      <i class="bi bi-send"></i> Envoyer une notification personnalisée
+    </button>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2023 Système de Notifications. Tous droits réservés.</p>
+  <p>Composant réutilisable pour vos applications web</p>
+</footer>
+</div>
+
+<div class="notification-container" id="notificationContainer"></div>
+  </div>

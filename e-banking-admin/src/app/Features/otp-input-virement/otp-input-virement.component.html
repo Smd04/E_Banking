@@ -1,0 +1,24 @@
+<body style="background-color: #f4f4f5; min-height: 100vh;">
+  <app-header></app-header>
+  <div class="main-content" style="margin-top: 7%;">
+    <div class="content-area">
+<div class="otp-container">
+  <h1>Validation de virements: </h1>
+  <label for="otp">Entrez votre code de validation:</label>
+  <input
+    id="otp"
+    type="text"
+    maxlength="6"
+    [(ngModel)]="otpCode"
+    (input)="onInputChange()"
+    placeholder="6 chiffres"
+  />
+  <button [disabled]="!isValid" (click)="validateOtp()" class="btn btn-success btn-close-white">Valider</button>
+
+  <p *ngIf="message" [ngClass]="{ valid: isCodeValid, invalid: !isCodeValid }">
+    {{ message }}
+  </p>
+</div>
+    </div>
+  </div>
+</body>

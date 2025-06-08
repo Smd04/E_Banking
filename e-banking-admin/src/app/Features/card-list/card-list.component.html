@@ -1,0 +1,16 @@
+  <app-header></app-header>
+  <div class="main-content" style="margin-top: 7%">
+    <div class="content-area">
+<div class="card-list-container">
+  <h2 class="section-title">Mes cartes bancaires</h2>
+
+  <div class="container mt-3 mx-lg-5 px-lg-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div class="col" *ngFor="let card of cards">
+        <app-bank-card [card]="card"></app-bank-card>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>

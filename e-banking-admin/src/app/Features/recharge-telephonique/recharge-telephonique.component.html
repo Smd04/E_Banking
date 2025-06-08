@@ -1,0 +1,64 @@
+<div class="dashboard-container">
+<app-header></app-header>
+  <div class="main-content" style="margin-top: 7%;">
+    <div class="content-area">
+<div class="container py-5">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-5 text-center mb-4 mb-md-0">
+      <img src="assets/images/recharge-icon.jpg" alt="Recharge" class="img-fluid">
+    </div>
+    <div class="col-md-7">
+      <div class="card shadow p-4 bg-white">
+        <h3 class="text text-center mb-4" style="color:#1b592d">📲 Recharge téléphonique</h3>
+
+        <form  (ngSubmit)="initier()" #RechargeForm="ngForm">
+          <div class="row mb-3 align-items-center">
+            <label for="compte" class="col-sm-4 col-form-label">Compte </label>
+            <div class="col-sm-8">
+              <select id="compte" class="form-select" [(ngModel)]="compteUser" name="compteUser" required>
+                <option *ngFor="let compte of comptes" [value]="compte.id">
+                  {{compte.id}} {{ compte.accountNumber }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3 align-items-center">
+            <label for="operator" class="col-sm-4 col-form-label">Opérateur</label>
+            <div class="col-sm-8">
+              <select id="operator" class="form-select" [(ngModel)]="operatorName" name="operatorName" required>
+                <option disabled selected>-- Sélectionner un opérateur --</option>
+                <option>Orange</option>
+                <option>Maroc Telecom</option>
+                <option>Inwi</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Numéro téléphone -->
+          <div class="row mb-3 align-items-center">
+            <label for="phone" class="col-sm-4 col-form-label">N° téléphone</label>
+            <div class="col-sm-8">
+              <input type="tel" id="phone" class="form-control" placeholder="Ex: 0612345678" [(ngModel)]="phone" name="phone" required />
+            </div>
+          </div>
+
+          <!-- Montant -->
+          <div class="row mb-3 align-items-center">
+            <label for="montant" class="col-sm-4 col-form-label">Montant</label>
+            <div class="col-sm-8">
+              <input type="number" id="montant" class="form-control" placeholder="Ex: 100 MAD" [(ngModel)]="montant" name="montant" required />
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-success px-5" [disabled]="!RechargeForm.form.valid">Valider la recharge</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+

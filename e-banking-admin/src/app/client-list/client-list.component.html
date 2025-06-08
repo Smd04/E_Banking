@@ -1,0 +1,95 @@
+<div class="client-list-container">
+  <h2>Liste des Clients Enrôlés</h2>
+
+  <!-- Statistiques -->
+  <div class="stats-section">
+    <div class="stat-card">
+      <h3>Total Clients</h3>
+      <p class="stat-number">{{ getTotalClients() }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Clients Actifs</h3>
+      <p class="stat-number">{{ getActiveClients() }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Dépôts Totaux</h3>
+      <p class="stat-number">EUR: {{ getTotalDepositsEUR() | currency:'EUR':'symbol':'1.2-2' }}</p>
+      <p class="stat-number">USD: {{ getTotalDepositsUSD() | currency:'USD':'symbol':'1.2-2' }}</p>
+    </div>
+  </div>
+
+  <!-- Filtres et recherche -->
+  <div class="filters-section">
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Rechercher par nom, email, username ou ville..."
+        (input)="onSearch($event)"
+        class="search-input"
+      />
+    </div>
+
+    <div class="filter-group">
+      <select (change)="onStatusFilter($event)" class="filter-select">
+        <option value="all">Tous les statuts</option>
+        <option value="ACTIVE">Actif</option>
+        <option value="INACTIVE">Inactif</option>
+      </select>
+
+      <select (change)="onTypeFilter($event)" class="filter-select">
+        <option value="all">Tous les types</option>
+        <option value="courant">Courant</option>
+        <option value="epargne">Épargne</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tableau des clients -->
+  <div class="table-container">
+    <table class="client-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Type</th>
+        <th>Devise</th>
+        <th>Dépôt Initial</th>
+        <th>Statut</th>
+        <th>Ville</th>
+        <th>Date d'Enrôlement</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let client of filteredClients" class="client-row">
+        <td>{{ client.id }}</td>
+        <td class="client-name">{{ client.name }}</td>
+        <td>{{ client.username }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.phone }}</td>
+        <td>
+            <span class="type-badge" [class]="'type-' + client.type">
+              {{ client.type | titlecase }}
+            </span>
+        </td>
+        <td>{{ client.currency }}</td>
+        <td>{{ client.initialDeposit | currency:client.currency:'symbol':'1.2-2' }}</td>
+        <td>
+            <span class="status-badge" [class]="getStatusClass(client.status)">
+              {{ client.status }}
+            </span>
+        </td>
+        <td>{{ client.city }}</td>
+        <td>{{ client.dateEnrolled | date:'dd/MM/yyyy' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Message si aucun client trouvé -->
+  <div *ngIf="filteredClients.length === 0" class="no-clients-message">
+    <p>Aucun client trouvé avec les critères de recherche actuels.</p>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="header.component.css">
+<header class="bank-header fixed-top bg-white shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-light py-0">
+    <div class="container-fluid">
+
+      <a class="navbar-brand fw-bold text-primary py-2" href="/">
+        <span class="d-none d-sm-inline" style="color:rgba(27, 89, 45, 0.61);">Ma Banque</span>
+      </a>
+
+      <!-- Toggle button pour mobile -->
+      <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu principal -->
+      <div [class.collapse]="isCollapsed" class="navbar-collapse" id="navbarNav" [style.maxHeight.px]="getMaxHeight()">
+        <ul class="navbar-nav me-auto">
+          <!-- Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard-user" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fas fa-home me-1 text-white"></i>
+              <span class="menu-text text-success">Dashboard</span>
+            </a>
+          </li>
+
+          <!-- Consultation -->
+          <li class="nav-item dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle" id="consultationDropdown" ngbDropdownToggle>
+              <i class="fa-solid fa-eye me-1 text-white"></i>
+              <span class="menu-text text-success">Consultation</span>
+            </a>
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <a class="dropdown-item" (click)="redirectToCompte(); closeMenu()">
+                <i class="fa-solid fa-wallet me-2"></i>Mes Comptes
+              </a>
+
+            </div>
+          </li>
+
+          <!-- Paiement -->
+          <li class="nav-item dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle" id="paiementDropdown" ngbDropdownToggle>
+              <i class="fa-solid fa-money-bill-transfer me-1 text-white"></i>
+              <span class="menu-text text-success">Paiement & Transferts</span>
+            </a>
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <a class="dropdown-item"  (click)="redirectToVirment(); closeMenu()">
+                <i class="fa-solid fa-right-left me-2"></i>Virement
+              </a>
+              <a class="dropdown-item"  (click)="redirectToRecharge(); closeMenu()">
+                <i class="fa-solid fa-mobile-screen-button me-2"></i>Recharge Mobile
+              </a>
+            </div>
+          </li>
+
+          <!-- Paiement automatique -->
+          <li class="nav-item dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle" id="paiementAutomatic" ngbDropdownToggle>
+              <i class="fa-solid fa-money-bill-transfer me-1 text-white"></i>
+              <span class="menu-text text-success">Paiements automatiques</span>
+            </a>
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <a class="dropdown-item"  (click)="redirectToFacteur(); closeMenu()">
+                <i class="fa-solid fa-file-invoice-dollar me-2"></i>Ajouter une facture
+              </a>
+              <a class="dropdown-item"  (click)="redirectToAbonnment(); closeMenu()">
+                <i class="fa-solid fa-calendar-check me-2"></i>Ajouter un abonnement
+              </a>
+              <a class="dropdown-item" href="/historique-paiement" (click)="closeMenu()">
+                <i class="fa-solid fa-list me-2"></i>Liste des paiements automatisés
+              </a>
+            </div>
+          </li>
+
+          <!-- Chatbot -->
+          <li class="nav-item">
+            <a class="nav-link" href="/chatbot" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fa-solid fa-circle-question me-1 text-white"></i>
+              <span class="menu-text text-success">Chatbot</span>
+            </a>
+          </li>
+
+          <!-- Support -->
+          <li class="nav-item">
+            <a class="nav-link" href="/support" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fa-solid fa-circle-question me-1 text-white"></i>
+              <span class="menu-text text-success">Aide & Support</span>
+            </a>
+          </li>
+
+          <!-- Paramètres -->
+          <li class="nav-item">
+            <a class="nav-link" href="/settings" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fas fa-cog me-1 text-white"></i>
+              <span class="menu-text text-success">Paramètres</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Droite : QR + utilisateur -->
+        <div class="d-flex align-items-center">
+          <a class="btn btn-sm btn-outline-primary me-2" (click)="redirectToPaimentQRCode(); closeMenu()">
+            <i class="bi bi-qr-code text-white"></i>
+            <span class="d-none d-lg-inline ms-1 text-success">Paiement QR</span>
+          </a>
+
+          <div class="dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle d-flex align-items-center" id="userDropdown" ngbDropdownToggle>
+              <i class="bi bi-person-circle me-1"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+              <a class="dropdown-item" href="/profile" (click)="closeMenu()">
+                <i class="bi bi-person me-2"></i>Profil
+              </a>
+              <a class="dropdown-item" href="#" (click)="closeMenu()">
+                <i class="bi bi-gear me-2"></i>Paramètres
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-danger" href="/logout">
+                <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
