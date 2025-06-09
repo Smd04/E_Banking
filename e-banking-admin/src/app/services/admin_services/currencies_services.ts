@@ -20,19 +20,19 @@ export class CurrenciesService {
 constructor(private http: HttpClient) {}
 
 addcurrency(currency:Currency){
-  return this.http.post<Currency>('http://localhost:8080/project_e_banking_war_exploded/api/admin/devise/adddevise', currency);
+  return this.http.post<Currency>('http://localhost:8080/project_e_banking_war/api/admin/devise/adddevise', currency);
 }
 
 getCurrencies() {
-  return this.http.get<any[]>('http://localhost:8080/project_e_banking_war_exploded/api/admin/devise/devises');
+  return this.http.get<any[]>('http://localhost:8080/project_e_banking_war/api/admin/devise/devises');
 }
 
 toggleCurrencyStatus(id: number) {
-  return this.http.put<any>(`http://localhost:8080/project_e_banking_war_exploded/api/admin/devise/changestatus/${id}`,{});
+  return this.http.put<any>(`http://localhost:8080/project_e_banking_war/api/admin/devise/changestatus/${id}`,{});
 }
 
 updatecurrency(currency:Currency){
-  return this.http.post<Currency>('http://localhost:8080/project_e_banking_war_exploded/api/admin/devise/updatedevise', currency);
+  return this.http.post<Currency>('http://localhost:8080/project_e_banking_war/api/admin/devise/updatedevise', currency);
 }
 
 

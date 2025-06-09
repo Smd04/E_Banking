@@ -19,7 +19,7 @@ interface RechargeResponse {
   providedIn: 'root'
 })
 export class RechargeService {
-  private baseUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/recharge';
+  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/recharge';
 
   constructor(private http: HttpClient, private router: Router) { }
 

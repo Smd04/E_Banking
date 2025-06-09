@@ -10,14 +10,14 @@ export class SupportmessageServiceTsService {
   constructor(private http: HttpClient) { }
 
   getAllrequestmessages() {
-    return this.http.get<any[]>('http://localhost:8080/project_e_banking_war_exploded/api/admin/supportmessages/getallmessages');
+    return this.http.get<any[]>('http://localhost:8080/project_e_banking_war/api/admin/supportmessages/getallmessages');
   }
 
   deletemessage(id:number){
-    return this.http.put<any[]>(`http://localhost:8080/project_e_banking_war_exploded/api/admin/supportmessages/deletemessage/${id}`,{})
+    return this.http.put<any[]>(`http://localhost:8080/project_e_banking_war/api/admin/supportmessages/deletemessage/${id}`,{})
   }
 
   addresponsemessage(msg:any){
-    return this.http.post<any>('http://localhost:8080/project_e_banking_war_exploded/api/admin/supportmessages/addresponsemessage',msg)
+    return this.http.post<any>('http://localhost:8080/project_e_banking_war/api/admin/supportmessages/addresponsemessage',msg)
   }
 }

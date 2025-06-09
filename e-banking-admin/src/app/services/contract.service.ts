@@ -9,7 +9,7 @@ import { Contract } from '../models/contract';
   providedIn: 'root'
 })
 export class ContractService {
-  private apiUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/banque'; 
+  private apiUrl = 'http://localhost:8080/project_e_banking_war/api/banque'; 
 
   constructor(private http: HttpClient) {}
 

@@ -10,7 +10,7 @@ import {Abonnement} from '../../models/models-client/Abonnement';
   providedIn: 'root'
 })
 export class AbonnementService {
-  private apiUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/abonnement';
+  private apiUrl = 'http://localhost:8080/project_e_banking_war/api/abonnement';
 
   constructor(private http: HttpClient) { }
 

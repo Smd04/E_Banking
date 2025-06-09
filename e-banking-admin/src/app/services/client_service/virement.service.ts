@@ -20,7 +20,7 @@ interface VirementResponse {
   providedIn: 'root'
 })
 export class VirementService {
-  private baseUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/virement';
+  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/virement';
 
   constructor(private http: HttpClient, private router: Router) { }
   initierVirement(credentials: VirementRequest): Observable<any> {

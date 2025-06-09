@@ -17,7 +17,7 @@ export interface SystemSettingsDto {
   providedIn: 'root'
 })
 export class SystemSettingsService {
-  private baseUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/admin/users/settings';
+  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/admin/users/settings';
 
   constructor(private http: HttpClient) {}
 
