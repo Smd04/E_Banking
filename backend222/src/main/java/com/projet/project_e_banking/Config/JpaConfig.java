@@ -38,7 +38,7 @@ public class JpaConfig {
         ds.setDriverClassName("org.postgresql.Driver");
         ds.setUrl("jdbc:postgresql://postgres-service-ebanking.i.aivencloud.com:17465/ebanking?sslmode=require");
         ds.setUsername("avnadmin");
-        ds.setPassword("AVNS_msK5W5SBmKQoKAG_Z-T");
+        ds.setPassword("");
         return ds;
     }
 
