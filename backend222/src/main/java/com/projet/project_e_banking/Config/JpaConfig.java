@@ -36,13 +36,12 @@ public class JpaConfig {
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUrl("jdbc:postgresql://localhost:5432/ebanking");
-        ds.setUsername("postgres");
-
-        ds.setPassword("Zaraki12345");
-
+        ds.setUrl("jdbc:postgresql://postgres-service-ebanking.i.aivencloud.com:17465/ebanking?sslmode=require");
+        ds.setUsername("avnadmin");
+        ds.setPassword("AVNS_msK5W5SBmKQoKAG_Z-T");
         return ds;
     }
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
