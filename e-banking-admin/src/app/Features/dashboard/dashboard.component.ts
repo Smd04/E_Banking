@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CompteChartComponent} from '../../Components/Chart/compte-chart.component';
 import {HeaderComponent} from '../../Components/header/header.component';
-
+import {NavbarComponent} from '../../shared/navbar/navbar.component'
 import {Observable} from 'rxjs';
 import {AsyncPipe, DatePipe, NgClass, NgForOf} from '@angular/common';
 import {DashboardService} from '../../services/client_service/dashboard.service';
@@ -19,6 +19,7 @@ import {Route, Router, RouterModule} from '@angular/router';
     NgForOf,
     NgClass,
     RouterModule,
+    NavbarComponent
   ],
   templateUrl: './dashboard.component.html',
   standalone: true,

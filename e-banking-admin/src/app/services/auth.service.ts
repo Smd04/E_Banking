@@ -18,7 +18,7 @@ interface LoginResponse {
 interface JwtPayload {
   sub: string;
   email?: string;
-  phoneNumber?: string;
+  phone?: string;
   token?: string;
   role?: string;
 }
@@ -44,10 +44,12 @@ export class AuthService {
         const user: User = {
           id: decoded.sub,
           email: decoded.email || credentials.username,
-          firstName: '',
-          lastName: ''
+          firstName:'',
+          lastName: '',
         };
+        localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('email', user.email);
+        console.log(localStorage.getItem('email'));
         this.currentUserSubject.next(user);
       })
     );
@@ -70,10 +72,10 @@ export class AuthService {
 
     try {
       const decoded = jwtDecode<JwtPayload>(token);
-      return decoded.phoneNumber || null;
+      return decoded.phone|| '';
     } catch (error) {
       console.error('Erreur de décodage du token :', error);
-      return null;
+      return '';
     }
   }
 

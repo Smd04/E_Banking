@@ -30,6 +30,7 @@ import {VirementComponent} from './Features/virement/virement.component';
 import {RechargeTelephoniqueComponent} from './Features/recharge-telephonique/recharge-telephonique.component';
 import { DashboardComponent as dashboard } from './Features/dashboard/dashboard.component';
 import {AccountComponent} from './Features/account/account.component'
+import {AuthGuard} from './guards/auth.guard'
 
 
 
@@ -37,36 +38,36 @@ import {AccountComponent} from './Features/account/account.component'
 
 
 export const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'admin/currencies', component: CurrenciesComponent },
-  { path: 'admin/supportmessages', component: SupportmessagesComponent},
-  { path: 'admin/admins', component: AdminsManagementComponent},
-  { path: 'globalsettings', component: UserListComponent },
-  { path: 'referral', component: ReferralComponent },
-  { path: 'crypto', component: CryptoListComponent },
-  { path: 'cryptotransactions', component: TransactionsComponent},
-  { path: 'create-contract', component: CreateContractComponent },
-  { path: 'enrol-client', component: EnrolClientComponent },
-  { path: 'client-list', component: ClientListComponent },
-  { path: 'contract-list', component: ContractListComponent },
-  {path: 'account' , component:AccountComponent },
-  {path:'comptes' ,component: ComptesComponentComponent},
-  {path:'detail-compte/:id' , component:CompteDetailComponent},
-  {path:'transaction' , component:TransactionComponent},
-  {path:'paiment-qr-code',component:PaimaentQrCodeComponent},
+  { path: 'dashboard', component: DashboardComponent  ,canActivate: [AuthGuard] },
+  { path: 'admin/currencies', component: CurrenciesComponent ,canActivate: [AuthGuard]},
+  { path: 'admin/supportmessages', component: SupportmessagesComponent,canActivate: [AuthGuard]},
+  { path: 'admin/admins', component: AdminsManagementComponent ,canActivate: [AuthGuard]},
+  { path: 'globalsettings', component: UserListComponent ,canActivate: [AuthGuard]},
+  { path: 'referral', component: ReferralComponent,canActivate: [AuthGuard]},
+  { path: 'crypto', component: CryptoListComponent ,canActivate: [AuthGuard]},
+  { path: 'cryptotransactions', component: TransactionsComponent,canActivate: [AuthGuard]},
+  { path: 'create-contract', component: CreateContractComponent,canActivate: [AuthGuard] },
+  { path: 'enrol-client', component: EnrolClientComponent ,canActivate: [AuthGuard]},
+  { path: 'client-list', component: ClientListComponent ,canActivate: [AuthGuard]},
+  { path: 'contract-list', component: ContractListComponent,canActivate: [AuthGuard] },
+  {path: 'account' , component:AccountComponent ,canActivate: [AuthGuard]},
+  {path:'comptes' ,component: ComptesComponentComponent,canActivate: [AuthGuard]},
+  {path:'detail-compte/:id' , component:CompteDetailComponent,canActivate: [AuthGuard]},
+  {path:'transaction' , component:TransactionComponent ,canActivate: [AuthGuard]},
+  {path:'paiment-qr-code',component:PaimaentQrCodeComponent,canActivate: [AuthGuard]},
   {path:'' , component:LoginComponent},
-  {path:"dashboard-user" ,component: dashboard},
-  {path:"virement", component: VirementComponent},
-  {path:'recharge', component: RechargeTelephoniqueComponent},
-  {path:'code-validation-virement',component:OtpInputVirementComponent},
-  {path:'code-validation-recharge',component:OtpInputRechargeComponent},
-  {path:'logout',component:LoginComponent},
-  {path:'card',component:CardListComponent},
-  {path:'facture',component:FactureComponent},
-  {path:'abonnement',component:AbonnementComponent},
-  {path:'support',component:SupportComponent},
-  {path:'notification',component:NotificationComponent},
-  {path:'historique-paiement',component:HistoriquePaiementComponent},
-  {path:'historique-all-paiement',component:AllPaiementComponent},
-  {path:'profile',component:ProfileComponent}
+  {path:"dashboard-user" ,component: dashboard,canActivate: [AuthGuard]},
+  {path:"virement", component: VirementComponent,canActivate: [AuthGuard]},
+  {path:'recharge', component: RechargeTelephoniqueComponent,canActivate: [AuthGuard]},
+  {path:'code-validation-virement',component:OtpInputVirementComponent,canActivate: [AuthGuard]},
+  {path:'code-validation-recharge',component:OtpInputRechargeComponent,canActivate: [AuthGuard]},
+  {path:'logout',component:LoginComponent,canActivate: [AuthGuard]},
+  {path:'card',component:CardListComponent,canActivate: [AuthGuard]},
+  {path:'facture',component:FactureComponent,canActivate: [AuthGuard]},
+  {path:'abonnement',component:AbonnementComponent,canActivate: [AuthGuard]},
+  {path:'support',component:SupportComponent,canActivate: [AuthGuard]},
+  {path:'notification',component:NotificationComponent,canActivate: [AuthGuard]},
+  {path:'historique-paiement',component:HistoriquePaiementComponent,canActivate: [AuthGuard]},
+  {path:'historique-all-paiement',component:AllPaiementComponent,canActivate: [AuthGuard]},
+  {path:'profile',component:ProfileComponent,canActivate: [AuthGuard]}
 ];

@@ -51,6 +51,7 @@ public class AuthController {
         }
     }
 
+
     @GetMapping("/login")
     public String authenticateUser2(){
         return "auth workks ";

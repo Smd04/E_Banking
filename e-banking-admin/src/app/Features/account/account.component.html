@@ -1,1 +1,13 @@
-<p>account works!</p>
+<div *ngIf="user; else noUser" class="user-info-container">
+    <h2>User Info</h2>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Address:</strong> {{ user.address }}</p>
+    <p><strong>Phone:</strong> {{ user.phone }}</p>
+  </div>
+  
+  <ng-template #noUser>
+    <p class="no-user-message">No user info available.</p>
+  </ng-template>
+  

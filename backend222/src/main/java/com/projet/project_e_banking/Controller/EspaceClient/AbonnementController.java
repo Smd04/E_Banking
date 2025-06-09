@@ -14,6 +14,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/abonnement")
 public class AbonnementController {
@@ -45,6 +48,21 @@ public class AbonnementController {
         abonnementService.saveAbbonement(abonnementAuto);
         return ResponseEntity.ok("200");
 
+    }
+
+    @PostMapping("/getuser")
+    public ResponseEntity<?> getuser(@RequestBody String username){
+        System.out.println("hyy");
+        User user=customUserDetailsService.findUserByUsername(username);
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", user.getId());
+        response.put("username", user.getUsername());
+        response.put("email", user.getEmail());
+        response.put("name", user.getName());
+        response.put("phone", user.getPhone());
+        response.put("address", user.getAddress());
+
+        return ResponseEntity.ok(response);
     }
 }
 

@@ -34,11 +34,17 @@ public class JwtTokenProvider {
         String username = null;
         String role = null;
         String email = null;
+        String name =null;
+        String phone=null;
+        String address=null;
 
         if(principal instanceof User) {
             username = ((User)principal).getUsername();
             role =((User)principal).getRole().toString();
             email = ((User)principal).getEmail();
+            name = ((User)principal).getName();
+            phone= ((User)principal).getPhone();
+            address=((User)principal).getAddress();
 
         }else if(principal instanceof org.springframework.security.core.userdetails.User){
             username = ((org.springframework.security.core.userdetails.User)principal).getUsername();
@@ -51,6 +57,9 @@ public class JwtTokenProvider {
                 .claim("username", username)
                 .claim("role", role)
                 .claim("email", email)
+                .claim("name", name)
+                .claim("phone", phone)
+                .claim("address",address)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(getSigningKey())

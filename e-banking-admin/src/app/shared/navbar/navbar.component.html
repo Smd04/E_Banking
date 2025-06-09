@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="navbar-container">
-      <a href="" class="navbar-brand">eBanking</a>
+      <a href="#" class="navbar-brand" (click)="navigateBasedOnRole($event)">eBanking</a>
       <button class="navbar-toggle" (click)="toggleMenu()">
         <span class="toggle-icon">☰</span>
       </button>
@@ -14,7 +14,7 @@
           <a *ngIf="!isLoggedIn" routerLink="/register" class="auth-link">Register</a> -->
           <div *ngIf="isLoggedIn" class="user-profile">
           <li><a routerLink="/account" routerLinkActive="active">Account</a></li>
-            <span class="username">{{ fullname }}</span>
+            <!-- <span class="username">{{ fullname }}</span> -->
             <button (click)="logout()">Logout</button>
           </div>
         </div>
