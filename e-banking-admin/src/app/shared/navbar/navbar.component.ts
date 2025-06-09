@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit  } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/models-client/user';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -12,11 +13,21 @@ import { User } from '../../models/models-client/user';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent  implements OnInit {
   isMenuOpen = false;
   isLoggedIn = false;
+  currentUrl: string = '';
   fullname = '';
-  role: string | null = null; // Add role as a class property
+  role: string | null = null; 
+
+  
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentUrl = event.urlAfterRedirects;
+      });
+  }// Add role as a class property
 
   constructor(private authService: AuthService, private router: Router) {
     this.authService.currentUser$.subscribe((user: User | null) => {
