@@ -10,7 +10,7 @@ import {Facture} from '../../models/models-client/Facture';
   providedIn: 'root'
 })
 export class FactureService {
-  private apiUrl = 'http://localhost:8080/project_e_banking_war/api/factures';
+  private apiUrl = 'http://localhost:8090/project_e_banking_war_exploded/api/factures';
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +25,9 @@ export class FactureService {
         dateProchainCheck:factureDetails.dateProchainCheck.toISOString(),
       },
       {
-        withCredentials: true
+        withCredentials: true,
+        responseType: 'text' as 'json',
+
       }
     );
 

@@ -23,10 +23,10 @@ import {CommonModule} from '@angular/common';
 })
 export class FactureComponent implements  OnInit{
   constructor(private factureService: FactureService, private compteService:CompteServiceService) {}
-  compteUser!:Compte;
+  compteUser='';
   dateProchainCheck=new Date();
-    reference= '';
-    type= '';
+  reference= '';
+  type= '';
 
   erreurMessage: string = '';
 
@@ -42,7 +42,7 @@ export class FactureComponent implements  OnInit{
 
   verifierFacture() {
     const factureDetails :Facture= {
-      compteUser: this.compteUser.accountNumber,
+      compteUser: this.compteUser,
       dateProchainCheck: new Date(this.dateProchainCheck),
       referenceClient: this.reference,
       type: this.type,
@@ -56,7 +56,8 @@ export class FactureComponent implements  OnInit{
     console.log(this.erreurMessage);
 
     this.factureService.valideFacture(factureDetails).subscribe({
-      next: (data) => alert("Votre Facture est valider avec Success"),
+      next: (message: any) => {
+        alert(message);},
       error: (err) => alert('Référence invalide ou erreur API')
     });
   }

@@ -19,7 +19,7 @@ interface RechargeResponse {
   providedIn: 'root'
 })
 export class RechargeService {
-  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/recharge';
+  private baseUrl = 'http://localhost:8090/project_e_banking_war_exploded/api/recharge';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -86,18 +86,21 @@ export class RechargeService {
         ...credentials,
       },
       {headers,
-        withCredentials: true },
+        withCredentials: true,
+        responseType: 'text' as 'json',
+      },
     );
   }
 
-  validerOtp(phoneNumber: string | null, code: string): Observable<RechargeResponse> {
+  validerOtp( code: string): Observable<RechargeResponse> {
     return this.http.post<any>(
       `${this.baseUrl}/valider`,
       {
-        phoneNumber,
         code
       },
-      { withCredentials: true }
+      { withCredentials: true,
+        responseType: 'text' as 'json',
+      }
     );
   }
 

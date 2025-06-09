@@ -20,7 +20,8 @@ interface VirementResponse {
   providedIn: 'root'
 })
 export class VirementService {
-  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/virement';
+  private baseUrl = 'http://localhost:8090/project_e_banking_war_exploded/api/virement';
+  message='';
 
   constructor(private http: HttpClient, private router: Router) { }
   initierVirement(credentials: VirementRequest): Observable<any> {
@@ -39,7 +40,6 @@ export class VirementService {
     }
     const payload = {
       ...credentials,
-      date: credentials.date.toISOString(),
     };
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
@@ -48,21 +48,24 @@ export class VirementService {
       `${this.baseUrl}/initier`,
       {
         ...credentials,
-        date: credentials.date.toISOString(),
+
       },
       {headers,
-        withCredentials: true },
+        withCredentials: true,
+        responseType: 'text' as 'json',
+      },
     );
   }
 
-  validerOtp(phoneNumber: string | null, code: string): Observable<any> {
+  validerOtp( code: string): Observable<any> {
     return this.http.post<any>(
       `${this.baseUrl}/valider`,
       {
-        phoneNumber,
         code
       },
-      { withCredentials: true }
+      { withCredentials: true,
+        responseType: 'text' as 'json',
+      }
     );
   }
 

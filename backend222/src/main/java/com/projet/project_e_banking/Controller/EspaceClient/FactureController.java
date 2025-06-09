@@ -45,7 +45,7 @@ public class FactureController {
         factureAuto.setPrix(100.0);
         factureAuto.setRib(factureAutoDto.getCompteUser());
         factureService.saveFacture(factureAuto);
-        return ResponseEntity.ok("200");
+        return ResponseEntity.ok("Paiement Automatique pour la facture "+factureAutoDto.getType()+" est enregistree avec success");
 
     }
 }

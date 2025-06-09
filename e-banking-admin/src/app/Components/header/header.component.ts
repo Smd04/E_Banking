@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -60,10 +60,24 @@ export class HeaderComponent {
   redirectToRecharge(){
     this.router.navigate(['/recharge']).then();
   }
-  redirectToAbonnment(){
-    this.router.navigate(['/abonnemet']).then();
-  }
+
   redirectToFacteur(){
     this.router.navigate(['/facture']).then();
+  }
+  redirectToAbonnment(){
+    this.router.navigate(['/abonnement']).then();
+  }
+
+  redirectToPaiement(){
+    this.router.navigate(['/historique-paiement']).then();
+  }
+  redirectToHelp(){
+    this.router.navigate(['/support']).then();
+  }
+  getProfile(){
+    this.router.navigate(['/profile']).then();
+  }
+  redirectToDashboard(){
+    this.router.navigate(['/dashboard-user'])
   }
 }

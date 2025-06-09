@@ -25,13 +25,12 @@ public class SupportController {
         this.customUserDetailsService = customUserDetailsService;
     }
     @PostMapping("/send")
-    public ResponseEntity<?> supportMessage( @RequestBody SupportRequest supportRequest,@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<String> supportMessage( @RequestBody SupportRequest supportRequest,@AuthenticationPrincipal UserDetails userDetails) {
         if(userDetails == null){
             return ResponseEntity.status(404).body("User non connectee");
         }
         System.out.println(supportRequest.getMessage());
         User user = customUserDetailsService.findUserByUsername(userDetails.getUsername());
-        Administrator administrator = new Administrator();
         SupportMessage message = new SupportMessage();
         message.setMessage(supportRequest.getMessage());
         message.setType(supportRequest.getTypeSupport());
@@ -39,7 +38,7 @@ public class SupportController {
         message.setTimestamp(new Date());
         message.setAdmin(null);
         customUserDetailsService.sendMessage(message);
-        return ResponseEntity.ok(message);
+        return ResponseEntity.ok("Votre Support Message est envoyer avec success");
 
 
     }

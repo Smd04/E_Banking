@@ -103,9 +103,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return accountRepository.findByAccountNumber(accountNumber).orElseThrow(() -> new UsernameNotFoundException("Account not found"));
     }
 
-    public String saveTransactionTypeVirement(Transaction transaction) {
+    public void saveTransactionTypeVirement(Transaction transaction) {
         transactionRepository.save(transaction);
-        return "transaction";
     }
 
     public void updateAccount(Account account) {

@@ -3,7 +3,7 @@ import { DatePipe, NgForOf } from '@angular/common';
 import { HeaderComponent } from '../../Components/header/header.component';
 import { ListPaiementService } from '../../services/client_service/listPaiement.service';
 import { Paiement } from '../../models/models-client/paiement';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-historique-paiement',
@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
 export class HistoriquePaiementComponent implements OnInit {
   recentPaiement: Paiement[] = [];
 
-  constructor(private paiementService: ListPaiementService) {}
+  constructor(private paiementService: ListPaiementService,private router:Router) {}
 
   ngOnInit() {
     this.paiementService.getRecentPaiement().subscribe(
@@ -28,5 +28,15 @@ export class HistoriquePaiementComponent implements OnInit {
         this.recentPaiement = data;
       }
     );
+  }
+  toDateString(dateArray: [number, number, number, number?, number?]): string {
+    const [year, month, day] = dateArray;
+    const formattedMonth = month.toString().padStart(2, '0');
+    const formattedDay = day.toString().padStart(2, '0');
+    return `${year}-${formattedMonth}-${formattedDay}`;
+  }
+  getAllPaiement(){
+    this.router.navigate(['/historique-all-paiement']).then();
+
   }
 }

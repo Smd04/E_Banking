@@ -48,16 +48,19 @@ public class RechargeController {
         if (rechargeRequest.getMontant() <= 0) {
             return ResponseEntity.badRequest().body("Le montant doit être positif");
         }
+        System.out.println(rechargeRequest.getCompteUser());
 
         User user = customUserDetailsService.findUserByUsername(userDetail.getUsername());
         if (user == null) {
             return ResponseEntity.status(401).body("Utilisateur introuvable");
         }
+        System.out.println(rechargeRequest.getCompteUser());
 
         Account sourceAccount = customUserDetailsService.findAccountByAccountNumber(rechargeRequest.getCompteUser());
         if (sourceAccount == null) {
             return ResponseEntity.badRequest().body("Compte source introuvable");
         }
+        System.out.println(rechargeRequest.getCompteUser());
         System.out.println(rechargeRequest.getOperatorName());
 
         if (rechargeRequest.getMontant() > sourceAccount.getBalance()) {
@@ -90,7 +93,7 @@ public class RechargeController {
     }
 
     @PostMapping("/valider")
-    public ResponseEntity<?> validerRecharge(@RequestBody OtpValidationRequest request, @AuthenticationPrincipal UserDetails userDetail) {
+    public ResponseEntity<String> validerRecharge(@RequestBody OtpValidationRequest request, @AuthenticationPrincipal UserDetails userDetail) {
         if (userDetail == null) {
             return ResponseEntity.status(401).body("Utilisateur non connecté");
         }
@@ -102,8 +105,7 @@ public class RechargeController {
         if (optionalOtp.isEmpty()) {
             return ResponseEntity.badRequest().body("Code OTP invalide ou déjà utilisé");
         }
-
-
+        System.out.println(optionalOtp);
         OtpTransaction otpTransaction = optionalOtp.get();
 
         if (otpTransaction.getExpiryTime().isBefore(LocalDateTime.now())) {
@@ -115,7 +117,6 @@ public class RechargeController {
         Transaction transaction = otpTransaction.getTransaction();
         transaction.getAccount().setBalance(transaction.getAccount().getBalance()-transaction.getAmount());
         customUserDetailsService.updateAccount(transaction.getAccount());
-        Account compdest = customUserDetailsService.findAccountByAccountNumber(transaction.getCompteDest());
         int monthValue = LocalDate.now().getMonthValue();
         if (customUserDetailsService.existMonthlyBalanceByMonthAndAccountId(monthValue, transaction.getAccount().getId())) {
             MonthlyBalance monthlyBalance = customUserDetailsService.findMonthlyBalanceByMonthAndAccountId(monthValue, transaction.getAccount().getId());
@@ -133,25 +134,6 @@ public class RechargeController {
         }
 
         customUserDetailsService.updateAccount(transaction.getAccount());
-        compdest.setBalance(compdest.getBalance() + transaction.getAmount());
-        customUserDetailsService.updateAccount(compdest);
-        if (customUserDetailsService.existMonthlyBalanceByMonthAndAccountId(monthValue, compdest.getId())) {
-            MonthlyBalance monthlyBalance = customUserDetailsService.findMonthlyBalanceByMonthAndAccountId(monthValue, compdest.getId());
-            if (monthlyBalance != null) {
-                monthlyBalance.setRevenus(monthlyBalance.getRevenus() + transaction.getAmount());
-                customUserDetailsService.saveMonthlyBalance(monthlyBalance);
-            }
-        } else {
-            MonthlyBalance monthlyBalance = new MonthlyBalance();
-            monthlyBalance.setRevenus(transaction.getAmount());
-            monthlyBalance.setDepenses(0.0);
-            monthlyBalance.setAccount(compdest);
-            monthlyBalance.setMois(monthValue);
-            customUserDetailsService.saveMonthlyBalance(monthlyBalance);
-        }
-
-        compdest.setBalance(compdest.getBalance() + transaction.getAmount());
-        customUserDetailsService.updateAccount(compdest);
         transaction.setDescription("Recharge "+transaction.getAmount());
         transaction.setStatus("VALIDÉ");
         customUserDetailsService.saveTransactionTypeVirement(transaction);

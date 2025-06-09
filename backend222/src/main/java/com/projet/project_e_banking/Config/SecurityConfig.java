@@ -45,6 +45,17 @@ public class SecurityConfig {
 //                        .requestMatchers("/api/admin/**").permitAll()
 //                        .requestMatchers("/api/user/**").permitAll()
 //                        .requestMatchers("/api/crypto/**").permitAll()
+                        /*
+                        .requestMatchers("/api/support/send").permitAll()
+                          .requestMatchers("/api/account/**").permitAll()
+                          .requestMatchers("/api/abonnement/**").permitAll()
+                          .requestMatchers("/api/dashboard/**").permitAll()
+                          .requestMatchers("/api/recharge/**").permitAll()
+                          .requestMatchers("/api/factures/**").permitAll()
+                          .requestMatchers("/api/virement/**").permitAll()
+                                .requestMatchers("/api/paiement/**").permitAll()
+*/
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

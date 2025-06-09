@@ -12,7 +12,7 @@ import {SupportRequest} from '../../models/models-client/SupportRequest';
   providedIn: 'root'
 })
 export class SupportService {
-  private apiUrl = 'http://localhost:8080/project_e_banking_war/api/support';
+  private apiUrl = 'http://localhost:8090/project_e_banking_war_exploded/api/support';
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +27,9 @@ export class SupportService {
       credentials
       ,
       {
-        withCredentials: true
+        withCredentials: true,
+        responseType: 'text' as 'json',
+
       }
     );
 

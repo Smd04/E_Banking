@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HeaderComponent} from '../../Components/header/header.component';
 import {RouterModule} from '@angular/router';
 
 import {FormsModule} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {SupportService} from '../../services/client_service/Support.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-support',
@@ -12,6 +13,7 @@ import {SupportService} from '../../services/client_service/Support.service';
     HeaderComponent,
     RouterModule,
     FormsModule,
+    CommonModule
   ],
   templateUrl: './support.component.html',
   standalone: true,
@@ -24,6 +26,7 @@ export class SupportComponent {
   constructor(private supportService: SupportService,private authService:AuthService) {
   }
 
+
   sendMessage() {
     const supportMessage={
       message:this.message,
@@ -31,10 +34,15 @@ export class SupportComponent {
     }
     this.supportService.sendMessage(supportMessage).subscribe(
       {
-        next: () => {
-          console.log("all bien");
+        next: (message: any) => {
+          alert(message);
         }
+        ,
+        error: err => alert("Un probleme lors de l'envoie de message")
+
       }
+
+
 
 
 

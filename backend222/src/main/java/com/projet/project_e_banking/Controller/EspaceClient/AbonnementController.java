@@ -48,7 +48,7 @@ public class AbonnementController {
         abonnementAuto.setPrix(300.0);
         abonnementAuto.setRib(abonnementAutoDto.getCompteUser());
         abonnementService.saveAbbonement(abonnementAuto);
-        return ResponseEntity.ok("200");
+        return ResponseEntity.ok("Paiement Automatique pour l'abonnement "+abonnementAutoDto.getType()+"est enregistree avec success ");
 
     }
 

@@ -10,7 +10,7 @@ import {Paiement} from '../../models/models-client/paiement';
   providedIn: 'root'
 })
 export class ListPaiementService {
-  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/paiement';
+  private baseUrl = 'http://localhost:8090/project_e_banking_war_exploded/api/paiement';
 
   constructor(private http: HttpClient) {}
 

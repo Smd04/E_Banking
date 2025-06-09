@@ -49,13 +49,12 @@ export class RechargeTelephoniqueComponent implements OnInit{
     };
     console.log(rechargePayload);
     this.rechargeService.initierRecharge(rechargePayload).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.showOtpInput = true;
-        alert(data);
+      next: (message: any) => {
+        alert(message);
         this.router.navigate(['/code-validation-recharge']);
-      },
-      error: err => alert('Erreur : ' + err.message)
+      }
+      ,
+      error: err => alert("Veuillez Verifier Votre Numero de Telephone")
     });
   }
 

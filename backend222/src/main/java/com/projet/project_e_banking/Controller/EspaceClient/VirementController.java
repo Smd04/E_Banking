@@ -93,14 +93,14 @@ public class VirementController {
         otpService.saveOtpTransaction(otpTransaction);
 
         smsService.sendOtp(user.getPhone(), code);
-       emailService.envoyerEmail(user.getEmail(),"validation de virement",code);
+        emailService.envoyerEmail(user.getEmail(),"validation de virement",code);
         System.out.println(virementRequest.getPhoneNumber()+ "code de validation :" + code);
 
         return ResponseEntity.ok("Code de validation envoyé par SMS: "+code);
     }
 
     @PostMapping("/valider")
-    public ResponseEntity<?> validerVirement(@RequestBody OtpValidationRequest request, @AuthenticationPrincipal UserDetails userDetail) {
+    public ResponseEntity<String> validerVirement(@RequestBody OtpValidationRequest request, @AuthenticationPrincipal UserDetails userDetail) {
         User user = customUserDetailsService.findUserByUsername(userDetail.getUsername());
         System.out.println(request.getPhoneNumber()+request.getCode());
         Optional<OtpTransaction> optionalOtp = otpService.otpTransactionRepository

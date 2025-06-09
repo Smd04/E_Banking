@@ -30,7 +30,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200",allowCredentials = "true")
 @RestController
 @RequestMapping("api/account")
 public class AccountController {
@@ -40,10 +40,11 @@ public class AccountController {
     TransactionService transactionService;
     CustomUserDetailsService customUserDetailsService;
 
-    public AccountController(AccountService accountService,UserService userService ,TransactionService transactionService ) {
+    public AccountController(AccountService accountService,UserService userService ,TransactionService transactionService,CustomUserDetailsService customUserDetailsService ) {
         this.accountService = accountService;
         this.userService = userService;
         this.transactionService = transactionService;
+        this.customUserDetailsService=customUserDetailsService;
     }
 
     @GetMapping("/")
@@ -102,37 +103,37 @@ public class AccountController {
     @GetMapping("{id}/RecentTransaction")
     public ResponseEntity<?> getRecentTransactions(@PathVariable("id") Long id) {
         try{
-              List<TransactionDto> transactions = transactionService.getRecentTransactions(id);
-                 return  ResponseEntity.ok(transactions);
+            List<TransactionDto> transactions = transactionService.getRecentTransactions(id);
+            return  ResponseEntity.ok(transactions);
         }catch (Exception e){
             return  ResponseEntity.status(500).body("Erreur interne du serveur erreur lors de chargement de recent transaction "+e.getMessage());
         }
-      }
+    }
 
-   @GetMapping("/{id}/stats")
+    @GetMapping("/{id}/stats")
     public Map<String, Object> getAccountStats(@PathVariable("id") Long id) {
         return accountService.getStatsByAccountId(id);
-   }
-   @DeleteMapping("/{id}")
+    }
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAccount(@PathVariable("id") Long id) {
-       Account account = accountService.findById(id).get();
-       if (account.getBalance() != 0) {
-           return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                   .body("Impossible de supprimer un compte avec un solde différent de zéro.");
-       }
-       accountService.deleteAccount(id);
-       return ResponseEntity.ok("Compte supprimé avec succès");
-   }
-   @GetMapping("/{id}/MonthlyBalance")
+        Account account = accountService.findById(id).get();
+        if (account.getBalance() != 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Impossible de supprimer un compte avec un solde différent de zéro.");
+        }
+        accountService.deleteAccount(id);
+        return ResponseEntity.ok("Compte supprimé avec succès");
+    }
+    @GetMapping("/{id}/MonthlyBalance")
     public ResponseEntity<?> getMonthlyBalance(@PathVariable("id") Long id) {
         try{
             Map<String,Double> monthlyBalance = accountService.getMonthlyBalanceByAccount(id);
             return ResponseEntity.ok(monthlyBalance);
         }
-         catch(Exception e){
+        catch(Exception e){
             return ResponseEntity.status(500).body("Erreur interne du serveur"+e.getMessage());
-         }
-   }
+        }
+    }
     @GetMapping("/get_user")
     public ResponseEntity<?> getUser(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
@@ -146,9 +147,8 @@ public class AccountController {
         u.setPhone(user.getPhone());
         u.setUsername(user.getUsername());
         System.out.println(u.getAddress());
-
         return  ResponseEntity.ok(u);
 
-}
+    }
 
 }

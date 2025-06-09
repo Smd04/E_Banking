@@ -25,11 +25,12 @@ import {Compte} from '../../models/models-client/Compte';
 })
 export class VirementComponent implements  OnInit{
   date=new Date();
-  compteUser!: Compte;
+  compteUser='';
   compteDestinataire= '';
   montant=0;
   motif='';
   comptes!:any;
+  message='';
 
   constructor(private virementService: VirementService,private router: Router,private authService:AuthService, private compteService:CompteServiceService) {
   }
@@ -42,7 +43,7 @@ export class VirementComponent implements  OnInit{
 
   onEffectueVirement() {
     const virementPayload = {
-      compteUser: this.compteUser.accountNumber,
+      compteUser: this.compteUser,
       compteDestinataire: this.compteDestinataire,
       montant: this.montant,
       motif: this.motif,
@@ -51,11 +52,15 @@ export class VirementComponent implements  OnInit{
     console.log('Payload envoyé:', virementPayload);
     this.virementService.initierVirement(virementPayload)
       .subscribe({
-        next: (data) => {
-          alert(data);
-        }
-        });
-    this.router.navigate(['/code-validation-virement']);
+        next: (message: any) => {
+          alert(message);
+          this.router.navigate(['/code-validation-virement']);
+        },
+
+        error:err => {alert("Votre Solde est Invalide Ou Compte destinataire Introuvable ");
+          this.router.navigate(['/virement'])}
+
+      });
   }
 
 

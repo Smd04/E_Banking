@@ -36,9 +36,13 @@ export class OtpInputVirementComponent {
   validateOtp() {
     const token = localStorage.getItem('token');
     const phone = this.authService.getPhoneNumber();
-    this.virementService.validerOtp(phone, this.otpCode).subscribe({
-      next: (data) => alert(data),
-      error: err => alert('Code invalide ou expiré.')
+    this.virementService.validerOtp(this.otpCode).subscribe({
+
+      next: (message: any) => {
+        alert(message);
+      },
+      error: err => alert('Erreur : ' + err.message)
+
     });
   }
 }
