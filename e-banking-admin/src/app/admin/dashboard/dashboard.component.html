@@ -40,8 +40,7 @@
             <p>View and respond to user inquiries and technical support requests</p>
             <div class="card-hover-indicator"></div>
         </a>
-  
-        <a routerLink="/admin/admins" class="dashboard-card user-management">
+        <a *ngIf="role === 'SUPADMIN'" routerLink="/admin/admins" class="dashboard-card user-management">
             <div class="card-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
@@ -53,7 +52,8 @@
             <h3>Admins Management</h3>
             <p>Manage registered users, view profiles, and assign roles</p>
             <div class="card-hover-indicator"></div>
-        </a>
+          </a>
+          
   
   
         <!-- New Client Management Cards -->
