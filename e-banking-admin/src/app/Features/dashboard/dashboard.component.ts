@@ -19,7 +19,6 @@ import {Route, Router, RouterModule} from '@angular/router';
     NgForOf,
     NgClass,
     RouterModule,
-    NavbarComponent
   ],
   templateUrl: './dashboard.component.html',
   standalone: true,

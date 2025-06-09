@@ -39,6 +39,11 @@
     <input type="number" [(ngModel)]="client.initialDeposit" name="initialDeposit" required />
   </label><br />
 
+  <label>Numéro de compte :
+    <input type="text" [(ngModel)]="client.accountNumber" name="accountNumber" required />
+  </label><br />
+
+
   <label>Status :
     <select [(ngModel)]="client.status" name="status" required>
       <option value="ACTIVE">ACTIVE</option>

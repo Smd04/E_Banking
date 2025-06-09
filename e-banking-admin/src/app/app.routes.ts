@@ -10,7 +10,6 @@ import { TransactionsComponent } from './crypto/transactions/transactions.compon
 import {CreateContractComponent} from './create-contract/create-contract.component';
 import {EnrolClientComponent} from './enrol-client/enrol-client.component';
 import {ClientListComponent} from './client-list/client-list.component';
-import { ContractListComponent } from './contract-list/contract-list.component';
 import {CompteDetailComponent} from './compte-detail/compte-detail.component';
 import {ComptesComponentComponent} from './comptes-component/comptes-component.component';
 import { TransactionComponent } from './transaction/transaction.component';
@@ -31,6 +30,7 @@ import {RechargeTelephoniqueComponent} from './Features/recharge-telephonique/re
 import { DashboardComponent as dashboard } from './Features/dashboard/dashboard.component';
 import {AccountComponent} from './Features/account/account.component'
 import {AuthGuard} from './guards/auth.guard'
+import { DashboardBanqueComponent } from './Banque/dashboard-banque/dashboard-banque.component';
 
 
 
@@ -49,7 +49,6 @@ export const routes: Routes = [
   { path: 'create-contract', component: CreateContractComponent,canActivate: [AuthGuard] },
   { path: 'enrol-client', component: EnrolClientComponent ,canActivate: [AuthGuard]},
   { path: 'client-list', component: ClientListComponent ,canActivate: [AuthGuard]},
-  { path: 'contract-list', component: ContractListComponent,canActivate: [AuthGuard] },
   {path: 'account' , component:AccountComponent ,canActivate: [AuthGuard]},
   {path:'comptes' ,component: ComptesComponentComponent,canActivate: [AuthGuard]},
   {path:'detail-compte/:id' , component:CompteDetailComponent,canActivate: [AuthGuard]},
@@ -69,5 +68,6 @@ export const routes: Routes = [
   {path:'notification',component:NotificationComponent,canActivate: [AuthGuard]},
   {path:'historique-paiement',component:HistoriquePaiementComponent,canActivate: [AuthGuard]},
   {path:'historique-all-paiement',component:AllPaiementComponent,canActivate: [AuthGuard]},
-  {path:'profile',component:ProfileComponent,canActivate: [AuthGuard]}
+  {path:'profile',component:ProfileComponent,canActivate: [AuthGuard]},
+  {path:'dashboard-Banque', component:DashboardBanqueComponent,canActivate: [AuthGuard]}
 ];

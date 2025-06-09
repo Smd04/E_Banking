@@ -31,6 +31,8 @@ export class LoginComponent {
             this.router.navigate(['/dashboard']).then();
           } else if (role === 'USER') {
             this.router.navigate(['/dashboard-user']).then();
+          } else if (role === 'Agent') {
+            this.router.navigate(['/dashboard-Banque']).then();
           }
 
         },

@@ -12,6 +12,8 @@ public class ClientEnrolmentRequest {
     private String status;
     private String city;
     private String address;
+    private String accountNumber;
+
 
     // Getters
     public String getName() {
@@ -57,4 +59,9 @@ public class ClientEnrolmentRequest {
     public String getCity() {
         return city;
     }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
 }

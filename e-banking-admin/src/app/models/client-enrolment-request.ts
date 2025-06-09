@@ -10,4 +10,5 @@ export interface ClientEnrolmentRequest {
   address: string;
   city: string;
   status: string;
+  accountNumber: string;
 }
