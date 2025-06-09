@@ -3,6 +3,7 @@ package com.projet.project_e_banking.Controller.EspaceClient;
 
 import com.projet.project_e_banking.Dto.EspaceClient.AccountDto;
 import com.projet.project_e_banking.Dto.EspaceClient.TransactionDto;
+import com.projet.project_e_banking.Dto.UserDto;
 import com.projet.project_e_banking.Model.EspaceClient.Account;
 import com.projet.project_e_banking.Model.EspaceClient.Card;
 import com.projet.project_e_banking.Model.EspaceClient.Transaction;
@@ -132,4 +133,22 @@ public class AccountController {
             return ResponseEntity.status(500).body("Erreur interne du serveur"+e.getMessage());
          }
    }
+    @GetMapping("/get_user")
+    public ResponseEntity<?> getUser(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(404).body("Client non connectee");
+        }
+        User user= customUserDetailsService.findUserByUsername(userDetails.getUsername());
+        UserDto u= new UserDto();
+        u.setName(user.getName());
+        u.setAddress(user.getAddress());
+        u.setEmail(user.getEmail());
+        u.setPhone(user.getPhone());
+        u.setUsername(user.getUsername());
+        System.out.println(u.getAddress());
+
+        return  ResponseEntity.ok(u);
+
+}
+
 }

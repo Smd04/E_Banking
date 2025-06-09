@@ -8,7 +8,7 @@ import {Card} from '../../models/models-client/Card';
   providedIn: 'root'
 })
 export class CardService {
-  private baseUrl = 'http://localhost:8090/project_e_banking_war/api/card';
+  private baseUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/card';
 
   constructor(private http: HttpClient) {}
 

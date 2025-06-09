@@ -1,10 +1,10 @@
 package com.projet.project_e_banking.Controller.EspaceClient;
 
 
-import com.projet.project_e_banking.Dto.EspaceClient.AbonnementApiResponse;
 import com.projet.project_e_banking.Dto.EspaceClient.AbonnementAutoDto;
 import com.projet.project_e_banking.Model.EspaceClient.AbonnementAuto;
 import com.projet.project_e_banking.Model.EspaceClient.User;
+
 import com.projet.project_e_banking.Service.DaoImpl.ClientDaoImpl.CustomUserDetailsService;
 import com.projet.project_e_banking.Service.EspaceClient.AbonnementService;
 import com.projet.project_e_banking.Utilis.StatutFacture;
@@ -31,11 +31,13 @@ public class AbonnementController {
 
     @PostMapping("/auto")
     public ResponseEntity<?> verifierEtCreerAbonnement(@RequestBody AbonnementAutoDto abonnementAutoDto, @AuthenticationPrincipal UserDetails userDetails ) {
-        if (abonnementService.verifierReferenceExiste(abonnementAutoDto.getReferenceClient()) == null) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).body("Utilisateur non connecté");
+        }
+        if (abonnementService.existeAbonnementByReferenceAndType(abonnementAutoDto.getReferenceClient(),abonnementAutoDto.getType())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Référence client inexistante");
         }
-        AbonnementApiResponse abonnementApiResponse = abonnementService.verifierReferenceExiste(abonnementAutoDto.getReferenceClient());
         User user = customUserDetailsService.findUserByUsername(userDetails.getUsername());
         AbonnementAuto abonnementAuto = new AbonnementAuto();
         abonnementAuto.setReferenceClient(abonnementAutoDto.getReferenceClient());
@@ -43,7 +45,7 @@ public class AbonnementController {
         abonnementAuto.setStatut(StatutFacture.EN_ATTENTE);
         abonnementAuto.setDateProchainCheck(abonnementAutoDto.getDateProchainCheck());
         abonnementAuto.setUserId(user.getId());
-        abonnementAuto.setPrix(abonnementApiResponse.getMontant());
+        abonnementAuto.setPrix(300.0);
         abonnementAuto.setRib(abonnementAutoDto.getCompteUser());
         abonnementService.saveAbbonement(abonnementAuto);
         return ResponseEntity.ok("200");
@@ -65,4 +67,3 @@ public class AbonnementController {
         return ResponseEntity.ok(response);
     }
 }
-

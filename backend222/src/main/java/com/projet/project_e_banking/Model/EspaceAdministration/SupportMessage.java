@@ -16,7 +16,8 @@ public class SupportMessage {
     private String type ;
     @ManyToOne
     User user;
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(name="admin_id",nullable=true)
     Administrator admin;
 
     public SupportMessage() {

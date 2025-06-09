@@ -11,7 +11,7 @@ import { Transaction } from '../../models/models-client/Transaction';
   providedIn: 'root'
 })
 export class CompteServiceService {
-  private apiUrl = 'http://localhost:8090/project_e_banking_war/api/account/';
+  private apiUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/account/';
 
   constructor(private http: HttpClient) {}
 

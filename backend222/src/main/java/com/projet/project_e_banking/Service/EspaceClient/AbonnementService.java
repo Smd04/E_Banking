@@ -4,6 +4,7 @@ package com.projet.project_e_banking.Service.EspaceClient;
 import com.projet.project_e_banking.Dto.EspaceClient.AbonnementApiResponse;
 import com.projet.project_e_banking.Model.EspaceClient.AbonnementAuto;
 
+import com.projet.project_e_banking.Repository.EspaceClient.AbonnementApiRepository;
 import com.projet.project_e_banking.Repository.EspaceClient.AbonnemetRepository;
 import com.projet.project_e_banking.Utilis.StatutFacture;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,13 @@ public class AbonnementService {
     private final AbonnemetRepository abonnemetRepository;
     private final RestTemplate restTemplate;
     private String verificationApiUrl="http://localhost:3002/abonnements/";
+    private final AbonnementApiRepository abonnementApiRepository;
 
 
-    public AbonnementService(AbonnemetRepository abonnemetRepository) {
+    public AbonnementService(AbonnemetRepository abonnemetRepository,AbonnementApiRepository abonnementApiRepository) {
         this.abonnemetRepository=abonnemetRepository;
         this.restTemplate = new RestTemplate();
+        this.abonnementApiRepository=abonnementApiRepository;
     }
 
     public AbonnementApiResponse verifierReferenceExiste(String reference) {
@@ -40,6 +43,9 @@ public class AbonnementService {
     }
     public void saveAbbonement(AbonnementAuto abonnementAuto){
         abonnemetRepository.save(abonnementAuto);
+    }
+    public boolean existeAbonnementByReferenceAndType(String reference, String type){
+        return  abonnementApiRepository.existsByReferenceAndTypeAbonnement(reference, type);
     }
 
 

@@ -7,10 +7,11 @@
 .card {
   border-radius: 10px;
   overflow: hidden;
+  padding:70px;
 }
 
 .border-primary {
-  border: 2px solid #0d6efd !important;
+  border: 2px solid #647c4c !important;
 }
 
 .list-group-item {
@@ -27,7 +28,7 @@
 }
 
 .form-control:not([readonly]) {
-  border-color: #86b7fe;
+  border-color: rgba(27, 89, 45, 0.61);
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
 }
 

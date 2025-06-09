@@ -5,10 +5,12 @@ import com.projet.project_e_banking.Dto.EspaceClient.AccountDto;
 import com.projet.project_e_banking.Dto.EspaceClient.MonthlyBalanceDto;
 import com.projet.project_e_banking.Dto.EspaceClient.TransactionDto;
 import com.projet.project_e_banking.Model.EspaceAdministration.Beneficiary;
+import com.projet.project_e_banking.Model.EspaceAdministration.SupportMessage;
 import com.projet.project_e_banking.Model.EspaceClient.Account;
 import com.projet.project_e_banking.Model.EspaceClient.MonthlyBalance;
 import com.projet.project_e_banking.Model.EspaceClient.Transaction;
 import com.projet.project_e_banking.Model.EspaceClient.User;
+import com.projet.project_e_banking.Repository.AdministarationRepository.SupportMessagesRepository;
 import com.projet.project_e_banking.Repository.BanqueRepository.AccountRepository;
 import com.projet.project_e_banking.Repository.EspaceClient.BeneficiaryRepository;
 import com.projet.project_e_banking.Repository.EspaceClient.MonthlyBalanceRepository;
@@ -34,9 +36,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final BeneficiaryRepository beneficiaryRepository;
     private final MonthlyBalanceRepository monthlyBalanceRepository;
+    private final SupportMessagesRepository supportMessagesRepository;
 
 
-    public CustomUserDetailsService(UserRepository userRepository, AccountRepository accountRepository, TransactionRepository transactionRepository,  BeneficiaryRepository beneficiaryRepository, MonthlyBalanceRepository monthlyBalanceRepository) {
+    public CustomUserDetailsService(UserRepository userRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, BeneficiaryRepository beneficiaryRepository, MonthlyBalanceRepository monthlyBalanceRepository, SupportMessagesRepository supportMessagesRepository) {
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
         this.transactionRepository = transactionRepository;
@@ -44,6 +47,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.beneficiaryRepository = beneficiaryRepository;
         this.monthlyBalanceRepository = monthlyBalanceRepository;
 
+        this.supportMessagesRepository = supportMessagesRepository;
     }
 
 
@@ -164,5 +168,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return transactionDtoList;
 
     }
+    public void sendMessage(SupportMessage supportMessage){
+        supportMessagesRepository.save(supportMessage);
 
-}
+    }}

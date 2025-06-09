@@ -33,7 +33,6 @@
               <a class="dropdown-item" (click)="redirectToCompte(); closeMenu()">
                 <i class="fa-solid fa-wallet me-2"></i>Mes Comptes
               </a>
-
             </div>
           </li>
 
@@ -44,10 +43,10 @@
               <span class="menu-text text-success">Paiement & Transferts</span>
             </a>
             <div class="dropdown-menu" ngbDropdownMenu>
-              <a class="dropdown-item"  (click)="redirectToVirment(); closeMenu()">
+              <a class="dropdown-item" (click)="redirectToVirment(); closeMenu()">
                 <i class="fa-solid fa-right-left me-2"></i>Virement
               </a>
-              <a class="dropdown-item"  (click)="redirectToRecharge(); closeMenu()">
+              <a class="dropdown-item" (click)="redirectToRecharge(); closeMenu()">
                 <i class="fa-solid fa-mobile-screen-button me-2"></i>Recharge Mobile
               </a>
             </div>
@@ -60,16 +59,32 @@
               <span class="menu-text text-success">Paiements automatiques</span>
             </a>
             <div class="dropdown-menu" ngbDropdownMenu>
-              <a class="dropdown-item"  (click)="redirectToFacteur(); closeMenu()">
+              <a class="dropdown-item" (click)="redirectToFacteur(); closeMenu()">
                 <i class="fa-solid fa-file-invoice-dollar me-2"></i>Ajouter une facture
               </a>
-              <a class="dropdown-item"  (click)="redirectToAbonnment(); closeMenu()">
+              <a class="dropdown-item" (click)="redirectToAbonnment(); closeMenu()">
                 <i class="fa-solid fa-calendar-check me-2"></i>Ajouter un abonnement
               </a>
               <a class="dropdown-item" href="/historique-paiement" (click)="closeMenu()">
                 <i class="fa-solid fa-list me-2"></i>Liste des paiements automatisés
               </a>
             </div>
+          </li>
+
+          <!-- Crypto -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/crypto" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fa-brands fa-bitcoin me-1 text-white"></i>
+              <span class="menu-text text-success">Crypto</span>
+            </a>
+          </li>
+
+          <!-- Referral -->
+          <li class="nav-item">
+            <a class="nav-link" href="/referral" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fa-solid fa-user-plus me-1 text-white"></i>
+              <span class="menu-text text-success">Parrainage</span>
+            </a>
           </li>
 
           <!-- Chatbot -->

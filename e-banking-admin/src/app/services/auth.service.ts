@@ -14,9 +14,9 @@ interface LoginResponse {
   accessToken: string;
 }
 
-
 interface JwtPayload {
   sub: string;
+  id?: number;         // make sure backend sends this field
   email?: string;
   phone?: string;
   token?: string;
@@ -26,9 +26,10 @@ interface JwtPayload {
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
+
   private baseUrl = 'http://localhost:8080/project_e_banking_war/api/auth';
+
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
@@ -41,15 +42,17 @@ export class AuthService {
       tap(response => {
         localStorage.setItem('token', response.accessToken);
         const decoded = jwtDecode<JwtPayload>(response.accessToken);
+
         const user: User = {
-          id: decoded.sub,
+          id: String(decoded.id),  // ✅ Fix applied here
           email: decoded.email || credentials.username,
           firstName:'',
           lastName: '',
         };
-        localStorage.setItem('user', JSON.stringify(user));
+
+
         localStorage.setItem('email', user.email);
-        console.log(localStorage.getItem('email'));
+        localStorage.setItem('userId', user.id);  // ✅ Save user ID to localStorage
         this.currentUserSubject.next(user);
       })
     );
@@ -62,6 +65,7 @@ export class AuthService {
   logout(): void {
     this.currentUserSubject.next(null);
     localStorage.removeItem('email');
+    localStorage.removeItem('userId');  // ✅ Clean up
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
@@ -90,5 +94,10 @@ export class AuthService {
       console.error('Erreur lors du décodage du token:', e);
       return null;
     }
+  }
+
+  getUserId(): number | null {
+    const id = localStorage.getItem('userId');
+    return id ? parseInt(id, 10) : null;
   }
 }
