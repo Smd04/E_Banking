@@ -7,16 +7,6 @@
 
         <div class="card-body">
 
-          <!-- Messages de succès et d'erreur -->
-          <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ successMessage }}
-            <button type="button" class="btn-close" (click)="successMessage = ''" aria-label="Close"></button>
-          </div>
-
-          <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ errorMessage }}
-            <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
-          </div>
 
           <!-- Formulaire -->
           <form [formGroup]="contractForm" (ngSubmit)="onSubmit()">
@@ -76,7 +66,6 @@
                   placeholder="0.00"
                   step="0.01"
                   [class.is-invalid]="isFieldInvalid('amount')">
-                <span class="input-group-text"></span>
               </div>
               <div *ngIf="isFieldInvalid('amount')" class="invalid-feedback">
                 {{ getFieldError('amount') }}
@@ -155,6 +144,17 @@
                 <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                 {{ isLoading ? 'Création en cours...' : 'Créer le contrat' }}
               </button>
+            </div>
+
+            <!-- Messages de succès et d'erreur -->
+            <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ successMessage }}
+              <button type="button" class="btn-close" (click)="successMessage = ''" aria-label="Close"></button>
+            </div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ errorMessage }}
+              <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
             </div>
 
           </form>

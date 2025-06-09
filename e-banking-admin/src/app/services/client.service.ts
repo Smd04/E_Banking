@@ -14,6 +14,7 @@ export interface Client {
   type: string;
   currency: string;
   initialDeposit: number;
+  accountNumber: string;
   status: string;
   city: string;
   address: string;
@@ -24,7 +25,7 @@ export interface Client {
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/banque';
+  private apiUrl = 'http://localhost:8080/project_e_banking_war/api/banque';
 
   // Local client state management
   private clients: Client[] = [
@@ -97,6 +98,7 @@ export class ClientService {
       status: clientData.status || 'ACTIVE',
       city: clientData.city || clientData.ville,
       address: clientData.address || clientData.adresse,
+      accountNumber: backendResponse?.accountNumber || clientData.accountNumber,
       dateEnrolled: new Date()
     };
 

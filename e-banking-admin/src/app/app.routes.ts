@@ -10,7 +10,6 @@ import { TransactionsComponent } from './crypto/transactions/transactions.compon
 import {CreateContractComponent} from './create-contract/create-contract.component';
 import {EnrolClientComponent} from './enrol-client/enrol-client.component';
 import {ClientListComponent} from './client-list/client-list.component';
-import { ContractListComponent } from './contract-list/contract-list.component';
 import {CompteDetailComponent} from './compte-detail/compte-detail.component';
 import {ComptesComponentComponent} from './comptes-component/comptes-component.component';
 import { TransactionComponent } from './transaction/transaction.component';
@@ -50,7 +49,6 @@ export const routes: Routes = [
   { path: 'create-contract', component: CreateContractComponent,canActivate: [AuthGuard] },
   { path: 'enrol-client', component: EnrolClientComponent ,canActivate: [AuthGuard]},
   { path: 'client-list', component: ClientListComponent ,canActivate: [AuthGuard]},
-  { path: 'contract-list', component: ContractListComponent,canActivate: [AuthGuard] },
   {path: 'account' , component:AccountComponent ,canActivate: [AuthGuard]},
   {path:'comptes' ,component: ComptesComponentComponent,canActivate: [AuthGuard]},
   {path:'detail-compte/:id' , component:CompteDetailComponent,canActivate: [AuthGuard]},

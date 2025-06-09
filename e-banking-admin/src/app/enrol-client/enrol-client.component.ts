@@ -23,7 +23,8 @@ export class EnrolClientComponent {
     initialDeposit: 0,
     address: '',
     city: '',
-    status: ''
+    status: '',
+    accountNumber: ''
   };
 
   successMessage: string = '';
@@ -102,7 +103,8 @@ export class EnrolClientComponent {
       address: '',
       city: '',
       initialDeposit: 0,
-      status: ''
+      status: '',
+      accountNumber: ''
     };
 
     // Clear success message after a delay
