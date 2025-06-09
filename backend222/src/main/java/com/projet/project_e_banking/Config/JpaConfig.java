@@ -39,7 +39,7 @@ public class JpaConfig {
         ds.setUrl("jdbc:postgresql://localhost:5432/ebanking");
         ds.setUsername("postgres");
 
-        ds.setPassword("Zaraki12345");
+        ds.setPassword("Qwerty2004");
 
         return ds;
     }

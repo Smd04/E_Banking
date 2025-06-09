@@ -31,6 +31,7 @@ import {RechargeTelephoniqueComponent} from './Features/recharge-telephonique/re
 import { DashboardComponent as dashboard } from './Features/dashboard/dashboard.component';
 import {AccountComponent} from './Features/account/account.component'
 import {AuthGuard} from './guards/auth.guard'
+import { DashboardBanqueComponent } from './Banque/dashboard-banque/dashboard-banque.component';
 
 
 
@@ -69,5 +70,6 @@ export const routes: Routes = [
   {path:'notification',component:NotificationComponent,canActivate: [AuthGuard]},
   {path:'historique-paiement',component:HistoriquePaiementComponent,canActivate: [AuthGuard]},
   {path:'historique-all-paiement',component:AllPaiementComponent,canActivate: [AuthGuard]},
-  {path:'profile',component:ProfileComponent,canActivate: [AuthGuard]}
+  {path:'profile',component:ProfileComponent,canActivate: [AuthGuard]},
+  {path:'dashboard-Banque', component:DashboardBanqueComponent,canActivate: [AuthGuard]}
 ];
