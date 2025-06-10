@@ -9,7 +9,7 @@ import {Info} from '../../models/models-client/info';
   providedIn: 'root'
 })
 export class ProfileService {
-  private baseUrl = 'http://localhost:8090/project_e_banking_war_exploded/api/account';
+  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/account';
 
   constructor(private http: HttpClient) {
   }

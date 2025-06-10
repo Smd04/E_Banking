@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,9 +73,10 @@ public class CryptoService {
                     "BUY"
             );
             cryptoTransactionRepository.save(transaction);
-            return ResponseEntity.ok("Cryptocurrency purchased successfully");
+
+            return ResponseEntity.ok(Map.of("message", "Cryptocurrency purchased successfully"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
@@ -94,9 +96,10 @@ public class CryptoService {
                     "SELL"
             );
             cryptoTransactionRepository.save(transaction);
-            return ResponseEntity.ok("Cryptocurrency sold successfully");
+
+            return ResponseEntity.ok(Map.of("message", "Cryptocurrency sold successfully"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 

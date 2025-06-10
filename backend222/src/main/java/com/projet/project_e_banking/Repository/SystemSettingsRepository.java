@@ -18,4 +18,6 @@ public interface SystemSettingsRepository extends JpaRepository<SystemSettings, 
     List<SystemSettings> findAllSettingsForUsersOnly();
 
     Optional<SystemSettings> findByUserId(Long userId);
+
+    boolean existsByUserId(Long userId);
 }

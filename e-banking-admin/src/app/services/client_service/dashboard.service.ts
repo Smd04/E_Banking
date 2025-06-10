@@ -12,7 +12,7 @@ import {Transaction} from '../../models/models-client/Transaction';
   providedIn: 'root'
 })
 export class DashboardService {
-  private baseUrl = 'http://localhost:8090/project_e_banking_war_exploded/api/dashboard';
+  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/dashboard';
 
   constructor(private http: HttpClient) {}
 

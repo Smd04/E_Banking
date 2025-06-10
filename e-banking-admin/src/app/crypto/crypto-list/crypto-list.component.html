@@ -1,76 +1,80 @@
-<div *ngIf="loading" class="loading-spinner">
-  <div class="spinner"></div>
-</div>
-
-<div *ngIf="showNotification" class="notification" 
-     [class.success]="isSuccess" 
-     [class.error]="!isSuccess">
-  {{ notificationMessage }}
-  <button (click)="showNotification = false" class="close-btn">×</button>
-</div>
-
-<div *ngIf="!loading">
-  <div class="search-container">
-    <div class="search-wrapper">
-      <input 
-        type="text" 
-        [(ngModel)]="searchQuery" 
-        (input)="onSearch()"
-        placeholder="Search cryptocurrencies..."
-        class="search-input"
-      />
-      <span class="search-icon">🔍</span>
-    </div>
+<div class="content-wrapper">
+  <app-header></app-header>
+  
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
   </div>
 
-  <a routerLink="/cryptotransactions" class="transactions-link">View Transaction History</a>
-  <br>
+  <div *ngIf="showNotification" class="notification" 
+       [class.success]="isSuccess" 
+       [class.error]="!isSuccess">
+    {{ notificationMessage }}
+    <button (click)="showNotification = false" class="close-btn">×</button>
+  </div>
 
-  <div class="crypto-container">
-    <div *ngFor="let crypto of filteredCryptos" 
-         class="crypto-card"
-         [class.selected]="selectedCrypto?.id === crypto.id"
-         (click)="selectCrypto(crypto)">
-      <div class="crypto-header">
-        <img [src]="crypto.image" alt="{{ crypto.name }}" class="crypto-icon" />
-        <div class="crypto-name">
-          <h3>{{ crypto.name }}</h3>
-          <span class="symbol">{{ crypto.symbol.toUpperCase() }}</span>
-        </div>
-        <span class="price-change" 
-              [ngClass]="{'positive': crypto.price_change_percentage_24h >= 0, 
-                          'negative': crypto.price_change_percentage_24h < 0}">
-          {{ crypto.price_change_percentage_24h | number:'1.2-2' }}%
-        </span>
-      </div>
-
-      <div class="crypto-price">
-        ${{ crypto.current_price | number:'1.2-2' }}
-      </div>
-
-      <div class="crypto-actions" *ngIf="selectedCrypto?.id === crypto.id">
-        <input type="number" 
-               [(ngModel)]="amount" 
-               placeholder="0.00"
-               min="0"
-               step="0.00000001"
-               class="amount-input"
-               (click)="$event.stopPropagation()">
-        <div class="action-buttons">
-          <button (click)="buyCrypto(); $event.stopPropagation()" class="buy-button">Buy</button>
-          <button (click)="sellCrypto(); $event.stopPropagation()" class="sell-button">Sell</button>
-        </div>
+  <div *ngIf="!loading" class="page-content">
+    <div class="search-container">
+      <div class="search-wrapper">
+        <input 
+          type="text" 
+          [(ngModel)]="searchQuery" 
+          (input)="onSearch()"
+          placeholder="Search cryptocurrencies..."
+          class="search-input"
+        />
+        <span class="search-icon">🔍</span>
       </div>
     </div>
-  </div>
 
-  <div class="load-more-container" *ngIf="!allCryptosLoaded && !loadingMore && filteredCryptos.length > 0">
-    <button (click)="loadMoreCryptos()" class="load-more-btn" [disabled]="loadingMore">
-      {{ loadingMore ? 'Loading...' : 'Load More Cryptocurrencies' }}
-    </button>
-  </div>
+    <a routerLink="/cryptotransactions" class="transactions-link">View Transaction History</a>
+    <br>
 
-  <div *ngIf="filteredCryptos.length === 0 && !loading" class="no-results">
-    No cryptocurrencies found matching "{{ searchQuery }}"
+    <div class="crypto-container">
+      <div *ngFor="let crypto of filteredCryptos" 
+           class="crypto-card"
+           [class.selected]="selectedCrypto?.id === crypto.id"
+           (click)="selectCrypto(crypto)">
+        <div class="crypto-header">
+          <img [src]="crypto.image" alt="{{ crypto.name }}" class="crypto-icon" />
+          <div class="crypto-name">
+            <h3>{{ crypto.name }}</h3>
+            <span class="symbol">{{ crypto.symbol.toUpperCase() }}</span>
+          </div>
+          <span class="price-change" 
+                [ngClass]="{'positive': crypto.price_change_percentage_24h >= 0, 
+                            'negative': crypto.price_change_percentage_24h < 0}">
+            {{ crypto.price_change_percentage_24h | number:'1.2-2' }}%
+          </span>
+        </div>
+
+        <div class="crypto-price">
+          ${{ crypto.current_price | number:'1.2-2' }}
+        </div>
+
+        <div class="crypto-actions" *ngIf="selectedCrypto?.id === crypto.id">
+          <input type="number" 
+                 [(ngModel)]="amount" 
+                 placeholder="0.00"
+                 min="0"
+                 step="0.00000001"
+                 class="amount-input"
+                 (click)="$event.stopPropagation()">
+          <div class="action-buttons">
+            <button (click)="buyCrypto(); $event.stopPropagation()" class="buy-button">Buy</button>
+            <button (click)="sellCrypto(); $event.stopPropagation()" class="sell-button">Sell</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="load-more-container" *ngIf="!allCryptosLoaded && !loadingMore && filteredCryptos.length > 0">
+      <button (click)="loadMoreCryptos()" class="load-more-btn" [disabled]="loadingMore">
+        {{ loadingMore ? 'Loading...' : 'Load More Cryptocurrencies' }}
+      </button>
+    </div>
+
+    <div *ngIf="filteredCryptos.length === 0 && !loading" class="no-results">
+      No cryptocurrencies found matching "{{ searchQuery }}"
+    </div>
   </div>
 </div>

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { CryptoService } from '../../services/crypto.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import {HeaderComponent} from '../../Components/header/header.component';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink,HeaderComponent],
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.css']
 })
@@ -76,7 +77,7 @@ export class TransactionsComponent implements OnInit {
     let errorMessage = err.message;
     if (err.message.includes('not enabled')) {
       this.cryptoEnabled = false;
-      errorMessage = 'Crypto services are not enabled for your account';
+      errorMessage = 'Crypto services are not enabled for your account ask you agent for permission';
     } else if (err.message.includes('HTML')) {
       errorMessage = 'Server error: Invalid response format';
     } else if (err.message.includes('Network')) {
@@ -85,7 +86,7 @@ export class TransactionsComponent implements OnInit {
       errorMessage = 'Session expired. Please log in again.';
     }
 
-    this.showNotificationMessage(`Failed to fetch transactions: ${errorMessage}`, false);
+    this.showNotificationMessage(`${errorMessage}`, false);
     this.loading = false;
   }
 

@@ -9,8 +9,8 @@ import { HttpClientModule } from '@angular/common/http'; // Add this
   selector: 'app-dashboard',
   standalone: true,
   imports: [RouterModule, ChatbotComponent, CommonModule, HttpClientModule], // Add HttpClientModule
-  templateUrl: './dashboard-Banque.component.html',
-  styleUrls: ['./dashboard-Banque.component.css'],
+  templateUrl: './dashboard-banque.component.html',
+  styleUrls: ['./dashboard-banque.component.css'],
   providers: [AuthService] // Explicitly provide AuthService here
 })
 export class DashboardBanqueComponent implements OnInit {

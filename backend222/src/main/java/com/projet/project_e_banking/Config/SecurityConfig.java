@@ -40,11 +40,11 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-//                        .requestMatchers("/api/test/**").permitAll()
-//                        .requestMatchers("/api/banque/**").permitAll()
-//                        .requestMatchers("/api/admin/**").permitAll()
-//                        .requestMatchers("/api/user/**").permitAll()
-//                        .requestMatchers("/api/crypto/**").permitAll()
+                        .requestMatchers("/api/test/**").permitAll()
+                        .requestMatchers("/api/banque/**").permitAll()
+                        .requestMatchers("/api/admin/**").permitAll()
+                        .requestMatchers("/api/user/**").permitAll()
+                        .requestMatchers("/api/crypto/**").permitAll()
                         /*
                         .requestMatchers("/api/support/send").permitAll()
                           .requestMatchers("/api/account/**").permitAll()

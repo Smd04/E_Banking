@@ -10,7 +10,7 @@ interface CommissionResponse {
 
 @Injectable({ providedIn: 'root' })
 export class ReferralService {
-  private baseUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/user/commission';
+  private baseUrl = 'http://localhost:8080/project_e_banking_war/api/user/commission';
   
   constructor(private http: HttpClient) {}
 
@@ -24,7 +24,7 @@ export class ReferralService {
       catchError(error => {
         console.error('API Error:', error);
         if (error.status === 403) {
-          return throwError(() => new Error('You are not allowed to refer. Ask admin to give you such authority.'));
+          return throwError(() => new Error('You are not allowed to refer. Ask your Agent to give you such authority.'));
         } else if (error.status === 404) {
           return throwError(() => new Error('User settings not found'));
         } else {

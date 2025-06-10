@@ -5,7 +5,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class CryptoService {
   private coingeckoUrl = 'https://api.coingecko.com/api/v3/coins/markets';
-  private apiBaseUrl = 'http://localhost:8080/project_e_banking_war_exploded/api/crypto';
+  private apiBaseUrl = 'http://localhost:8080/project_e_banking_war/api/crypto';
   private allCryptos: any[] = [];
 
   constructor(private http: HttpClient) {}
@@ -37,6 +37,12 @@ export class CryptoService {
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred';
+
+    if (error.error) {
+      // Log exact error body and status
+      console.error('Error status:', error.status);
+      console.error('Error body:', error.error);
+    }
     
     if (error.status === 0) {
       errorMessage = 'Network error: Please check your internet connection';
@@ -47,7 +53,7 @@ export class CryptoService {
     } else if (error.status === 404) {
       errorMessage = 'Requested resource not found';
     } else if (error.status >= 400 && error.status < 500) {
-      errorMessage = this.parseErrorResponse(error.error);
+      errorMessage = 'Crypto services are not enabled for this user';
     } else if (error.status >= 500) {
       errorMessage = 'Server error: Please try again later';
     }

@@ -5,11 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { CryptoService } from '../../services/crypto.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import {HeaderComponent} from '../../Components/header/header.component';
 
 @Component({
   selector: 'app-crypto-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule, RouterLink],
+  imports: [CommonModule, HttpClientModule, FormsModule, RouterLink, HeaderComponent],
   templateUrl: './crypto-list.component.html',
   styleUrls: ['./crypto-list.component.scss']
 })
@@ -43,6 +44,8 @@ export class CryptoListComponent implements OnInit {
       this.loading = false;
       return;
     }
+
+    // Load initial data and handle crypto service status
     this.loadInitialData();
   }
 
@@ -77,7 +80,7 @@ export class CryptoListComponent implements OnInit {
           this.handleDataError(error);
         }
       },
-      error: (err) => this.handleApiError(err)
+      error: (err: any) => this.handleApiError(err)
     });
   }
 
@@ -106,7 +109,7 @@ export class CryptoListComponent implements OnInit {
           this.handleDataError(error);
         }
       },
-      error: (err) => this.handleApiError(err)
+      error: (err: any) => this.handleApiError(err)
     });
   }
 
@@ -116,7 +119,7 @@ export class CryptoListComponent implements OnInit {
     let errorMessage = err.message;
     if (err.message.includes('not enabled')) {
       this.cryptoEnabled = false;
-      errorMessage = 'Crypto services are not enabled for your account';
+      errorMessage = 'Crypto services are not enabled for your account ask you agent for permission';
     } else if (err.message.includes('HTML')) {
       errorMessage = 'Server error: Invalid response format';
     } else if (err.message.includes('Network')) {
@@ -141,7 +144,7 @@ export class CryptoListComponent implements OnInit {
 
   selectCrypto(crypto: any): void {
     if (!this.cryptoEnabled) {
-      this.showNotificationMessage('Crypto services are not enabled for your account', false);
+      this.showNotificationMessage('Crypto services are not enabled for your account ask you agent for permission', false);
       return;
     }
     this.selectedCrypto = crypto;
@@ -150,7 +153,7 @@ export class CryptoListComponent implements OnInit {
 
   buyCrypto(): void {
     if (!this.cryptoEnabled) {
-      this.showNotificationMessage('Crypto services are not enabled for your account', false);
+      this.showNotificationMessage('Crypto services are not enabled for your account ask you agent for permission', false);
       return;
     }
     if (!this.userId) {
@@ -176,13 +179,13 @@ export class CryptoListComponent implements OnInit {
 
     this.cryptoService.buyCrypto(this.userId, transaction).subscribe({
       next: () => this.showNotificationMessage('Purchase successful!', true),
-      error: (err) => this.handleApiError(err)
+      error: (err: any) => this.handleApiError(err)
     });
   }
 
   sellCrypto(): void {
     if (!this.cryptoEnabled) {
-      this.showNotificationMessage('Crypto services are not enabled for your account', false);
+      this.showNotificationMessage('Crypto services are not enabled for your account ask you agent for permission', false);
       return;
     }
     if (!this.userId) {
@@ -208,7 +211,7 @@ export class CryptoListComponent implements OnInit {
 
     this.cryptoService.sellCrypto(this.userId, transaction).subscribe({
       next: () => this.showNotificationMessage('Sale successful!', true),
-      error: (err) => this.handleApiError(err)
+      error: (err: any) => this.handleApiError(err)
     });
   }
 

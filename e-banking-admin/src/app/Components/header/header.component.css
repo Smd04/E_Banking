@@ -1,17 +1,26 @@
 .bank-header {
-  background-color: #1e2a38; /* Couleur sombre, élégante */
+  background-color: #1e2a38;
   color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 1050;
+  margin: 0; /* Remove any margin */
+  padding: 0; /* Remove any padding */
+  border: none; /* Remove any borders */
+  width: 100%; /* Full width */
+  position: relative; /* Ensure no fixed positioning unless intended */
+  top: 0; /* Explicitly set to top */
 }
 
 .bank-header .navbar {
-  padding: 0.5rem 1rem;
+  padding: 0; /* Remove default Bootstrap padding */
+  margin: 0;
 }
 
 .bank-header .navbar-brand {
   color: #4fd1c5 !important;
   font-size: 1.25rem;
+  margin: 0;
+  padding: 0.25rem 1rem; /* Reduced padding for tighter fit */
 }
 
 .bank-header .navbar-toggler {
@@ -21,11 +30,13 @@
   font-size: 1.2rem;
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
+  margin: 0.25rem 0; /* Minimal margin for spacing */
 }
 
 .bank-header .nav-link {
   color: #d1d5db !important;
   transition: color 0.3s ease;
+  padding: 0.5rem 1rem; /* Consistent padding */
 }
 
 .bank-header .nav-link:hover {
@@ -50,6 +61,8 @@
 .bank-header .btn-outline-primary {
   border-color: #4fd1c5;
   color: #ffffff;
+  margin: 0.25rem 0;
+  padding: 0.25rem 0.5rem;
 }
 
 .bank-header .btn-outline-primary:hover {
@@ -61,6 +74,6 @@
 @media (max-width: 991.98px) {
   .navbar-collapse {
     background-color: #1e2a38;
-    padding: 1rem;
+    padding: 0.5rem; /* Reduced padding for tighter fit */
   }
 }

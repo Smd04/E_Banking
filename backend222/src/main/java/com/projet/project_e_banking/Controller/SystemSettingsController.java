@@ -28,20 +28,8 @@ public class SystemSettingsController {
 
     @GetMapping("/users/settings")
     public List<SystemSettingsDto> getAllUserSettings() {
-        List<SystemSettings> settingsList = settingsService.getAllSettingsForUsersOnly();
-        return settingsList.stream()
-                .map(s -> {
-                    SystemSettingsDto dto = new SystemSettingsDto();
-                    dto.setId(s.getId());
-                    dto.setCommissionRate(s.getCommissionRate());
-                    dto.setMaxTransactionAmount(s.getMaxTransactionAmount());
-                    dto.setTransferLimit(s.getTransferLimit());
-                    dto.setCryptoEnabled(s.isCryptoEnabled());
-                    dto.setReferralEnabled(s.isReferralEnabled());
-                    dto.setUserId(s.getUser().getId());
-                    return dto;
-                })
-                .toList();
+        return settingsService.getAllSettingsForUsersOnly();
     }
+
 
 }

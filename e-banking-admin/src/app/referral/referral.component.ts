@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReferralService } from '../services/referral.service';
 import { AuthService } from '../services/auth.service';
+import {HeaderComponent} from './../Components/header/header.component';
 
 @Component({
   selector: 'app-referral',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
   templateUrl: './referral.component.html',
   styleUrls: ['./referral.component.scss']
 })

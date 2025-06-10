@@ -5,10 +5,13 @@ import com.projet.project_e_banking.Model.EspaceAdministration.SystemSettings;
 import com.projet.project_e_banking.Model.EspaceClient.User;
 import com.projet.project_e_banking.Repository.SystemSettingsRepository;
 import com.projet.project_e_banking.Repository.UserRepository;
+import com.projet.project_e_banking.Utilis.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +24,32 @@ public class SystemSettingsService {
     @Autowired
     private UserRepository userRepository;
 
+    // Method to initialize default settings for all users with role USER
+    public void initializeDefaultSettingsForAllUsers() {
+        List<User> users = userRepository.findByRole(Role.USER);
+
+        for (User user : users) {
+            boolean exists = settingsRepository.existsByUserId(user.getId());
+            if (!exists) {
+                SystemSettings defaultSettings = new SystemSettings();
+                defaultSettings.setUser(user);
+                defaultSettings.setCommissionRate(0.0);
+                defaultSettings.setMaxTransactionAmount(0.0);
+                defaultSettings.setTransferLimit(0.0);
+                defaultSettings.setCryptoEnabled(false);
+                defaultSettings.setReferralEnabled(false);
+
+                settingsRepository.save(defaultSettings);
+            }
+        }
+    }
+
+    // This method runs once after the bean is constructed and dependencies injected
+    @PostConstruct
+    public void init() {
+        initializeDefaultSettingsForAllUsers();
+    }
+
     public SystemSettingsDto getSettingsForUser(Long userId) {
         SystemSettings settings = settingsRepository.findByUserIdIfRoleIsUser(userId);
         if (settings == null) {
@@ -30,15 +59,13 @@ public class SystemSettingsService {
     }
 
     public SystemSettingsDto updateUserSettings(Long userId, SystemSettingsDto newSettingsDto) {
-        // Try to find existing settings first
         SystemSettings existing = settingsRepository.findByUserIdIfRoleIsUser(userId);
 
         if (existing == null) {
-            // Only create new settings if they don't exist
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new RuntimeException("User not found."));
 
-            if (!user.getRole().equals(com.projet.project_e_banking.Utilis.Role.USER)) {
+            if (!user.getRole().equals(Role.USER)) {
                 throw new RuntimeException("User is not allowed.");
             }
 
@@ -46,7 +73,6 @@ public class SystemSettingsService {
             existing.setUser(user);
         }
 
-        // Update the fields whether it's new or existing
         existing.setCommissionRate(newSettingsDto.getCommissionRate());
         existing.setMaxTransactionAmount(newSettingsDto.getMaxTransactionAmount());
         existing.setTransferLimit(newSettingsDto.getTransferLimit());
@@ -69,8 +95,27 @@ public class SystemSettingsService {
         return dto;
     }
 
-    public List<SystemSettings> getAllSettingsForUsersOnly() {
-        return settingsRepository.findAllSettingsForUsersOnly();
-    }
+    public List<SystemSettingsDto> getAllSettingsForUsersOnly() {
+        List<User> users = userRepository.findByRole(Role.USER);
+        List<SystemSettingsDto> dtos = new ArrayList<>();
 
+        for (User user : users) {
+            SystemSettings settings = settingsRepository.findByUserId(user.getId()).orElse(null);
+
+            if (settings == null) {
+                // Create default settings DTO when none found
+                SystemSettingsDto dto = new SystemSettingsDto();
+                dto.setUserId(user.getId());
+                dto.setCommissionRate(0.0);
+                dto.setMaxTransactionAmount(0.0);
+                dto.setTransferLimit(0.0);
+                dto.setCryptoEnabled(false);
+                dto.setReferralEnabled(false);
+                dtos.add(dto);
+            } else {
+                dtos.add(convertToDto(settings));
+            }
+        }
+        return dtos;
+    }
 }

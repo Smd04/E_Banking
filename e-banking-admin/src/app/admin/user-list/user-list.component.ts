@@ -41,7 +41,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.http
-      .get<SystemSettingsDto[]>('http://localhost:8080/project_e_banking_war_exploded/api/admin/users/settings')
+      .get<SystemSettingsDto[]>('http://localhost:8080/project_e_banking_war/api/admin/users/settings')
       .subscribe({
         next: (data) => {
           this.settings = data;
@@ -65,7 +65,7 @@ export class UserListComponent implements OnInit {
 
     const updated = { ...this.formData, userId: this.selectedSetting.userId };
 
-    this.http.put(`http://localhost:8080/project_e_banking_war_exploded/api/admin/user/${updated.userId}`, updated).subscribe({
+    this.http.put(`http://localhost:8080/project_e_banking_war/api/admin/user/${updated.userId}`, updated).subscribe({
       next: () => {
         this.showNotificationMessage('Settings updated successfully!', true);
       },
