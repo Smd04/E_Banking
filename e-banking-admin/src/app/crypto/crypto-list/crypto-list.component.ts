@@ -6,11 +6,12 @@ import { CryptoService } from '../../services/crypto.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import {HeaderComponent} from '../../Components/header/header.component';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 @Component({
   selector: 'app-crypto-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule, RouterLink, HeaderComponent],
+  imports: [CommonModule, HttpClientModule, FormsModule, RouterLink, HeaderComponent, ChatbotComponent],
   templateUrl: './crypto-list.component.html',
   styleUrls: ['./crypto-list.component.scss']
 })

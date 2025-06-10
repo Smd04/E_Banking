@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import {Compte} from '../../models/models-client/Compte';
 import {CompteServiceService} from '../../services/client_service/compte-service.service';
 import {CommonModule} from '@angular/common';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 
 @Component({
@@ -15,7 +16,8 @@ import {CommonModule} from '@angular/common';
     HeaderComponent,
     FormsModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    ChatbotComponent
   ],
   templateUrl: './facture.component.html',
   standalone: true,

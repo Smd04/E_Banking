@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { CryptoService } from '../../services/crypto.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ChatbotComponent],
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.css']
 })

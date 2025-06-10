@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { ReferralService } from '../services/referral.service';
 import { AuthService } from '../services/auth.service';
 import {HeaderComponent} from './../Components/header/header.component';
+import { ChatbotComponent } from './../chatbot/chatbot.component';
+
 
 @Component({
   selector: 'app-referral',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent,ChatbotComponent],
   templateUrl: './referral.component.html',
   styleUrls: ['./referral.component.scss']
 })
