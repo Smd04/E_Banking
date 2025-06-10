@@ -6,6 +6,7 @@ import {HeaderComponent} from '../../Components/header/header.component';
 import {VirementService} from '../../services/client_service/virement.service';
 import {AuthService} from '../../services/auth.service';
 import {RouterModule} from '@angular/router';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 @Component({
   selector: 'app-otp-input',
@@ -16,6 +17,7 @@ import {RouterModule} from '@angular/router';
     FormsModule,
     HeaderComponent,
     RouterModule,
+    ChatbotComponent
   ],
   styleUrls: ['./otp-input-virement.component.css']
 })

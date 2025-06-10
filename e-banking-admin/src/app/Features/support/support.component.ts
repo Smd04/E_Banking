@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {SupportService} from '../../services/client_service/Support.service';
 import {CommonModule} from '@angular/common';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 @Component({
   selector: 'app-support',
@@ -13,7 +14,8 @@ import {CommonModule} from '@angular/common';
     HeaderComponent,
     RouterModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ChatbotComponent
   ],
   templateUrl: './support.component.html',
   standalone: true,

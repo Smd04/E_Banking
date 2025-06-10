@@ -8,6 +8,8 @@ import {User} from '../../models/models-client/user';
 import {Info} from '../../models/models-client/info';
 import {ProfileService} from '../../services/client_service/Profile.service';
 
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
+
 @Component({
   selector: 'app-bank-profile',
   templateUrl: './profile.component.html',
@@ -15,6 +17,7 @@ import {ProfileService} from '../../services/client_service/Profile.service';
   imports: [
     ReactiveFormsModule,
     HeaderComponent,
+    ChatbotComponent
   ],
   styleUrls: ['./profile.component.css']
 })

@@ -9,6 +9,7 @@ import {VirementService} from '../../services/client_service/virement.service';
 import {AuthService} from '../../services/auth.service';
 import {CompteServiceService} from '../../services/client_service/compte-service.service';
 import {Compte} from '../../models/models-client/Compte';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 @Component({
   selector: 'app-virement',
@@ -18,6 +19,7 @@ import {Compte} from '../../models/models-client/Compte';
     FormsModule,
     RouterModule,
     CommonModule,
+    ChatbotComponent
   ],
   templateUrl: './virement.component.html',
   standalone: true,

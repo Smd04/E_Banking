@@ -5,6 +5,7 @@ import {HeaderComponent} from '../../Components/header/header.component';
 import {Card} from '../../models/models-client/Card';
 import {CardService} from '../../services/client_service/card.service';
 import {RouterModule} from '@angular/router';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 
 
@@ -16,6 +17,7 @@ import {RouterModule} from '@angular/router';
     BankCardComponent,
     HeaderComponent,
     RouterModule,
+    ChatbotComponent
   ],
   templateUrl: './card-list.component.html'
 })

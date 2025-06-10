@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import {CompteServiceService} from '../../services/client_service/compte-service.service';
 import {Compte} from '../../models/models-client/Compte';
 import {CommonModule} from '@angular/common';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {CommonModule} from '@angular/common';
     FormsModule,
     RouterModule,
     CommonModule,
+    ChatbotComponent
   ],
   templateUrl: './abonnement.component.html',
   standalone: true,

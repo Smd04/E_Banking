@@ -4,6 +4,7 @@ import { HeaderComponent } from '../../Components/header/header.component';
 import { ListPaiementService } from '../../services/client_service/listPaiement.service';
 import { Paiement } from '../../models/models-client/paiement';
 import { RouterModule } from '@angular/router';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 @Component({
   selector: 'app-all-paiement',
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
     DatePipe,
     HeaderComponent,
     NgForOf,
-    RouterModule
+    RouterModule,
+    ChatbotComponent
   ],
   templateUrl: './all-paiement.component.html',
   standalone: true,

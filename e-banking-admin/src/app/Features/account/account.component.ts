@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 interface UserResponse {
   id: number;
@@ -18,7 +19,7 @@ interface UserResponse {
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ChatbotComponent],
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })

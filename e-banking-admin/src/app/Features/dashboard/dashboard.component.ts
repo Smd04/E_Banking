@@ -8,6 +8,7 @@ import {Compte} from '../../models/models-client/Compte';
 import {MonthlyBalance} from '../../models/models-client/MonthlyBalance';
 import {Transaction} from '../../models/models-client/Transaction';
 import {Route, Router, RouterModule} from '@angular/router';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ import {Route, Router, RouterModule} from '@angular/router';
     NgForOf,
     NgClass,
     RouterModule,
+    ChatbotComponent
   ],
   templateUrl: './dashboard.component.html',
   standalone: true,

@@ -5,6 +5,7 @@ import {HeaderComponent} from '../../Components/header/header.component';
 import {RechargeService} from '../../services/client_service/recharge.service';
 import {AuthService} from '../../services/auth.service';
 import {RouterModule} from '@angular/router';
+import { ChatbotComponent } from '../../chatbot/chatbot.component';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {RouterModule} from '@angular/router';
     FormsModule,
     HeaderComponent,
     RouterModule,
+    ChatbotComponent
   ],
   styleUrls: ['./otp-input-recharge.component.css']
 })
